@@ -16,7 +16,6 @@
 !environment*.yml
 !*.yaml
 !*.yml
-!*.json
 !*.toml
 !*.cfg
 !*.ini
@@ -52,6 +51,9 @@
 *.tmp
 *.temp
 *.bak
+
+# Exclude JSON files (configuration/results)
+*.json
 
 # Exclude Python cache and build files
 __pycache__/
