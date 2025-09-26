@@ -1,1 +1,0 @@
-{"best_params": {"activation": "relu", "alpha": 0.0001, "batch_size": 128, "hidden_layer_sizes": [256, 128, 64, 32, 64], "learning_rate": "constant", "learning_rate_init": 0.0001, "max_iter": 300, "solver": "sgd"}, "best_score": -12.969301986694337}

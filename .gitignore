@@ -1,21 +1,19 @@
-# Ignore all files except Python files
+# Ignore everything by default
 *
 
-# But include Python files
+# Only include code files
 !*.py
-
-# Include shell scripts
 !*.sh
+!*.gitignore
 
-# Include README and documentation
+# Include documentation files
 !README*
 !*.md
+!LICENSE*
 
-# Include requirements files
+# Include configuration files (if needed)
 !requirements*.txt
 !environment*.yml
-
-# Include configuration files
 !*.yaml
 !*.yml
 !*.json
@@ -23,32 +21,30 @@
 !*.cfg
 !*.ini
 
-# Include gitignore itself
-!.gitignore
-
-# Include any other important files you want to track
-!LICENSE*
-!CONTRIBUTING*
-!CHANGELOG*
-!VERSION*
-
-# Exclude common non-Python files
+# Exclude all data files
 *.csv
 *.pkl
 *.pth
 *.pt
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.mat
+*.nii.gz
+
+# Exclude all image files
 *.png
 *.jpg
 *.jpeg
 *.gif
 *.svg
 *.pdf
-*.nii.gz
-*.npy
-*.npz
-*.h5
-*.hdf5
-*.mat
+*.eps
+*.tiff
+*.bmp
+
+# Exclude all text/log files
 *.txt
 *.log
 *.out
@@ -56,11 +52,8 @@
 *.tmp
 *.temp
 *.bak
-*.swp
-*.swo
-*~
 
-# Exclude directories
+# Exclude Python cache and build files
 __pycache__/
 *.pyc
 *.pyo
@@ -99,7 +92,7 @@ MANIFEST
 ehthumbs.db
 Thumbs.db
 
-# Exclude results and output directories
+# Exclude directories
 results/
 output/
 logs/
@@ -107,9 +100,34 @@ checkpoints/
 models/
 data/
 datasets/
+trainedmodels/
 
-# Exclude large files
+# Exclude compressed files
 *.zip
 *.tar.gz
 *.rar
 *.7z
+*.bz2
+*.xz
+
+# Exclude specific large files in this project
+ADNI_*.csv
+adni_*.csv
+*_dataset.csv
+*_weights.pkl
+*_model.pth
+*_likelihood.pth
+*_extractor.pth
+*_histogram_*.png
+*_statistics*.png
+*_statistics*.svg
+*_components*.png
+*_components*.svg
+*_training_loss*.png
+*_training_loss*.svg
+*_values_over_epochs*.pkl
+*_metrics*.csv
+*_results.csv
+*_performance*.csv
+test_results.json
+DX_Mapping.csv
