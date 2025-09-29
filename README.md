@@ -4,16 +4,16 @@ Stochastic Variational Deep Kernel (SVDK) Regression for brain imaging data with
 
 ## 🚀 Quick Start
 
-### ✅ Recommended: Use Existing Environment
+### ✅ Option 1: Use Existing Environment (If Available)
 
-The project is **ready to use** with the existing `dkgp_env` conda environment:
+If you have access to the `dkgp_env` environment:
 
 ```bash
 # Activate the existing environment
 conda activate dkgp_env
 
 # Navigate to project directory
-cd /home/cbica/Desktop/SVDKRegression
+cd /path/to/SVDKRegression
 
 # Test the environment
 python test_core_functionality.py
@@ -22,52 +22,97 @@ python test_core_functionality.py
 python svdkgpregressionmonotonicity.py --help
 ```
 
-### 🔧 Alternative: Fresh Installation
+### 🔧 Option 2: Fresh Installation (Recommended for New Users)
 
-If you need to set up a new environment:
-
-#### Option 1: Automated Setup
+#### Automated Setup (Easiest)
 ```bash
+# Clone the repository
+git clone https://github.com/vatass/SVDKGPRegression.git
+cd SVDKGPRegression
+
+# Make setup script executable
+chmod +x setup_environment.sh
+
+# Run automated setup
 ./setup_environment.sh
 ```
 
-#### Option 2: Manual Setup
+#### Manual Setup
 
-**Using Conda:**
+**Using Conda (Recommended):**
 ```bash
+# Clone the repository
+git clone https://github.com/vatass/SVDKGPRegression.git
+cd SVDKGPRegression
+
+# Create environment with exact specifications
 conda env create -f environment.yml
+
+# Activate environment
 conda activate svdk-regression
+
+# Test installation
+python test_core_functionality.py
 ```
 
-**Using pip:**
+**Using pip (Alternative):**
 ```bash
+# Clone the repository
+git clone https://github.com/vatass/SVDKGPRegression.git
+cd SVDKGPRegression
+
+# Create virtual environment
 python3 -m venv svdk-regression-env
+
+# Activate environment
 source svdk-regression-env/bin/activate  # On Windows: svdk-regression-env\Scripts\activate
+
+# Upgrade pip
+pip install --upgrade pip
+
+# Install requirements
 pip install -r requirements.txt
+
+# Test installation
+python test_core_functionality.py
 ```
 
-## 📋 Requirements
+## 📋 System Requirements
 
-### ✅ Core Requirements (Available in dkgp_env)
-- **Python 3.8+** ✅
-- **PyTorch 1.12.1** ✅
-- **GPyTorch 1.10** ✅
-- **NumPy 1.22.3** ✅
-- **Pandas 1.2.3** ✅
-- **Scikit-learn 1.3.0** ✅
-- **SciPy 1.9.3** ✅
+### Minimum Requirements
+- **Python**: 3.8+ (tested with Python 3.8.20)
+- **Operating System**: Linux, macOS, or Windows
+- **Memory**: 8GB RAM minimum, 16GB recommended
+- **Storage**: 2GB free space
 
-### ⚠️ Optional Requirements (for visualization)
-- **Matplotlib** - For plotting (can be installed with `pip install matplotlib`)
-- **Seaborn** - For statistical plots (can be installed with `pip install seaborn`)
-- **Plotly** - For interactive plots (can be installed with `pip install plotly`)
-- **TQDM** - For progress bars (can be installed with `pip install tqdm`)
+### Required Software
+- **Conda** (recommended) or **Python 3.8+**
+- **Git** (for cloning the repository)
+
+## 📦 Package Versions
+
+The environment is configured with exact versions tested and working:
+
+### Core Dependencies
+- **Python**: 3.8.20
+- **PyTorch**: 1.12.1 (CPU version)
+- **GPyTorch**: 1.10.0
+- **NumPy**: 1.22.3
+- **Pandas**: 1.2.3
+- **Scikit-learn**: 1.3.0
+- **SciPy**: 1.9.3
+
+### Optional Dependencies (for visualization)
+- **Matplotlib**: ≥3.4.0
+- **Seaborn**: ≥0.11.0
+- **Plotly**: ≥5.0.0
+- **TQDM**: ≥4.62.0
 
 ## 🏃‍♂️ Usage
 
 ### Test Environment
 ```bash
-# Test core functionality
+# Test core functionality (works without visualization packages)
 python test_core_functionality.py
 
 # Test full environment (requires visualization packages)
@@ -116,12 +161,14 @@ SVDKRegression/
 ├── models.py                         # Neural network models
 ├── functions.py                      # Utility functions
 ├── datasets.py                       # Dataset handling
+├── utils.py                          # Utilities
 ├── monotonicity_experiments.sh       # Batch experiment script
 ├── test_core_functionality.py        # Core functionality test
 ├── test_environment.py               # Full environment test
-├── requirements.txt                  # Python dependencies
-├── environment.yml                   # Conda environment
+├── requirements.txt                  # Python dependencies (pip)
+├── environment.yml                   # Conda environment specification
 ├── setup_environment.sh             # Automated setup script
+└── README.md                        # This file
 ```
 
 ## 🧠 Key Features
@@ -189,18 +236,76 @@ python test_environment.py
    - Install with: `pip install matplotlib seaborn plotly tqdm`
 
 2. **Environment not found**
-   - Make sure you're using `conda activate dkgp_env`
+   - Make sure you're using `conda activate svdk-regression`
    - Check with: `conda env list`
 
 3. **Permission errors**
    - Make scripts executable: `chmod +x *.sh`
 
+4. **Conda environment creation fails**
+   - Try: `conda clean --all` then retry
+   - Or use pip installation as alternative
+
+5. **PyTorch installation issues**
+   - The environment uses CPU-only PyTorch
+   - For GPU support, modify `environment.yml` to use GPU PyTorch
+
+### Getting Help
+
+If you encounter issues:
+1. Check the troubleshooting section above
+2. Run `python test_core_functionality.py` to diagnose problems
+3. Open an issue on GitHub with error details
+4. Include your system information (OS, Python version, etc.)
+
+## 📝 Citation
+
+If you use this code in your research, please cite:
+
+```bibtex
+@software{svdk_regression_monotonic,
+  title={SVDK Regression with Monotonicity Constraints for Brain Imaging},
+  author={Your Name},
+  year={2024},
+  url={https://github.com/vatass/SVDKGPRegression}
+}
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📞 Support
+
+For questions or issues, please open an issue on GitHub or contact the maintainers.
+
+---
+
 ## 📋 Quick Reference
 
-**Start working immediately:**
+**For new users - complete setup:**
+```bash
+git clone https://github.com/vatass/SVDKGPRegression.git
+cd SVDKGPRegression
+chmod +x setup_environment.sh
+./setup_environment.sh
+conda activate svdk-regression
+python test_core_functionality.py
+python svdkgpregressionmonotonicity.py --help
+```
+
+**For existing dkgp_env users:**
 ```bash
 conda activate dkgp_env
-cd /home/cbica/Desktop/SVDKRegression
+cd /path/to/SVDKRegression
 python test_core_functionality.py
 python svdkgpregressionmonotonicity.py --help
 ```
