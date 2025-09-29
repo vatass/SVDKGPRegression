@@ -4,27 +4,7 @@ Stochastic Variational Deep Kernel (SVDK) Regression for brain imaging data with
 
 ## 🚀 Quick Start
 
-### ✅ Option 1: Use Existing Environment (If Available)
-
-If you have access to the `dkgp_env` environment:
-
-```bash
-# Activate the existing environment
-conda activate dkgp_env
-
-# Navigate to project directory
-cd /path/to/SVDKRegression
-
-# Test the environment
-python test_core_functionality.py
-
-# Run the main SVDK code
-python svdkgpregressionmonotonicity.py --help
-```
-
-### 🔧 Option 2: Fresh Installation (Recommended for New Users)
-
-#### Automated Setup (Easiest)
+### Automated Setup (Recommended)
 ```bash
 # Clone the repository
 git clone https://github.com/vatass/SVDKGPRegression.git
@@ -35,9 +15,15 @@ chmod +x setup_environment.sh
 
 # Run automated setup
 ./setup_environment.sh
+
+# Activate the environment
+conda activate svdk-regression
+
+# Test the installation
+python test_core_functionality.py
 ```
 
-#### Manual Setup
+### Manual Setup
 
 **Using Conda (Recommended):**
 ```bash
@@ -291,21 +277,13 @@ For questions or issues, please open an issue on GitHub or contact the maintaine
 
 ## 📋 Quick Reference
 
-**For new users - complete setup:**
+**Complete setup for new users:**
 ```bash
 git clone https://github.com/vatass/SVDKGPRegression.git
 cd SVDKGPRegression
 chmod +x setup_environment.sh
 ./setup_environment.sh
 conda activate svdk-regression
-python test_core_functionality.py
-python svdkgpregressionmonotonicity.py --help
-```
-
-**For existing dkgp_env users:**
-```bash
-conda activate dkgp_env
-cd /path/to/SVDKRegression
 python test_core_functionality.py
 python svdkgpregressionmonotonicity.py --help
 ```
