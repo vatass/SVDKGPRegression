@@ -1,10 +1,11 @@
 name: svdk-regression
 channels:
+  - gpytorch
   - pytorch
   - conda-forge
   - defaults
 dependencies:
-  - python=3.8.20
+  - python=3.8.20=he870216_0
   - pytorch=1.12.1=cpu_py38h9dbd814_1
   - gpytorch=1.10=0
   - numpy=1.22.3=py38h99721a1_2
