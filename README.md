@@ -196,37 +196,6 @@ python test_environment.py
 3. **Permission errors**
    - Make scripts executable: `chmod +x *.sh`
 
-## 📝 Citation
-
-If you use this code in your research, please cite:
-
-```bibtex
-@software{svdk_regression_monotonic,
-  title={SVDK Regression with Monotonicity Constraints for Brain Imaging},
-  author={Your Name},
-  year={2024},
-  url={https://github.com/vatass/SVDKGPRegression}
-}
-```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📞 Support
-
-For questions or issues, please open an issue on GitHub or contact the maintainers.
-
----
-
 ## 📋 Quick Reference
 
 **Start working immediately:**
