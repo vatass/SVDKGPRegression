@@ -149,13 +149,6 @@ SVDKRegression/
 4. **`multitasksvdkregressionclassification.py`** - Multitask learning (regression + classification)
 5. **`svdkprogressionoinformed.py`** - Progression-informed metric learning
 
-## 📈 Performance Results
-
-Monotonicity constraints consistently improve performance:
-- **λ = 0**: MSE = 0.102, MAE = 0.233, R² = 0.902 (baseline)
-- **λ = 5**: MSE = 0.089, MAE = 0.223, R² = 0.914 (improved)
-- **λ = 10**: MSE = 0.087, MAE = 0.221, R² = 0.916 (best)
-
 ## 🛠️ Development
 
 ### Environment Status
@@ -164,11 +157,6 @@ Monotonicity constraints consistently improve performance:
 - **✅ Monotonicity constraints**: Supported
 - **⚠️ Visualization features**: Optional (can be added with `pip install matplotlib seaborn plotly tqdm`)
 
-### Code Style
-```bash
-black *.py  # Format code
-flake8 *.py # Lint code
-```
 
 ### Testing
 ```bash
