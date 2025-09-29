@@ -133,3 +133,15 @@ adni_*.csv
 *_performance*.csv
 test_results.json
 DX_Mapping.csv
+
+# Exclude auxiliary/development Python files (not essential for experiments)
+analyze_dependencies.py
+deep_regression.py
+evaluate_svdkregression.py
+fix_imports.py
+mlp_grid_search.py
+mlp_sklearn.py
+multioutput_mlp_grid_search.py
+svdkgpclassifregressiono1.py
+test_environment.py
+identify_essential_files.py
