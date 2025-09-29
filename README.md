@@ -122,7 +122,6 @@ SVDKRegression/
 ├── requirements.txt                  # Python dependencies
 ├── environment.yml                   # Conda environment
 ├── setup_environment.sh             # Automated setup script
-└── ENVIRONMENT_STATUS.md            # Environment status details
 ```
 
 ## 🧠 Key Features
