@@ -44,7 +44,6 @@
 *.bmp
 
 # Exclude all text/log files
-*.txt
 *.log
 *.out
 *.err

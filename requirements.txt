@@ -1,0 +1,20 @@
+# SVDK Regression Project Dependencies
+# Extracted from working dkgp_env environment
+
+# Core ML/DL frameworks (exact versions from dkgp_env)
+torch==1.12.1
+gpytorch==1.10.0
+
+# Data manipulation and analysis (exact versions from dkgp_env)
+numpy==1.22.3
+pandas==1.2.3
+scipy==1.9.3
+
+# Machine learning (exact version from dkgp_env)
+scikit-learn==1.3.0
+
+# Optional visualization packages (install if needed)
+matplotlib>=3.4.0
+seaborn>=0.11.0
+plotly>=5.0.0
+tqdm>=4.62.0
