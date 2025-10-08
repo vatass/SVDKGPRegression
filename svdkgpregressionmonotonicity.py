@@ -13,7 +13,7 @@ import json
 import pickle
 import argparse
 from sklearn.preprocessing import StandardScaler
-
+import os
 # Set double precision
 torch.set_default_dtype(torch.float64)
 
@@ -333,7 +333,6 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse):
     # Load your data
     datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(folder) + '/' + file + '.csv')
 
-
     # Set up the train/test data
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
     train_y = datasamples[datasamples['PTID'].isin(train_ids)]['Y']
@@ -356,7 +355,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse):
     test_y_all = test_y_all.numpy()
 
     # Select the specific ROI
-    single_muse = 'H_MUSE_Volume_47'
+    single_muse = single_muse
 
     if single_muse == 'SPARE_AD':
         list_index = 0
@@ -528,18 +527,24 @@ def main():
     parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_hmuse_allstudies")
     parser.add_argument("--folder", type=int, default=1)
     parser.add_argument("--lambda_penalty", type=float, default=1)
+    parser.add_argument("--data_file", type=str, default='H_MUSE_Volume_47')
 
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
     folder = args.folder
     lambda_penalty = args.lambda_penalty
+    data_file = args.data_file
 
+    #Create output folder for runs
+    output_file = "./{}".format(args.data_file)
+    os.makedirs(output_file, exist_ok=True)
+    print(f"Output directory {args.data_file} created")
 
-    longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(1) + '/longitudinal_covariates_subjectsamples_longclean_spare_convs_allstudies.csv')
+    longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPRegressionBaseline/longitudinal_covariates_subjectsamples_longclean_hmuse_convs_allstudies.csv')
     longitudinal_covariates['Diagnosis'].replace([-1.0, 0.0, 1.0, 2.0], ['UKN', 'CN', 'MCI', 'AD'], inplace=True)
 
-    population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [] }
+    population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [], 'lower_bound': [], 'upper_bound': []}
     population_fold_metrics = {'fold': [] , 'mse': [], 'mae': [], 'r2': [], 'coverage': [], 'interval': [], 'mean_roc_dev': []}
     population_per_subject_metrics = {'id': [], 'fold':[], 'mae': [], 'mse': [], 'coverage': [], 'interval': [], 'roc_dev': [], 'gt_roc': [], 'pred_roc': [], 'monotonicity': [], "timesteps": [], "sequence": [], "true_sequence": [], "subject_time": []}
 
@@ -566,7 +571,7 @@ def main():
     test_ids = test_ids[0]
 
     train_x, train_y, test_x, test_y, corresponding_train_ids, corresponding_test_ids = load_and_preprocess_data(
-        folder=folder, file=file, train_ids=train_ids, test_ids=test_ids, single_muse='H_MUSE_Volume_47'
+        folder=folder, file=file, train_ids=train_ids, test_ids=test_ids, single_muse=args.data_file
     )
 
     # Assuming temporal variable is the last column
@@ -649,7 +654,7 @@ def main():
         print(f"Epoch {epoch+1}/{num_epochs}, Regression Loss: {epoch_loss:.4f}")
 
     # Save the feature extractor
-    torch.save(feature_extractor.state_dict(), 'feature_extractor_latentconcatenation.pth')
+    torch.save(feature_extractor.state_dict(), '{}/feature_extractor_latentconcatenation.pth'.format(output_file))
 
     # Visualize the training loss
     import matplotlib.pyplot as plt
@@ -661,15 +666,15 @@ def main():
     plt.title('Training Loss Over Epochs')
     plt.grid(True)
     plt.show()
-    plt.savefig('regression_training_loss.png',  dpi=300)
-    plt.savefig('regression_training_loss.svg',  dpi=300)
+    plt.savefig('{}/regression_training_loss.png'.format(output_file),  dpi=300)
+    plt.savefig('{}/regression_training_loss.svg'.format(output_file),  dpi=300)
 
     # =======================================
     # Step 2: Load Feature Extractor for GP Model
     # =======================================
     # Re-initialize the feature extractor and load the saved parameters
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
-    feature_extractor_gp.load_state_dict(torch.load('feature_extractor_latentconcatenation.pth'))
+    feature_extractor_gp.load_state_dict(torch.load('{}/feature_extractor_latentconcatenation.pth'.format(output_file)))
     feature_extractor_gp.eval()
 
     # Prepare the inducing points
@@ -709,7 +714,7 @@ def main():
     # Step 4: Training Loop for GP Model with Monotonicity Constraint
     # =======================================
     # Adjusted Training Loop
-    num_epochs = 200
+    num_epochs = 1
     learning_rate = 1e-4  # Reduced learning rate
     m = torch.nn.Softplus() #Replaced ReLU with Softplus to combat 0 gradients
     optimizer = torch.optim.Adam([
@@ -724,7 +729,7 @@ def main():
     df_dt_means = []
     df_dt_stds = []
     df_dt_values_over_epochs = []  # To store df/dt values at selected epochs
-    epochs_to_record = [1, 50, 100, 150, 200]  # Epochs at which to store df/dt values for histograms
+    epochs_to_record = [1] # 50, 100, 150, 200]  # Epochs at which to store df/dt values for histograms
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -844,8 +849,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.show()
-    plt.savefig('monotonicsvdk_loss_components_'+str(lambda_penalty)+'.png',  dpi=300)
-    plt.savefig('monotonicsvdk_loss_components_'+str(lambda_penalty)+'.svg',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_loss_components_'.format(output_file)+str(lambda_penalty)+'.png',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_loss_components_'.format(output_file)+str(lambda_penalty)+'.svg',  dpi=300)
 
     # Gradient Statistics 
     plt.figure(figsize=(10, 6))
@@ -857,8 +862,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.show()
-    plt.savefig('monotonicsvdk_df_dt_statistics_'+str(lambda_penalty)+'.png',  dpi=300)
-    plt.savefig('monotonicsvdk_df_dt_statistics_'+str(lambda_penalty)+'.svg',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_df_dt_statistics_'.format(output_file)+str(lambda_penalty)+'.png',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_df_dt_statistics_'.format(output_file)+str(lambda_penalty)+'.svg',  dpi=300)
 
     for epoch_num, df_dt_values in df_dt_values_over_epochs:
         plt.figure(figsize=(10, 6))
@@ -868,11 +873,11 @@ def main():
         plt.title(f'Distribution of df/dt at Epoch {epoch_num}')
         plt.grid(True)
         plt.show()
-        plt.savefig(f'df_dt_histogram_epoch_{epoch_num}.png',  dpi=300)
+        plt.savefig(f'{output_file}/df_dt_histogram_epoch_{epoch_num}.png',  dpi=300)
 
 
     # Save df/dt values over epochs
-    with open('monotonicsvdk_df_dt_values_over_epochs_'+str(lambda_penalty)+'.pkl', 'wb') as f:
+    with open('{}/monotonicsvdk_df_dt_values_over_epochs_'.format(output_file)+str(lambda_penalty)+'.pkl', 'wb') as f:
         pickle.dump(df_dt_values_over_epochs, f)
 
     # =======================================
@@ -976,6 +981,8 @@ def main():
             population_results['variance'].extend(subject_variance)
             population_results['time'].extend(subject_time)
             population_results['age'].extend(age)
+            population_results['lower_bound'].extend(lower_bound)
+            population_results['upper_bound'].extend(upper_bound)
 
             # Gather Total Results
             predictions.extend(pred.mean.detach().cpu().numpy())
@@ -1009,8 +1016,8 @@ def main():
 
     # Save the GP model.
     # Todo: Save the whole state in case of further training 
-    torch.save(gp_model.state_dict(), 'svdk_gp_monotonic_model_'+str(lambda_penalty)+'.pth')
-    torch.save(likelihood.state_dict(), 'svdk_monotonic_likelihood'+str(lambda_penalty)+'.pth')
+    torch.save(gp_model.state_dict(), '{}/svdk_gp_monotonic_model_'.format(output_file)+str(lambda_penalty)+'.pth')
+    torch.save(likelihood.state_dict(), '{}/svdk_monotonic_likelihood'.format(output_file)+str(lambda_penalty)+'.pth')
 
     # Set the model to evaluation mode
     model_wrapper.eval()
@@ -1055,9 +1062,9 @@ def main():
     population_fold_metrics_df = pd.DataFrame(population_fold_metrics)
     population_per_subject_metrics_df = pd.DataFrame(population_per_subject_metrics)
 
-    population_results_df.to_csv('svdk_monotonic_'+str(lambda_penalty)+'_population_results.csv', index=False)
-    population_fold_metrics_df.to_csv('svdk_monotonic_'+str(lambda_penalty)+'_population_fold_metrics.csv', index=False)
-    population_per_subject_metrics_df.to_csv('svdk_monotonic_'+str(lambda_penalty)+'_population_per_subject_metrics.csv', index=False)
+    population_results_df.to_csv('{}/svdk_monotonic_'.format(output_file)+str(lambda_penalty)+'_population_results.csv', index=False)
+    population_fold_metrics_df.to_csv('{}/svdk_monotonic_'.format(output_file)+str(lambda_penalty)+'_population_fold_metrics.csv', index=False)
+    population_per_subject_metrics_df.to_csv('{}/svdk_monotonic_'.format(output_file)+str(lambda_penalty)+'_population_per_subject_metrics.csv', index=False)
 
 if __name__ == "__main__":
     main()
