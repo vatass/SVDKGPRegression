@@ -541,6 +541,10 @@ def main():
     os.makedirs(output_file, exist_ok=True)
     print(f"Output directory {args.data_file} created")
 
+    from pathlib import Path
+    monotonicity_results = Path(f"{output_file}/results.txt")
+    monotonicity_results.write_text("", encoding="utf-8")
+
     longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPRegressionBaseline/longitudinal_covariates_subjectsamples_longclean_hmuse_convs_allstudies.csv')
     longitudinal_covariates['Diagnosis'].replace([-1.0, 0.0, 1.0, 2.0], ['UKN', 'CN', 'MCI', 'AD'], inplace=True)
 
@@ -714,7 +718,7 @@ def main():
     # Step 4: Training Loop for GP Model with Monotonicity Constraint
     # =======================================
     # Adjusted Training Loop
-    num_epochs = 1
+    num_epochs = 200
     learning_rate = 1e-4  # Reduced learning rate
     m = torch.nn.Softplus() #Replaced ReLU with Softplus to combat 0 gradients
     optimizer = torch.optim.Adam([
@@ -729,7 +733,7 @@ def main():
     df_dt_means = []
     df_dt_stds = []
     df_dt_values_over_epochs = []  # To store df/dt values at selected epochs
-    epochs_to_record = [1] # 50, 100, 150, 200]  # Epochs at which to store df/dt values for histograms
+    epochs_to_record = [1, 50, 100, 150, 200]  # Epochs at which to store df/dt values for histograms
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -1055,7 +1059,9 @@ def main():
 
     # Calculate percentage
     monotonicity_percentage = (monotonic_samples / total_samples) * 100
-    print(f"Percentage of samples where monotonicity is achieved: {monotonicity_percentage:.2f}%")
+    print(f"Percentage of samples where monotonicity is achieved: {monotonicity_percentage:.2f}% for lambda_penalty {lambda_penalty:.2f}")
+    with monotonicity_results.open("a", encoding="utf-8") as f:
+        print(f"Percentage of samples where monotonicity is achieved: {monotonicity_percentage:.2f}% for lambda_penalty {lambda_penalty:.2f}\n", file=f)
 
     # Save the results
     population_results_df = pd.DataFrame(population_results)
