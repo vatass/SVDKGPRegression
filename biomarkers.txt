@@ -17,6 +17,23 @@ folder : 1
 spare_ad   index = 0 
 spare_ba index = 1 
 
+Cognitive Scores: ADAS | MMSE 
+
+if task == 'MMSE': 
+    datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_mmse_allstudies.csv')
+elif task == 'ADAS': 
+    datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_adas_adni.csv')
+
+
+if task == 'MMSE': 
+    train_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_mmse" + str(fold) +  ".pkl"
+    test_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_mmse" + str(fold) +  ".pkl"
+
+elif task == 'ADAS': 
+    train_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_adni_ids_adas" + str(fold) +  ".pkl"
+    test_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_adni_ids_adas" + str(fold) +  ".pkl"
+
+
 
 
 
