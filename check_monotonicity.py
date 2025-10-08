@@ -1,6 +1,13 @@
 import pandas as pd
 import numpy as np
 import ast
+import argparse
+
+parser = argparse.ArgumentParser(description='Evaluate monotonicit aspects and make figures')
+parser.add_argument("--data_file", help="Path to save all figures")
+
+args = parser.parse_args()
+output_file = args.data_file
 
 def parse_ts(x):
     if isinstance(x,str):
@@ -48,8 +55,8 @@ def parse_num_list(x):
     except Exception:
         return None
 
-old = pd.read_csv("svdk_monotonic_0.0_population_per_subject_metrics.csv", usecols=["id", "monotonicity", "timesteps", "sequence","true_sequence","subject_time"])
-new = pd.read_csv("svdk_monotonic_0.75_population_per_subject_metrics.csv", usecols=["id", "monotonicity", "timesteps", "sequence", "true_sequence","subject_time"])
+old = pd.read_csv("{}/svdk_monotonic_0.0_population_per_subject_metrics.csv".format(output_file), usecols=["id", "monotonicity", "timesteps", "sequence","true_sequence","subject_time"])
+new = pd.read_csv("{}/svdk_monotonic_0.75_population_per_subject_metrics.csv".format(output_file), usecols=["id", "monotonicity", "timesteps", "sequence", "true_sequence","subject_time"])
 
 for df in (old, new):
     df["monotonicity"] = pd.to_numeric(df["monotonicity"], errors="coerce").fillna(0).astype(int)
@@ -183,7 +190,7 @@ for df_name, df in [("old", old), ("new", new)]:
 # if not seq_1_to_0_old.empty and not seq_1_to_0_new.empty:
 #     plot_sequences(seq_1_to_0_old, seq_1_to_0_new, "Sequences for IDs Changing from 1 to 0", 'seq_1_to_0')
 
-def plot_sequences_months(id_to_data, title, name, max_ids=1, also_plot_old=None):
+def plot_sequences_months(id_to_data, title, name, output_file, max_ids=1, also_plot_old=None):
     plt.figure(figsize=(12, 6), dpi=150)
     shown = 0
     for idx, (months, preds, true) in id_to_data.items():
@@ -219,11 +226,11 @@ def plot_sequences_months(id_to_data, title, name, max_ids=1, also_plot_old=None
     plt.title(title)
     plt.xlabel("Timestep")
     plt.ylabel("Sequence Value")
-    plt.legend()
+    plt.legend(loc="upper left", )
     plt.grid()
     plt.show()
-    plt.savefig('{}.png'.format(name))
-    plt.savefig('{}.svg'.format(name))
+    plt.savefig('{}/{}.png'.format(output_file, name))
+    plt.savefig('{}/{}.svg'.format(output_file, name))
 
     return None
 
@@ -248,9 +255,9 @@ old_1to0_overlay = get_old_pred_on_months(old, ids_1_to_0)
 
 if len(new_0to1):
     plot_sequences_months(new_0to1,"IDs Changing 0 -> 1: Predicted vs True (months from baseline)", 
-    "seq_0_to_1", also_plot_old=old_0to1_overlay if len(old_0to1_overlay) else None,)
+    "seq_0_to_1", output_file, also_plot_old=old_0to1_overlay if len(old_0to1_overlay) else None,)
 
 if len(new_1to0):
     plot_sequences_months(new_0to1,"IDs Changing 1 -> 0: Predicted vs True (months from baseline)", 
-    "seq_1_to_0", also_plot_old=old_1to0_overlay if len(old_1to0_overlay) else None,)
+    "seq_1_to_0", output_file, also_plot_old=old_1to0_overlay if len(old_1to0_overlay) else None,)
 
