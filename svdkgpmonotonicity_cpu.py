@@ -405,7 +405,7 @@ def bootstrap_metrics(predictions, targets, n_bootstrap=1000, alpha=0.05):
 
     # convert liusts to numpy arrays
     predictions = np.array(predictions)
-    targets = np.array(targets.detach().cpu())
+    targets = np.array(targets)
 
 
     print("Type of predictions:", type(predictions))
@@ -517,9 +517,6 @@ def collate_fn(batch):
 
 # Step 6: Main function
 def main():
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
-
     fold = 0
     parser = argparse.ArgumentParser(description='Deep Regression for Neurodegeneration Prediction')
     # Data Parameters
@@ -540,7 +537,7 @@ def main():
 
     population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [] }
     population_fold_metrics = {'fold': [] , 'mse': [], 'mae': [], 'r2': [], 'coverage': [], 'interval': [], 'mean_roc_dev': []}
-    population_per_subject_metrics = {'id': [], 'fold':[], 'mae': [], 'mse': [], 'coverage': [], 'interval': [], 'roc_dev': [], 'gt_roc': [], 'pred_roc': [], 'monotonicity': [], "timesteps": [], "sequence": [], "true_sequence": [], "subject_time": []}
+    population_per_subject_metrics = {'id': [], 'fold':[], 'mae': [], 'mse': [], 'coverage': [], 'interval': [], 'roc_dev': [], 'gt_roc': [], 'pred_roc': []}
 
     train_ids, test_ids = [], []
     # Load train IDs
@@ -603,13 +600,11 @@ def main():
     batch_size = 64  # Adjust as needed
     train_sampler = SubjectBatchSampler(train_dataset, batch_size=batch_size, shuffle=True)
     test_subject_sampler = TestSubjectBatchSampler(test_dataset, shuffle=False)
-
-    pin = device.type == 'cuda'
-    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, pin_memory=pin, num_workers=2)
+    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler)
     test_loader = DataLoader(
         test_dataset,
         batch_sampler=test_subject_sampler,
-        collate_fn=collate_fn, pin_memory=pin, num_workers=2
+        collate_fn=collate_fn
 )
     # Determine input dimension
     input_dim = train_x.shape[1]
@@ -620,7 +615,7 @@ def main():
     # =======================================
     # Initialize the model
     feature_extractor = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
-    model = RegressionNNLatentConcatenation(feature_extractor).to(device)
+    model = RegressionNNLatentConcatenation(feature_extractor)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
@@ -631,10 +626,6 @@ def main():
         model.train()
         running_loss = 0.0
         for inputs, targets, _ in train_loader:
-
-            inputs = inputs.to(device, non_blocking=True)
-            targets = targets.to(device, non_blocking=True)
-
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, targets)
@@ -665,7 +656,7 @@ def main():
     # Step 2: Load Feature Extractor for GP Model
     # =======================================
     # Re-initialize the feature extractor and load the saved parameters
-    feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
+    feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
     feature_extractor_gp.load_state_dict(torch.load('feature_extractor_latentconcatenation.pth'))
     feature_extractor_gp.eval()
 
@@ -681,15 +672,15 @@ def main():
     inducing_points = inducing_points.double()
 
     # Define the likelihood
-    likelihood = gpytorch.likelihoods.GaussianLikelihood().to(device)
+    likelihood = gpytorch.likelihoods.GaussianLikelihood()
 
     # =======================================
     # Step 3: Initialize the GP Model and Likelihood
     # =======================================
-    gp_model = DeepKernelGPModel(inducing_points, feature_extractor_gp).to(device)
+    gp_model = DeepKernelGPModel(inducing_points, feature_extractor_gp)
 
     # Define the model wrapper and optimizer
-    model_wrapper = GPModelWrapper(gp_model, likelihood).to(device)
+    model_wrapper = GPModelWrapper(gp_model, likelihood)
 
     # Ensure model components are in double precision
     feature_extractor = feature_extractor.double()
@@ -700,7 +691,6 @@ def main():
     mll = gpytorch.mlls.VariationalELBO(likelihood, gp_model, num_data=len(train_dataset))
 
     torch.set_default_dtype(torch.float64)
-    
 
     # =======================================
     # Step 4: Training Loop for GP Model with Monotonicity Constraint
@@ -708,7 +698,7 @@ def main():
     # Adjusted Training Loop
     num_epochs = 200
     learning_rate = 1e-4  # Reduced learning rate
-    m = torch.nn.Softplus() #Replaced ReLU with Softplus to combat 0 gradients
+
     optimizer = torch.optim.Adam([
         {'params': gp_model.parameters()},
         {'params': likelihood.parameters()},
@@ -730,8 +720,7 @@ def main():
         running_data_loss = 0.0
         running_penalty_loss = 0.0
         for inputs, targets, _ in train_loader:
-            inputs = inputs.to(device, non_blocking=True).clone().detach().requires_grad_(True)
-            targets = targets.to(device, non_blocking=True)
+            inputs = inputs.clone().detach().requires_grad_(True)
             optimizer.zero_grad()
             with gpytorch.settings.fast_pred_var(False):
                 output = model_wrapper(inputs)
@@ -773,8 +762,8 @@ def main():
                 df_dt = torch.clamp(df_dt, min=-10, max=10)
 
                 # Monothonicity Penalty for Decreasing Functions!!!!
-                penalty = torch.mean(torch.relu(df_dt))
-                #penalty = torch.mean(m(df_dt)) #Implement softplus to avoid 0 grads
+                #penalty = torch.mean(torch.relu(df_dt))
+                penalty = torch.mean(torch.nn.functioncal.softplus(df_dt))
 
                 total_loss = loss + lambda_penalty * penalty
                 total_loss.backward()
@@ -803,8 +792,7 @@ def main():
         if (epoch + 1) in epochs_to_record:
             df_dt_all = []
             for inputs, _, _ in train_loader:
-                inputs = inputs.to(device, non_blocking=True).clone().detach().requires_grad_(True)
-                targets = targets.to(device)
+                inputs = inputs.clone().detach().requires_grad_(True)
                 output = model_wrapper(inputs)
                 mean_output = output.mean
                 df_dx = torch.autograd.grad(
@@ -883,21 +871,20 @@ def main():
         actuals = []
         roc_gt_all, roc_pred_all = [], []
         for inputs, targets, subject_id in test_loader:
-            inputs = inputs.to(device)
-            targets = targets.to(device)
+            
             subject_id = subject_id[0]
             output = model_wrapper(inputs)
             pred = likelihood(output)
 
-            subject_mean = pred.mean.detach().cpu().numpy()
-            subject_variance = pred.variance.detach().cpu().numpy()
+            subject_mean = pred.mean.numpy()
+            subject_variance = pred.variance.numpy()
             subject_std_dev = np.sqrt(subject_variance)
 
-            subject_groundtruth = targets.detach().cpu().numpy()
+            subject_groundtruth = targets.numpy()
 
             age = longitudinal_covariates[longitudinal_covariates['PTID'] == subject_id]['Age'].values
 
-            subject_time = inputs[:, -1].detach().cpu().numpy().tolist()
+            subject_time = inputs[:, -1].numpy().tolist()
 
             if len(age)!=len(subject_time):
                 print('Length mismatch')
@@ -914,7 +901,7 @@ def main():
             interval = np.mean(np.abs(upper_bound - lower_bound))
             
             # Coverage
-            coverage = calculate_coverage(targets.detach().cpu().numpy(), lower_bound, upper_bound)
+            coverage = calculate_coverage(targets.numpy(), lower_bound, upper_bound)
 
             # RoC Groundtruth
             roc_gt = calculate_rate_of_change(age, subject_groundtruth)
@@ -928,42 +915,13 @@ def main():
             # Per Subject Metrics
             population_per_subject_metrics['id'].append(subject_id)
             population_per_subject_metrics['fold'].append(fold)
-            population_per_subject_metrics['mae'].append(mean_absolute_error(targets.detach().cpu().numpy(), pred.mean.detach().cpu().numpy()))
-            population_per_subject_metrics['mse'].append(mean_squared_error(targets.detach().cpu().numpy(), pred.mean.detach().cpu().numpy()))
+            population_per_subject_metrics['mae'].append(mean_absolute_error(targets.numpy(), pred.mean.numpy()))
+            population_per_subject_metrics['mse'].append(mean_squared_error(targets.numpy(), pred.mean.numpy()))
             population_per_subject_metrics['coverage'].append(coverage)
             population_per_subject_metrics['interval'].append(interval)
             population_per_subject_metrics['roc_dev'].append(roc_dev)
             population_per_subject_metrics['gt_roc'].append(roc_gt)
             population_per_subject_metrics['pred_roc'].append(roc_pred)
-
-            # Per Subject Monotonicity Evaluation
-            temp_list = pred.mean.detach().cpu().numpy()
-            #print("Subject samples: ", temp_list)
-            monotonic = True
-            check = 0
-            timestep_list = [len(temp_list)]
-            for i in range(len(temp_list)):
-                if(check == 0):
-                    max_num = temp_list[i]
-                    check = 1
-                else:
-                    if(temp_list[i]>max_num):
-                        monotonic = False
-                        timestep_list.append(i)
-                    else:
-                        max_num = temp_list[i]
-
-            # if(monotonic):
-            #     print("Monotonicity is preserved throughout the sequence")
-            # else:
-            #     print("Monotonicity is not preserved")
-
-            population_per_subject_metrics['monotonicity'].append(int(monotonic))
-            population_per_subject_metrics['timesteps'].append(timestep_list)
-            population_per_subject_metrics['sequence'].append(temp_list)
-            population_per_subject_metrics['true_sequence'].append(targets.detach().cpu().numpy())
-            population_per_subject_metrics['subject_time'].append(subject_time)
-
 
             # Subject Predictions 
             population_results['id'].extend([subject_id] * len(subject_mean))
@@ -975,8 +933,8 @@ def main():
             population_results['age'].extend(age)
 
             # Gather Total Results
-            predictions.extend(pred.mean.detach().cpu().numpy())
-            actuals.extend(targets.detach().cpu().numpy())
+            predictions.extend(pred.mean.numpy())
+            actuals.extend(targets.numpy())
             roc_gt_all.append(roc_gt)
             roc_pred_all.append(roc_pred)
 
@@ -1024,8 +982,7 @@ def main():
     monotonic_samples = 0
 
     for inputs, targets, _ in test_loader:
-        inputs = inputs.to(device, non_blocking=True).clone().detach().requires_grad_(True)
-        targets = targets.to(device)
+        inputs = inputs.clone().detach().requires_grad_(True)
         output = model_wrapper(inputs)
         mean_output = output.mean
         df_dx = torch.autograd.grad(
