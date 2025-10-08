@@ -333,6 +333,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse):
     # Load your data
     datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(folder) + '/' + file + '.csv')
 
+
     # Set up the train/test data
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
     train_y = datasamples[datasamples['PTID'].isin(train_ids)]['Y']
@@ -523,9 +524,9 @@ def main():
     fold = 0
     parser = argparse.ArgumentParser(description='Deep Regression for Neurodegeneration Prediction')
     # Data Parameters
-    parser.add_argument("--experimentID", help="Indicates the Experiment Identifier", default='adniblsa')
-    parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_hmuse_adniblsa")
-    parser.add_argument("--folder", type=int, default=2)
+    parser.add_argument("--experimentID", help="Indicates the Experiment Identifier", default='allstudies')
+    parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_hmuse_allstudies")
+    parser.add_argument("--folder", type=int, default=1)
     parser.add_argument("--lambda_penalty", type=float, default=1)
 
     args = parser.parse_args()
@@ -535,7 +536,7 @@ def main():
     lambda_penalty = args.lambda_penalty
 
 
-    longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(2) + '/longitudinal_covariates_subjectsamples_longclean_hmuse_convs_' + 'adniblsa' +'.csv')
+    longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(1) + '/longitudinal_covariates_subjectsamples_longclean_spare_convs_allstudies.csv')
     longitudinal_covariates['Diagnosis'].replace([-1.0, 0.0, 1.0, 2.0], ['UKN', 'CN', 'MCI', 'AD'], inplace=True)
 
     population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [] }
@@ -544,15 +545,17 @@ def main():
 
     train_ids, test_ids = [], []
     # Load train IDs
-    with open("/home/cbica/Desktop/LongGPClustering/data" + str(folder) + "/train_subject_" + expID + "_ids_hmuse" + str(fold) + ".pkl", "rb") as openfile:
+    # with (open("./data"+str(folder)+"/train_subject_ids_hmuse_" + kfoldID + str(fold) +  ".pkl", "rb")) as openfile:
+    with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
         while True:
             try:
                 train_ids.append(pickle.load(openfile))
             except EOFError:
-                break
+                break 
+      
+    # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
+    with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
 
-    # Load test IDs
-    with open("/home/cbica/Desktop/LongGPClustering/data" + str(folder) + "/test_subject_" + expID + "_ids_hmuse" + str(fold) + ".pkl", "rb") as openfile:
         while True:
             try:
                 test_ids.append(pickle.load(openfile))
