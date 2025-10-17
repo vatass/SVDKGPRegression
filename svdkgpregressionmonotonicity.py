@@ -536,7 +536,7 @@ def main():
     lambda_penalty = args.lambda_penalty
 
 
-    longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(1) + '/longitudinal_covariates_subjectsamples_longclean_spare_convs_allstudies.csv')
+    longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPRegressionBaseline/longitudinal_covariates_subjectsamples_longclean_hmuse_convs_allstudies.csv')
     longitudinal_covariates['Diagnosis'].replace([-1.0, 0.0, 1.0, 2.0], ['UKN', 'CN', 'MCI', 'AD'], inplace=True)
 
     population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [] }
