@@ -13,7 +13,7 @@ import json
 import pickle
 import argparse
 from sklearn.preprocessing import StandardScaler
-
+import os
 # Set double precision
 torch.set_default_dtype(torch.float64)
 
@@ -324,15 +324,20 @@ def calculate_rate_of_change(age, biomarker):
     slope, intercept = np.polyfit(age,biomarker, 1)
     return slope
 
-def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse):
+def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse, task):
     f = open('/home/cbica/Desktop/LongGPClustering/roi_to_idx.json')
     roi_to_idx = json.load(f)
 
     index_to_roi = {v: k for k, v in roi_to_idx.items()}
 
     # Load your data
-    datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(folder) + '/' + file + '.csv')
-
+    
+    if task == 'MMSE': 
+        datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_mmse_allstudies.csv')
+    elif task == 'ADAS': 
+        datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_adas_adni.csv')
+    else:
+        datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(folder) + '/' + file + '.csv')
 
     # Set up the train/test data
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
@@ -356,7 +361,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse):
     test_y_all = test_y_all.numpy()
 
     # Select the specific ROI
-    single_muse = 'H_MUSE_Volume_47'
+    single_muse = single_muse
 
     if single_muse == 'SPARE_AD':
         list_index = 0
@@ -364,6 +369,9 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse):
         list_index = 1
     else:
         list_index = roi_to_idx[single_muse.split('_')[-1]]
+
+    if task == 'MMSE' or task == 'ADAS':
+        list_index = 0
 
     train_y = train_y_all[:, list_index]
     test_y = test_y_all[:, list_index]
@@ -528,45 +536,106 @@ def main():
     parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_hmuse_allstudies")
     parser.add_argument("--folder", type=int, default=1)
     parser.add_argument("--lambda_penalty", type=float, default=1)
+    parser.add_argument("--data_file", type=str, default='H_MUSE_Volume_47')
+    parser.add_argument("--task", type=str, default='MUSE')
 
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
     folder = args.folder
     lambda_penalty = args.lambda_penalty
+    data_file = args.data_file
+    task = args.task
 
+    #Create output folder for runs
+    if task == 'MUSE':
+        output_file = "./{}/{}".format(task,args.data_file)
+    elif task == 'ADAS' or task == 'MMSE' or task == 'SPARE_AD' or task == 'SPARE_BA':
+        output_file = "./{}".format(task)
+    
 
+    os.makedirs(output_file, exist_ok=True)
+    print(f"Output directory {output_file} created")
+
+    from pathlib import Path
+    monotonicity_results = Path(f"{output_file}/results.txt")
+    monotonicity_results.touch(exist_ok=True)
+    print(output_file)
     longitudinal_covariates = pd.read_csv('/home/cbica/Desktop/LongGPRegressionBaseline/longitudinal_covariates_subjectsamples_longclean_hmuse_convs_allstudies.csv')
     longitudinal_covariates['Diagnosis'].replace([-1.0, 0.0, 1.0, 2.0], ['UKN', 'CN', 'MCI', 'AD'], inplace=True)
 
-    population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [] }
+    population_results = {'id': [],'fold': [], 'score': [], 'y': [], 'variance': [], 'time': [], 'age': [], 'lower_bound': [], 'upper_bound': []}
     population_fold_metrics = {'fold': [] , 'mse': [], 'mae': [], 'r2': [], 'coverage': [], 'interval': [], 'mean_roc_dev': []}
     population_per_subject_metrics = {'id': [], 'fold':[], 'mae': [], 'mse': [], 'coverage': [], 'interval': [], 'roc_dev': [], 'gt_roc': [], 'pred_roc': [], 'monotonicity': [], "timesteps": [], "sequence": [], "true_sequence": [], "subject_time": []}
 
     train_ids, test_ids = [], []
     # Load train IDs
     # with (open("./data"+str(folder)+"/train_subject_ids_hmuse_" + kfoldID + str(fold) +  ".pkl", "rb")) as openfile:
-    with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
-        while True:
-            try:
-                train_ids.append(pickle.load(openfile))
-            except EOFError:
-                break 
+    
+    if task == 'MMSE':
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    train_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break 
       
     # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
-    with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
-
-        while True:
-            try:
-                test_ids.append(pickle.load(openfile))
-            except EOFError:
-                break
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    test_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break
+    elif task == 'ADAS':
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    train_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break 
+    # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    test_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break
+    elif task == 'SPARE_AD' or task == 'SPARE_BA':
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subjectsamples_longclean_spare_allstudies" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    train_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break 
+    # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subjectsamples_longclean_spare_allstudies" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    test_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break
+    else:
+        print("Loading MUSE subject studies")
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    train_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break 
+    # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    test_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break
 
     train_ids = train_ids[0]
     test_ids = test_ids[0]
 
     train_x, train_y, test_x, test_y, corresponding_train_ids, corresponding_test_ids = load_and_preprocess_data(
-        folder=folder, file=file, train_ids=train_ids, test_ids=test_ids, single_muse='H_MUSE_Volume_47'
+        folder=folder, file=file, train_ids=train_ids, test_ids=test_ids, single_muse=args.data_file, task=args.task
     )
 
     # Assuming temporal variable is the last column
@@ -649,11 +718,10 @@ def main():
         print(f"Epoch {epoch+1}/{num_epochs}, Regression Loss: {epoch_loss:.4f}")
 
     # Save the feature extractor
-    torch.save(feature_extractor.state_dict(), 'feature_extractor_latentconcatenation.pth')
+    torch.save(feature_extractor.state_dict(), '{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty))
 
     # Visualize the training loss
     import matplotlib.pyplot as plt
-
     plt.figure(figsize=(10, 6))
     plt.plot(total_regression_loss)
     plt.xlabel('Epoch')
@@ -661,15 +729,15 @@ def main():
     plt.title('Training Loss Over Epochs')
     plt.grid(True)
     plt.show()
-    plt.savefig('regression_training_loss.png',  dpi=300)
-    plt.savefig('regression_training_loss.svg',  dpi=300)
+    plt.savefig('{}/regression_training_loss_{}.png'.format(output_file, lambda_penalty),  dpi=300)
+    plt.savefig('{}/regression_training_loss_{}.svg'.format(output_file, lambda_penalty),  dpi=300)
 
     # =======================================
     # Step 2: Load Feature Extractor for GP Model
     # =======================================
     # Re-initialize the feature extractor and load the saved parameters
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
-    feature_extractor_gp.load_state_dict(torch.load('feature_extractor_latentconcatenation.pth'))
+    feature_extractor_gp.load_state_dict(torch.load('{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty)))
     feature_extractor_gp.eval()
 
     # Prepare the inducing points
@@ -844,8 +912,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.show()
-    plt.savefig('monotonicsvdk_loss_components_'+str(lambda_penalty)+'.png',  dpi=300)
-    plt.savefig('monotonicsvdk_loss_components_'+str(lambda_penalty)+'.svg',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_loss_components_'.format(output_file)+str(lambda_penalty)+'.png',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_loss_components_'.format(output_file)+str(lambda_penalty)+'.svg',  dpi=300)
 
     # Gradient Statistics 
     plt.figure(figsize=(10, 6))
@@ -857,8 +925,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.show()
-    plt.savefig('monotonicsvdk_df_dt_statistics_'+str(lambda_penalty)+'.png',  dpi=300)
-    plt.savefig('monotonicsvdk_df_dt_statistics_'+str(lambda_penalty)+'.svg',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_df_dt_statistics_'.format(output_file)+str(lambda_penalty)+'.png',  dpi=300)
+    plt.savefig('{}/monotonicsvdk_df_dt_statistics_'.format(output_file)+str(lambda_penalty)+'.svg',  dpi=300)
 
     for epoch_num, df_dt_values in df_dt_values_over_epochs:
         plt.figure(figsize=(10, 6))
@@ -868,11 +936,11 @@ def main():
         plt.title(f'Distribution of df/dt at Epoch {epoch_num}')
         plt.grid(True)
         plt.show()
-        plt.savefig(f'df_dt_histogram_epoch_{epoch_num}.png',  dpi=300)
+        plt.savefig(f'{output_file}/df_dt_histogram_epoch_{epoch_num}_{lambda_penalty}.png',  dpi=300)
 
 
     # Save df/dt values over epochs
-    with open('monotonicsvdk_df_dt_values_over_epochs_'+str(lambda_penalty)+'.pkl', 'wb') as f:
+    with open('{}/monotonicsvdk_df_dt_values_over_epochs_'.format(output_file)+str(lambda_penalty)+'.pkl', 'wb') as f:
         pickle.dump(df_dt_values_over_epochs, f)
 
     # =======================================
@@ -976,6 +1044,8 @@ def main():
             population_results['variance'].extend(subject_variance)
             population_results['time'].extend(subject_time)
             population_results['age'].extend(age)
+            population_results['lower_bound'].extend(lower_bound)
+            population_results['upper_bound'].extend(upper_bound)
 
             # Gather Total Results
             predictions.extend(pred.mean.detach().cpu().numpy())
@@ -1009,8 +1079,8 @@ def main():
 
     # Save the GP model.
     # Todo: Save the whole state in case of further training 
-    torch.save(gp_model.state_dict(), 'svdk_gp_monotonic_model_'+str(lambda_penalty)+'.pth')
-    torch.save(likelihood.state_dict(), 'svdk_monotonic_likelihood'+str(lambda_penalty)+'.pth')
+    torch.save(gp_model.state_dict(), '{}/svdk_gp_monotonic_model_'.format(output_file)+str(lambda_penalty)+'.pth')
+    torch.save(likelihood.state_dict(), '{}/svdk_monotonic_likelihood'.format(output_file)+str(lambda_penalty)+'.pth')
 
     # Set the model to evaluation mode
     model_wrapper.eval()
@@ -1048,16 +1118,18 @@ def main():
 
     # Calculate percentage
     monotonicity_percentage = (monotonic_samples / total_samples) * 100
-    print(f"Percentage of samples where monotonicity is achieved: {monotonicity_percentage:.2f}%")
+    print(f"Percentage of samples where monotonicity is achieved: {monotonicity_percentage:.2f}% for lambda_penalty {lambda_penalty:.2f}")
+    with monotonicity_results.open("a", encoding="utf-8") as f:
+        print(f"Percentage of samples where monotonicity is achieved: {monotonicity_percentage:.2f}% for lambda_penalty {lambda_penalty:.2f}\n", file=f)
 
     # Save the results
     population_results_df = pd.DataFrame(population_results)
     population_fold_metrics_df = pd.DataFrame(population_fold_metrics)
     population_per_subject_metrics_df = pd.DataFrame(population_per_subject_metrics)
 
-    population_results_df.to_csv('svdk_monotonic_'+str(lambda_penalty)+'_population_results.csv', index=False)
-    population_fold_metrics_df.to_csv('svdk_monotonic_'+str(lambda_penalty)+'_population_fold_metrics.csv', index=False)
-    population_per_subject_metrics_df.to_csv('svdk_monotonic_'+str(lambda_penalty)+'_population_per_subject_metrics.csv', index=False)
+    population_results_df.to_csv('{}/svdk_monotonic_'.format(output_file)+str(lambda_penalty)+'_population_results.csv', index=False)
+    population_fold_metrics_df.to_csv('{}/svdk_monotonic_'.format(output_file)+str(lambda_penalty)+'_population_fold_metrics.csv', index=False)
+    population_per_subject_metrics_df.to_csv('{}/svdk_monotonic_'.format(output_file)+str(lambda_penalty)+'_population_per_subject_metrics.csv', index=False)
 
 if __name__ == "__main__":
     main()
