@@ -15,7 +15,7 @@ file : subjectsamples_longclean_spare_allstudies
 folder : 1
 
 spare_ad   index = 0 
-spare_ba index = 1 
+spare_ba index = 1  
 
 with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
     while True:
