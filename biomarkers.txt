@@ -1,7 +1,8 @@
-MUSE ROIS 
+#####  MUSE ROIS #####
 
-file : subjectsamples_longclean_hmuse_allstudies
-folder : 1
+file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv
+folds : /home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_hmuse{0-4}.pkl 
+        /home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_hmuse{0-4}.pkl
 
 hippocampus right : H_MUSE_Volume_47    | roi_idx = 13 
 hippocampus left H_MUSE_Volume_48    | roi_idx = 14
@@ -9,41 +10,29 @@ lateral ventricle right : H_MUSE_Volume_51 |    roi_idx = 17
 lateral ventricle left : H_MUSE_Volume_52 | roi_idx = 18 
 
 
-SPARE Scores: SPARE-AD | SPARE-BA
+##### SPARE Scores: SPARE-AD | SPARE-BA #####
 
-file : subjectsamples_longclean_spare_allstudies
-folder : 1
+file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv
+folds : /home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_muse_spare{0-4}.pkl 
+        /home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_muse_spare{0-4}.pkl 
 
 spare_ad   index = 0 
 spare_ba index = 1  
 
-with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
-    while True:
-        try:
-            train_ids.append(pickle.load(openfile))
-        except EOFError:
-            break 
-    
-with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
 
+#### Cognitive Scores: ADAS | MMSE  ####
 
+--- ADAS ---
 
-Cognitive Scores: ADAS | MMSE 
+file :  /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dlmuse_adas_adni.csv
+fold :  /home/cbica/Desktop/DKGP/data/train_subject_adni_ids_adas{0-4}.pkl
+        /home/cbica/Desktop/DKGP/data/test_subject_adni_ids_adas{0-4}.pkl
 
-if task == 'MMSE': 
-    datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_mmse_allstudies.csv')
-elif task == 'ADAS': 
-    datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_adas_adni.csv')
+--- MMSE ---
 
-
-if task == 'MMSE': 
-    train_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_mmse" + str(fold) +  ".pkl"
-    test_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_mmse" + str(fold) +  ".pkl"
-
-elif task == 'ADAS': 
-    train_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_adni_ids_adas" + str(fold) +  ".pkl"
-    test_file = "/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_adni_ids_adas" + str(fold) +  ".pkl"
-
+file :  /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_mmse_dlmuse_allstudies.csv
+fold :  /home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_mmse{0-4}.pkl
+        /home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_mmse{0-4}.pkl.pkl
 
 
 
