@@ -587,6 +587,7 @@ def main():
                     test_ids.append(pickle.load(openfile))
                 except EOFError:
                     break
+
     elif task == 'ADAS':
         with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
@@ -601,15 +602,16 @@ def main():
                     test_ids.append(pickle.load(openfile))
                 except EOFError:
                     break
+
     elif task == 'SPARE_AD' or task == 'SPARE_BA':
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subjectsamples_longclean_spare_allstudies" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     train_ids.append(pickle.load(openfile))
                 except EOFError:
                     break 
-    # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subjectsamples_longclean_spare_allstudies" + str(fold) +  ".pkl", "rb")) as openfile:
+    
+        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     test_ids.append(pickle.load(openfile))

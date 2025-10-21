@@ -48,7 +48,45 @@ elif task == 'ADAS':
 
 
 
+######################################################################################################################################
 
+
+
+#####  MUSE ROIS #####
+
+file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv
+folds : /home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_hmuse{0-4}.pkl 
+        /home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_hmuse{0-4}.pkl
+
+hippocampus right : H_MUSE_Volume_47    | roi_idx = 13 
+hippocampus left H_MUSE_Volume_48    | roi_idx = 14
+lateral ventricle right : H_MUSE_Volume_51 |    roi_idx = 17
+lateral ventricle left : H_MUSE_Volume_52 | roi_idx = 18 
+
+
+##### SPARE Scores: SPARE-AD | SPARE-BA #####
+
+file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv
+folds : /home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_muse_spare{0-4}.pkl 
+        /home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_muse_spare{0-4}.pkl 
+
+spare_ad   index = 0 
+spare_ba index = 1  
+
+
+#### Cognitive Scores: ADAS | MMSE  ####
+
+--- ADAS ---
+
+file :  /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dlmuse_adas_adni.csv
+fold :  /home/cbica/Desktop/DKGP/data/train_subject_adni_ids_adas{0-4}.pkl
+        /home/cbica/Desktop/DKGP/data/test_subject_adni_ids_adas{0-4}.pkl
+
+--- MMSE ---
+
+file :  /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_mmse_dlmuse_allstudies.csv
+fold :  /home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_mmse{0-4}.pkl
+        /home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_mmse{0-4}.pkl.pkl
 
 
 
