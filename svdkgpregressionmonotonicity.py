@@ -333,11 +333,11 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse, tas
     # Load your data
     
     if task == 'MMSE': 
-        datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_mmse_allstudies.csv')
+        datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_mmse_dlmuse_allstudies.csv')
     elif task == 'ADAS': 
-        datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data'+str(folder)+'/subjectsamples_longclean_adas_adni.csv')
+        datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dlmuse_adas_adni.csv')
     else:
-        datasamples = pd.read_csv('/home/cbica/Desktop/LongGPClustering/data' + str(folder) + '/' + file + '.csv')
+        datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv')
 
     # Set up the train/test data
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
@@ -542,7 +542,7 @@ def main():
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
-    folder = args.folder
+    folder = args.folder 
     lambda_penalty = args.lambda_penalty
     data_file = args.data_file
     task = args.task
@@ -573,7 +573,7 @@ def main():
     # with (open("./data"+str(folder)+"/train_subject_ids_hmuse_" + kfoldID + str(fold) +  ".pkl", "rb")) as openfile:
     
     if task == 'MMSE':
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     train_ids.append(pickle.load(openfile))
@@ -581,7 +581,7 @@ def main():
                     break 
       
     # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     test_ids.append(pickle.load(openfile))
@@ -589,14 +589,14 @@ def main():
                     break
 
     elif task == 'ADAS':
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/train_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     train_ids.append(pickle.load(openfile))
                 except EOFError:
                     break 
     # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/test_subject_adni_ids_adas" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     test_ids.append(pickle.load(openfile))
@@ -604,14 +604,14 @@ def main():
                     break
 
     elif task == 'SPARE_AD' or task == 'SPARE_BA':
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_muse_spare" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     train_ids.append(pickle.load(openfile))
                 except EOFError:
                     break 
     
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_spare" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_muse_spare" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     test_ids.append(pickle.load(openfile))
@@ -619,14 +619,14 @@ def main():
                     break
     else:
         print("Loading MUSE subject studies")
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/train_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     train_ids.append(pickle.load(openfile))
                 except EOFError:
-                    break 
+                    break   
     # with (open("./data"+str(folder)+"/test_subject_ids_hmuse_" + kfoldID + str(fold) + ".pkl", "rb")) as openfile:
-        with (open("/home/cbica/Desktop/LongGPClustering/data"+str(folder)+"/test_subject_allstudies_ids_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     test_ids.append(pickle.load(openfile))
@@ -1015,16 +1015,28 @@ def main():
             monotonic = True
             check = 0
             timestep_list = [len(temp_list)]
-            for i in range(len(temp_list)):
-                if(check == 0):
-                    max_num = temp_list[i]
-                    check = 1
-                else:
-                    if(temp_list[i]>max_num):
-                        monotonic = False
-                        timestep_list.append(i)
+            if('51' in args.data_file or '52' in args.data_file):
+                for i in range(len(temp_list)):
+                    if(check == 0):
+                        min_num = temp_list[i]
+                        check = 1
                     else:
+                        if(temp_list[i]<min_num):
+                            monotonic = False
+                            timestep_list.append(i)
+                        else:
+                            min_num = temp_list[i]
+            else:
+                for i in range(len(temp_list)):
+                    if(check == 0):
                         max_num = temp_list[i]
+                        check = 1
+                    else:
+                        if(temp_list[i]>max_num):
+                            monotonic = False
+                            timestep_list.append(i)
+                        else:
+                            max_num = temp_list[i]
 
             # if(monotonic):
             #     print("Monotonicity is preserved throughout the sequence")
@@ -1115,8 +1127,11 @@ def main():
         batch_size = inputs.size(0)
         total_samples += batch_size
 
-        # Count samples where df_dt <= 0
-        monotonic_samples += (df_dt <= 0).sum().item()
+        # Check relevant monotonicity for biomarker
+        if('51' in args.data_file or '52' in args.data_file):
+            monotonic_samples += (df_dt >= 0).sum().item()
+        else:
+            monotonic_samples += (df_dt <= 0).sum().item()
 
     # Calculate percentage
     monotonicity_percentage = (monotonic_samples / total_samples) * 100
