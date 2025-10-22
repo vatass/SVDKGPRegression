@@ -538,6 +538,7 @@ def main():
     parser.add_argument("--lambda_penalty", type=float, default=1)
     parser.add_argument("--data_file", type=str, default='H_MUSE_Volume_47')
     parser.add_argument("--task", type=str, default='MUSE')
+    parser.add_argument("--sigma", type=int, default=1, help="Indicates increasing or decreasing monotonicity. 1 Corresponds to decreasing and -1 to increasing")
 
     args = parser.parse_args()
     expID = args.experimentID
@@ -546,6 +547,7 @@ def main():
     lambda_penalty = args.lambda_penalty
     data_file = args.data_file
     task = args.task
+    sigma = args.sigma 
 
     #Create output folder for runs
     if task == 'MUSE':
@@ -845,8 +847,8 @@ def main():
                 # Optionally, clip df_dt to prevent extreme values
                 df_dt = torch.clamp(df_dt, min=-10, max=10)
 
-                # Monothonicity Penalty for Decreasing Functions!!!!
-                penalty = torch.mean(torch.relu(df_dt))
+                # Monotonicity penalty for defined behavior in arguments
+                penalty = torch.mean(torch.relu(sigma * df_dt))
                 #penalty = torch.mean(m(df_dt)) #Implement softplus to avoid 0 grads
 
                 total_loss = loss + lambda_penalty * penalty
@@ -1015,7 +1017,7 @@ def main():
             monotonic = True
             check = 0
             timestep_list = [len(temp_list)]
-            if('51' in args.data_file or '52' in args.data_file):
+            if(sigma < 0):
                 for i in range(len(temp_list)):
                     if(check == 0):
                         min_num = temp_list[i]
@@ -1128,7 +1130,7 @@ def main():
         total_samples += batch_size
 
         # Check relevant monotonicity for biomarker
-        if('51' in args.data_file or '52' in args.data_file):
+        if(sigma < 0):
             monotonic_samples += (df_dt >= 0).sum().item()
         else:
             monotonic_samples += (df_dt <= 0).sum().item()
