@@ -53,6 +53,7 @@ class FeatureExtractor(nn.Module):
 
     def forward(self, x):
         return self.relu(self.fc1(x))
+        
 class RegressionNN(nn.Module):
     def __init__(self, feature_extractor):
         super(RegressionNN, self).__init__()
