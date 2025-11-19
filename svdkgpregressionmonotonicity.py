@@ -53,7 +53,7 @@ class FeatureExtractor(nn.Module):
 
     def forward(self, x):
         return self.relu(self.fc1(x))
-        
+
 class RegressionNN(nn.Module):
     def __init__(self, feature_extractor):
         super(RegressionNN, self).__init__()
@@ -672,6 +672,9 @@ def main():
     train_y = train_y.double()
     test_x = test_x.double()
     test_y = test_y.double()
+    
+    print("Train x shape :", train_x.shape)
+    print("Train y shape :", train_y.shape)
 
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
@@ -708,7 +711,8 @@ def main():
         model.train()
         running_loss = 0.0
         for inputs, targets, _ in train_loader:
-
+            print(inputs.shape)
+            print(inputs.shape)
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
 
@@ -758,7 +762,6 @@ def main():
 
     # Define the likelihood
     likelihood = gpytorch.likelihoods.GaussianLikelihood().to(device)
-
     # =======================================
     # Step 3: Initialize the GP Model and Likelihood
     # =======================================
