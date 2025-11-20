@@ -360,6 +360,11 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse, tas
     train_y_all = train_y_all.numpy()
     test_x = test_x.numpy()
     test_y_all = test_y_all.numpy()
+    
+    print("Shape of train_x, ", train_x.shape)
+    print("Shape of train_y, ", train_y_all.shape)
+    print("Shape of test_x, ", test_x.shape)
+    print("Shape of test_y, ", test_y_all.shape)
 
     # Select the specific ROI
     single_muse = single_muse
@@ -672,7 +677,7 @@ def main():
     train_y = train_y.double()
     test_x = test_x.double()
     test_y = test_y.double()
-    
+
     print("Train x shape :", train_x.shape)
     print("Train y shape :", train_y.shape)
 

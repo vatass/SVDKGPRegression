@@ -45,27 +45,76 @@ class CognitiveDataset(Dataset):
         return self.inputs[idx], self.targets[idx], self.subject_ids[idx]
 
 # Step 2: Define the FeatureExtractor class
+# Separate Processing and Addition
+# Feature Extractor: Latent Concatenation of Time and Imaging Features
 class FeatureExtractor(nn.Module):
-    def __init__(self, input_dim, hidden_dim, dropout_rate=0.5):
+    def __init__(self, input_dim, hidden_dim):
         super(FeatureExtractor, self).__init__()
         self.fc1 = nn.Linear(input_dim, hidden_dim)
         self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(dropout_rate)
 
     def forward(self, x):
-        features = self.relu(self.fc1(x))
-        features = self.dropout(features)
-        return features
+        return self.relu(self.fc1(x))
 
-class RegressionNN(nn.Module):
-    def __init__(self, feature_extractor):
-        super(RegressionNN, self).__init__()
+class FeatureExtractorLatentConcatenation(nn.Module):
+    def __init__(self, input_dim, hidden_dim):
+        super(FeatureExtractorLatentConcatenation, self).__init__()
+        # Assuming the last feature is time
+        self.imaging_dim = input_dim - 1
+        self.time_dim = 1
+        self.hidden_dim = hidden_dim
+
+        # Layers for imaging features
+        self.imaging_fc = nn.Sequential(
+            nn.Linear(self.imaging_dim, hidden_dim),
+            nn.ReLU(),
+            # You can add more layers if needed
+        )
+
+        # Layers for time feature
+        self.time_fc = nn.Sequential(
+            nn.Linear(self.time_dim, hidden_dim),
+            nn.ReLU(),
+            # You can add more layers if needed
+        )
+
+        # Final layers after concatenation
+        self.fc_combined = nn.Sequential(
+            nn.Linear(hidden_dim * 2, hidden_dim),
+            nn.ReLU(),
+            # You can add more layers if needed
+        )
+
+    def forward(self, x):
+        x_imaging = x[:, :-1]  # All features except the last one
+        x_time = x[:, -1].unsqueeze(1)  # The last feature (time)
+
+        # Process imaging features
+        imaging_features = self.imaging_fc(x_imaging)
+
+        # Process time feature
+        time_features = self.time_fc(x_time)
+
+        # Concatenate imaging and time features
+        combined_features = torch.cat([imaging_features, time_features], dim=1)
+
+        # Final processing
+        output = self.fc_combined(combined_features)
+        return output
+
+class RegressionNNLatentConcatenation(nn.Module):
+    def __init__(self, feature_extractor, output_dim=4):
+        super(RegressionNNLatentConcatenation, self).__init__()
         self.feature_extractor = feature_extractor
-        self.fc2 = nn.Linear(feature_extractor.fc1.out_features, 1)
+
+        # The output dimension of feature_extractor is hidden_dim
+        self.fc_out = nn.Linear(feature_extractor.hidden_dim, output_dim)
 
     def forward(self, x):
         features = self.feature_extractor(x)
-        return self.fc2(features).squeeze(-1)
+        output = self.fc_out(features)
+        return output
+
 
 # Step 3: Define the Multitask GP Regression Model
 class MultitaskDeepKernelGPModel(gpytorch.models.ApproximateGP):
@@ -74,8 +123,11 @@ class MultitaskDeepKernelGPModel(gpytorch.models.ApproximateGP):
         variational_distribution = gpytorch.variational.CholeskyVariationalDistribution(
             inducing_points.size(0), batch_shape=batch_shape
         )
-        variational_strategy = gpytorch.variational.VariationalStrategy(
+        base_variational_strategy = gpytorch.variational.VariationalStrategy(
             self, inducing_points, variational_distribution, learn_inducing_locations=True
+        )
+        variational_strategy = gpytorch.variational.IndependentMultitaskVariationalStrategy(
+            self, base_variational_strategy, num_tasks=batch_shape
         )
         super(MultitaskDeepKernelGPModel, self).__init__(variational_strategy)
 
@@ -234,7 +286,6 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids):
     corresponding_test_ids = datasamples[datasamples['PTID'].isin(test_ids)]['PTID'].tolist()
 
     # Process the data
-    print(train_x)
     train_x, train_y, test_x, test_y = process_temporal_singletask_data(
         train_x=train_x, train_y=train_y, test_x=test_x, test_y=test_y, test_ids=test_ids
     )
@@ -245,13 +296,13 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids):
     test_x = test_x.numpy()
     test_y = test_y.numpy()
 
-    print("Shape of train_x, ", train_x)
-    print("Shape of train_y, ", train_y)
-    print("Shape of test_x, ", test_x)
-    print("Shape of test_y, ", test_y)
+    print("Shape of train_x, ", train_x.shape)
+    print("Shape of train_y, ", train_y.shape)
+    print("Shape of test_x, ", test_x.shape)
+    print("Shape of test_y, ", test_y.shape)
 
     return train_x, train_y, test_x, test_y, corresponding_train_ids, corresponding_test_ids
-    
+
 def collate_fn(batch):
     # 'batch' is a list of samples, where each sample is a tuple (input, target, subject_id)
     inputs = torch.stack([item[0] for item in batch])
@@ -335,6 +386,13 @@ def main():
     test_x = test_x.double()
     test_y = test_y.double()
 
+    print("Train x shape :", train_x.shape)
+    print("Train y shape :", train_y.shape)
+
+    #How many tasks we have
+
+    num_outputs = train_y.shape[1]
+
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
@@ -360,8 +418,8 @@ def main():
     # Step 1: Train the Deep Regression Model
     # =======================================
     # Initialize the model
-    feature_extractor = FeatureExtractor(input_dim, hidden_dim)
-    model = RegressionNN(feature_extractor).to(device)
+    feature_extractor = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
+    model = RegressionNNLatentConcatenation(feature_extractor).to(device)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
@@ -372,23 +430,30 @@ def main():
         model.train()
         running_loss = 0.0
         for inputs, targets, _ in train_loader:
-            print(inputs.shape)
-            print(targets.shape)
+            
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
-
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, targets)
             loss.backward()
             optimizer.step()
             running_loss += loss.item() * inputs.size(0)
+
         epoch_loss = running_loss / len(train_dataset)
         total_regression_loss.append(epoch_loss)
         print(f"Epoch {epoch+1}/{num_epochs}, Regression Loss: {epoch_loss:.4f}")
 
     # Save the feature extractor
-    torch.save(feature_extractor.state_dict(), '{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty))
+    output_file = "./multitask_trials"
+
+    os.makedirs(output_file, exist_ok=True)
+    print(f"Output directory {output_file} created")
+
+    from pathlib import Path
+    monotonicity_results = Path(f"{output_file}/results.txt")
+    monotonicity_results.touch(exist_ok=True)
+    torch.save(feature_extractor.state_dict(), '{}/multitask_feature_extractor_latentconcatenation.pth'.format(output_file))
 
     # Visualize the training loss
     import matplotlib.pyplot as plt
@@ -399,15 +464,18 @@ def main():
     plt.title('Training Loss Over Epochs')
     plt.grid(True)
     plt.show()
-    plt.savefig('{}/regression_training_loss_{}.png'.format(output_file, lambda_penalty),  dpi=300)
-    plt.savefig('{}/regression_training_loss_{}.svg'.format(output_file, lambda_penalty),  dpi=300)
+    plt.savefig('{}/regression_training_loss.png'.format(output_file),  dpi=300)
+    plt.savefig('{}/regression_training_loss.svg'.format(output_file),  dpi=300)
 
     # =======================================
     # Step 2: Load Feature Extractor for GP Model
     # =======================================
     # Re-initialize the feature extractor and load the saved parameters
-    feature_extractor_gp = FeatureExtractor(input_dim, hidden_dim).to(device)
-    feature_extractor_gp.load_state_dict(torch.load('{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty)))
+    #Create output folder for runs
+    
+
+    feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
+    feature_extractor_gp.load_state_dict(torch.load('{}/multitask_feature_extractor_latentconcatenation.pth'.format(output_file)))
     feature_extractor_gp.eval()
 
     # Prepare the inducing points
@@ -445,7 +513,8 @@ def main():
         running_loss = 0.0
 
         for inputs, targets, _ in train_loader:
-
+            print(inputs.shape)
+            print(targets.shape)
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
 
@@ -466,6 +535,7 @@ def main():
         print(f"Epoch {epoch+1}/{num_epochs}, Total Loss: {epoch_loss:.4f}")
 
     # Evaluation
+
     model_wrapper.eval()
     regression_likelihood.eval()
     with torch.no_grad():
