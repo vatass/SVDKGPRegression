@@ -678,9 +678,6 @@ def main():
     test_x = test_x.double()
     test_y = test_y.double()
 
-    print("Train x shape :", train_x.shape)
-    print("Train y shape :", train_y.shape)
-
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
@@ -698,7 +695,7 @@ def main():
 )
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 128  # Adjust as needed
+    hidden_dim = 256  # Adjust as needed
 
     # =======================================
     # Step 1: Train the Deep Regression Model
@@ -710,14 +707,12 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 
     # Training loop for deep regression model
-    num_epochs = 30  # Adjust as needed
+    num_epochs = 0  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
         for inputs, targets, _ in train_loader:
-            print(inputs.shape)
-            print(inputs.shape)
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
 
@@ -751,7 +746,8 @@ def main():
     # =======================================
     # Re-initialize the feature extractor and load the saved parameters
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
-    feature_extractor_gp.load_state_dict(torch.load('{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty)))
+    #feature_extractor_gp.load_state_dict(torch.load('{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty)))
+    feature_extractor_gp.load_state_dict(torch.load('/home/cbica/Desktop/SVDKRegression/multitask_trials/multitask_feature_extractor_latentconcatenation.pth'))
     feature_extractor_gp.eval()
 
     # Prepare the inducing points

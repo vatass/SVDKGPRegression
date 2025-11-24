@@ -127,7 +127,7 @@ class MultitaskDeepKernelGPModel(gpytorch.models.ApproximateGP):
             self, inducing_points, variational_distribution, learn_inducing_locations=True
         )
         variational_strategy = gpytorch.variational.IndependentMultitaskVariationalStrategy(
-            self, base_variational_strategy, num_tasks=batch_shape
+            base_variational_strategy, num_tasks=num_tasks
         )
         super(MultitaskDeepKernelGPModel, self).__init__(variational_strategy)
 
@@ -411,7 +411,7 @@ def main():
 
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 128  # Adjust as needed
+    hidden_dim = 256  # Adjust as needed
 
     # Determine input dimension
     # =======================================
@@ -421,7 +421,7 @@ def main():
     feature_extractor = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
     model = RegressionNNLatentConcatenation(feature_extractor).to(device)
     criterion = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
     num_epochs = 30  # Adjust as needed
@@ -496,7 +496,7 @@ def main():
     regression_likelihood = regression_likelihood.double()
     model_wrapper = GPModelWrapper(gp_regression_model, regression_likelihood).to(device)
     # Define loss functions
-    mll_regression = gpytorch.mlls.VariationalELBO(regression_likelihood, gp_regression_model, num_data=len(train_dataset))
+    mll_regression = gpytorch.mlls.VariationalELBO(regression_likelihood, gp_regression_model, num_data=len(train_dataset), combine_terms = True)
 
     # Set up the optimizer
     optimizer = torch.optim.Adam([
@@ -505,7 +505,7 @@ def main():
     ], lr=1e-3)
 
     # Training Loop
-    num_epochs = 100  # Adjust as neededd
+    num_epochs = 200  # Adjust as neededd
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -513,17 +513,14 @@ def main():
         running_loss = 0.0
 
         for inputs, targets, _ in train_loader:
-            print(inputs.shape)
-            print(targets.shape)
-            inputs = inputs.to(device, non_blocking=True)
-            targets = targets.to(device, non_blocking=True)
+            inputs = inputs.to(device)
+            targets = targets.to(device)
 
             optimizer.zero_grad()
             gp_regression_output = model_wrapper(inputs)
 
             # Regression Loss
             loss_regression = -mll_regression(gp_regression_output, targets)
-
             # Total Loss
             total_loss = loss_regression
 
@@ -544,20 +541,23 @@ def main():
 
 
         for inputs, targets, _ in test_loader:
+            inputs = inputs.to(device, non_blocking=True)
+            targets = targets.to(device, non_blocking=True)
             gp_regression_output = model_wrapper(inputs)
-
+            
             # Regression Predictions
             pred_regression = regression_likelihood(gp_regression_output)
             mean_pred = pred_regression.mean  # Shape: [batch_size, num_outputs]
 
             for i in range(num_outputs):
-                regression_predictions[i].extend(mean_pred[:, i].numpy())
-                regression_actuals[i].extend(targets[:, i].numpy())
+                regression_predictions[i].extend(mean_pred[:, i].cpu().numpy())
+                regression_actuals[i].extend(targets[:, i].cpu().numpy())
         # Regression Metrics for Each Output
         for i in range(num_outputs):
             mse = mean_squared_error(regression_actuals[i], regression_predictions[i])
             mae = mean_absolute_error(regression_actuals[i], regression_predictions[i])
-            print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
+            with monotonicity_results.open("a", encoding="utf-8") as f:
+                print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
 
 
     # Optionally, save the models
