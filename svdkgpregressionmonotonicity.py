@@ -338,7 +338,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids, single_muse, tas
     elif task == 'ADAS': 
         datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dlmuse_adas_adni.csv')
     else:
-        datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv')
+        datasamples = pd.read_csv('/home/cbica/Desktop/SVDKRegression/subjectsamples_longclean_dl_muse_allstudies.csv')
 
     # Set up the train/test data
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
@@ -557,9 +557,9 @@ def main():
 
     #Create output folder for runs
     if task == 'MUSE':
-        output_file = "./{}/{}".format(task,args.data_file)
+        output_file = "./multitask_trials/{}/{}".format(task,args.data_file)
     elif task == 'ADAS' or task == 'MMSE' or task == 'SPARE_AD' or task == 'SPARE_BA':
-        output_file = "./{}".format(task)
+        output_file = "./multitask_trials/{}".format(task)
     
 
     os.makedirs(output_file, exist_ok=True)
@@ -678,6 +678,9 @@ def main():
     test_x = test_x.double()
     test_y = test_y.double()
 
+    print("Train x shape :", train_x.shape)
+    print("Train y shape :", train_y.shape)
+
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
@@ -695,7 +698,7 @@ def main():
 )
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 256  # Adjust as needed
+    hidden_dim = 256 # Adjust as needed
 
     # =======================================
     # Step 1: Train the Deep Regression Model
@@ -747,6 +750,7 @@ def main():
     # Re-initialize the feature extractor and load the saved parameters
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
     #feature_extractor_gp.load_state_dict(torch.load('{}/feature_extractor_latentconcatenation_{}.pth'.format(output_file, lambda_penalty)))
+    
     feature_extractor_gp.load_state_dict(torch.load('/home/cbica/Desktop/SVDKRegression/multitask_trials/multitask_feature_extractor_latentconcatenation.pth'))
     feature_extractor_gp.eval()
 
@@ -1080,6 +1084,9 @@ def main():
     r2 = r2_score(actuals, predictions)
     print(f"Test MSE: {mse:.4f}, MAE: {mae:.4f}")
     print(f"Test R^2: {r2:.4f}")
+    with monotonicity_results.open("a", encoding="utf-8") as f:
+        print(f"Test MSE: {mse:.4f}, MAE: {mae:.4f}\n", file=f)
+        print(f"Test R^2: {r2:.4f}\n", file=f)
 
     # Store the avegare metrics of the fold 
     population_fold_metrics['fold'].append(fold)
