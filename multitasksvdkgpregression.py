@@ -321,12 +321,12 @@ def main():
     parser.add_argument("--experimentID", help="Indicates the Experiment Identifier", default='adniblsa')
     parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_hmuse_adniblsa")
     parser.add_argument("--folder", type=int, default=2)
+    parser.add_argument("--sigma", type=float, nargs="+", default=None, help="Per-task monotonic direction. 1 for decreasing, -1 for increasing")
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
     folder = args.folder
 
-    
     # Load train and test IDs
     train_ids, test_ids = [], []
     with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
@@ -393,6 +393,11 @@ def main():
 
     num_outputs = train_y.shape[1]
 
+    #Define monotonicity hyper-parameters
+    num_tasks = num_outputs
+    sigma = torch.tensor([1, 1, -1, -1], dtype=torch.float64, device=device)
+    lambda_penalty = torch.tensor([0.0, 0.0, 0.0, 0.0], dtype=torch.float64, device=device)
+
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
@@ -424,7 +429,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 30  # Adjust as needed
+    num_epochs = 0  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -513,7 +518,7 @@ def main():
         running_loss = 0.0
 
         for inputs, targets, _ in train_loader:
-            inputs = inputs.to(device)
+            inputs = inputs.to(device).clone().detach().requires_grad_(True)
             targets = targets.to(device)
 
             optimizer.zero_grad()
@@ -521,10 +526,37 @@ def main():
 
             # Regression Loss
             loss_regression = -mll_regression(gp_regression_output, targets)
-            # Total Loss
-            total_loss = loss_regression
 
+            mean = gp_regression_output.mean
+            #print(mean.shape, mean)
+
+            if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                mean = mean.transpose(0, 1)
+
+            penalty_terms = []
+            for k in range(num_tasks):
+                mean_k = mean[k]
+                df_dx_k = torch.autograd.grad(
+                    outputs=mean_k,
+                    inputs=inputs,
+                    grad_outputs=torch.ones_like(mean_k),
+                    create_graph=True,
+                    retain_graph=True,
+                )[0]
+
+                df_dt_k = df_dx_k[:, -1]
+
+                penalty_k = torch.mean(torch.relu(sigma[k] * df_dt_k))
+                penalty_terms.append(penalty_k)
+
+            # Total Loss
+            penalty = torch.stack(penalty_terms)
+            total_penalty = torch.sum(lambda_penalty * penalty)
+
+            total_loss = loss_regression + total_penalty
             total_loss.backward()
+
+            #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
             optimizer.step()
             running_loss += total_loss.item() * inputs.size(0)
 
@@ -532,13 +564,27 @@ def main():
         print(f"Epoch {epoch+1}/{num_epochs}, Total Loss: {epoch_loss:.4f}")
 
     # Evaluation
+    def is_monotonic(sequence, sig):
+        seq = np.asarray(sequence)
+        if seq.size <= 1:
+            return True
+        if sig < 0:
+            return np.all(np.diff(seq) >= 0)
+        else:
+            return np.all(np.diff(seq) <= 0)
 
+        
     model_wrapper.eval()
     regression_likelihood.eval()
     with torch.no_grad():
         regression_predictions = [[] for _ in range(num_outputs)]
         regression_actuals = [[] for _ in range(num_outputs)]
 
+        mono_subject_ok = [0] * num_output
+        mono_subject_total = 0
+
+        mono_sample_ok = [0] * num_outputs
+        mono_sample_total = 0
 
         for inputs, targets, _ in test_loader:
             inputs = inputs.to(device, non_blocking=True)
@@ -552,14 +598,75 @@ def main():
             for i in range(num_outputs):
                 regression_predictions[i].extend(mean_pred[:, i].cpu().numpy())
                 regression_actuals[i].extend(targets[:, i].cpu().numpy())
+            #Check monotnicity
+            t = inputs[:, -1].detach().cpu().numpy()
+            order = np.argsort(t)
+
+            mono_subject_total += 1
+            for k in range(num_outputs):
+                seq_k = mean_pred[:, k].detach().cpu().numpy()[order]
+                if is_monotonic(seq_k, sigma[k]):
+                    mono_subject_ok[k] += 1
+
+
+        model_wrapper.eval()
+        regression_likelihood.eval()
+
+        for inputs, targets, _ in test_loader:
+            inputs = inputs.to(device, non_blocking=True).clone().detach().requires_grad_(True)
+            gp_out = model_wrapper(inputs)
+            mean = gp_out.mean
+
+            if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                mean = mean.transpose(0,1)
+            N = inputs.shape[0]
+            mono_sample_total += n
+            for k in range(num_outputs):
+                mean_k = mean[k]
+
+                df_dx_k = torch.autograd.grad(
+                    outputs=mean_k,
+                    inputs=inputs,
+                    grad_outputs=torch.ones_like(mean_k),
+                    create_graph=False,
+                    retain_graph=True
+                )[0]
+
+                df_dt_k = df_dx_k[:, -1]
+
+                if sigma[k] < 0:
+                    mono_sample_ok[k] += (df_dt_k >= 0).sum().item()
+                else:
+                    mono_sample_ok[k] += (df_dt_k <= 0).sum().item()
+
         # Regression Metrics for Each Output
-        for i in range(num_outputs):
+        # for i in range(num_outputs):
+        #     mse = mean_squared_error(regression_actuals[i], regression_predictions[i])
+        #     mae = mean_absolute_error(regression_actuals[i], regression_predictions[i])
+        #     with monotonicity_results.open("a", encoding="utf-8") as f:
+        #         print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
+
+    output_file = "./multitask_trials"
+    from pathlib import Path
+    monotonicity_results = Path(f"{output_file}/results.txt")
+    monotonicity_results.touch(exist_ok=True)
+
+    with monotonicity_results.open("a", encoding="utf-8") as f:
+        print("\n=== Multitask Evaluation ===", file=f)
+        print(f"Num tasks: {num_outputs}", file=f)
+        print(f"Sigma per task: {sigma}", file=f)
+
+        for k in range(num_outputs):
             mse = mean_squared_error(regression_actuals[i], regression_predictions[i])
             mae = mean_absolute_error(regression_actuals[i], regression_predictions[i])
-            with monotonicity_results.open("a", encoding="utf-8") as f:
-                print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
 
+            subj_pct = 100.0 * mono_subject_ok[k] / max(mono_subject_total, 1)
+            samp_pct = 100.0 * mono_sample_ok[k] / max(mono_sample_total, 1)
 
+            print(
+                f"Task {k+1}: MSE={mse:.4f}, "
+                f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%"
+            )
     # Optionally, save the models
     torch.save(gp_regression_model.state_dict(), 'gp_regression_model.pth')
     torch.save(regression_likelihood.state_dict(), 'regression_likelihood.pth')
