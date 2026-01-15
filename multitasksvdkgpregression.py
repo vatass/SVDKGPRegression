@@ -510,7 +510,7 @@ def main():
     ], lr=1e-3)
 
     # Training Loop
-    num_epochs = 200  # Adjust as neededd
+    num_epochs = 1  # Adjust as neededd
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -548,6 +548,7 @@ def main():
 
                 penalty_k = torch.mean(torch.relu(sigma[k] * df_dt_k))
                 penalty_terms.append(penalty_k)
+                
 
             # Total Loss
             penalty = torch.stack(penalty_terms)
@@ -580,7 +581,7 @@ def main():
         regression_predictions = [[] for _ in range(num_outputs)]
         regression_actuals = [[] for _ in range(num_outputs)]
 
-        mono_subject_ok = [0] * num_output
+        mono_subject_ok = [0] * num_outputs
         mono_subject_total = 0
 
         mono_sample_ok = [0] * num_outputs
@@ -613,14 +614,16 @@ def main():
         regression_likelihood.eval()
 
         for inputs, targets, _ in test_loader:
-            inputs = inputs.to(device, non_blocking=True).clone().detach().requires_grad_(True)
+            inputs = inputs.to(device).clone().detach().requires_grad_(True)
             gp_out = model_wrapper(inputs)
             mean = gp_out.mean
 
             if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                mean = mean.transpose(0,1)
+                mean = mean.transpose(0, 1)
+
             N = inputs.shape[0]
-            mono_sample_total += n
+            mono_sample_total += N
+            
             for k in range(num_outputs):
                 mean_k = mean[k]
 
