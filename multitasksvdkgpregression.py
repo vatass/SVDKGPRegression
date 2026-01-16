@@ -396,7 +396,7 @@ def main():
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
     sigma = torch.tensor([1, 1, -1, -1], dtype=torch.float64, device=device)
-    lambda_penalty = torch.tensor([0.0, 0.0, 0.0, 0.0], dtype=torch.float64, device=device)
+    lambda_penalty = torch.tensor([0.25, 0.25, 0.25, 0.25], dtype=torch.float64, device=device)
 
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
@@ -510,7 +510,7 @@ def main():
     ], lr=1e-3)
 
     # Training Loop
-    num_epochs = 1  # Adjust as neededd
+    num_epochs = 200  # Adjust as neededd
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -610,37 +610,34 @@ def main():
                     mono_subject_ok[k] += 1
 
 
-        model_wrapper.eval()
-        regression_likelihood.eval()
+    for inputs, targets, _ in test_loader:
+        inputs = inputs.to(device).clone().detach().requires_grad_(True)
+        gp_out = model_wrapper(inputs)
+        mean = gp_out.mean
 
-        for inputs, targets, _ in test_loader:
-            inputs = inputs.to(device).clone().detach().requires_grad_(True)
-            gp_out = model_wrapper(inputs)
-            mean = gp_out.mean
+        if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+            mean = mean.transpose(0, 1)
 
-            if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                mean = mean.transpose(0, 1)
+        N = inputs.shape[0]
+        mono_sample_total += N
+        
+        for k in range(num_outputs):
+            mean_k = mean[k]
 
-            N = inputs.shape[0]
-            mono_sample_total += N
-            
-            for k in range(num_outputs):
-                mean_k = mean[k]
+            df_dx_k = torch.autograd.grad(
+                outputs=mean_k,
+                inputs=inputs,
+                grad_outputs=torch.ones_like(mean_k),
+                create_graph=False,
+                retain_graph=True
+            )[0]
 
-                df_dx_k = torch.autograd.grad(
-                    outputs=mean_k,
-                    inputs=inputs,
-                    grad_outputs=torch.ones_like(mean_k),
-                    create_graph=False,
-                    retain_graph=True
-                )[0]
+            df_dt_k = df_dx_k[:, -1]
 
-                df_dt_k = df_dx_k[:, -1]
-
-                if sigma[k] < 0:
-                    mono_sample_ok[k] += (df_dt_k >= 0).sum().item()
-                else:
-                    mono_sample_ok[k] += (df_dt_k <= 0).sum().item()
+            if sigma[k] < 0:
+                mono_sample_ok[k] += (df_dt_k >= 0).sum().item()
+            else:
+                mono_sample_ok[k] += (df_dt_k <= 0).sum().item()
 
         # Regression Metrics for Each Output
         # for i in range(num_outputs):
