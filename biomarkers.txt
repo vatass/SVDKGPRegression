@@ -1,3 +1,5 @@
+ROI Index (H_MUSE_{ROI_Index}) -> list index :  /home/cbica/Desktop/LongGPClustering/hmuse_list.npy
+Only Lateral Ventricles are increasing as biomarkers in the brain regions
 #####  MUSE ROIS #####
 
 file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv

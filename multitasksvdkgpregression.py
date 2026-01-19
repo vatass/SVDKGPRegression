@@ -280,7 +280,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids):
     train_y = datasamples[datasamples['PTID'].isin(train_ids)]['Y']
     test_x = datasamples[datasamples['PTID'].isin(test_ids)]['X']
     test_y = datasamples[datasamples['PTID'].isin(test_ids)]['Y']
-
+    
     # Corresponding subject IDs
     corresponding_train_ids = datasamples[datasamples['PTID'].isin(train_ids)]['PTID'].tolist()
     corresponding_test_ids = datasamples[datasamples['PTID'].isin(test_ids)]['PTID'].tolist()
@@ -396,7 +396,7 @@ def main():
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
     sigma = torch.tensor([1, 1, -1, -1], dtype=torch.float64, device=device)
-    lambda_penalty = torch.tensor([0.25, 0.25, 0.25, 0.25], dtype=torch.float64, device=device)
+    lambda_penalty = torch.tensor([0.1, 1, 0.1, 0.1], dtype=torch.float64, device=device)
 
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
@@ -429,7 +429,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 0  # Adjust as needed
+    num_epochs = 30  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
