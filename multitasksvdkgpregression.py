@@ -14,6 +14,7 @@ import json
 import pickle
 import argparse
 import os
+import datetime
 # Set default dtype to double precision
 torch.set_default_dtype(torch.float64)
 
@@ -311,6 +312,14 @@ def collate_fn(batch):
     
     return inputs, targets, subject_ids
 
+def _mse_mae_per_task(actuals_list, preds_list):
+    mse_per_task = []
+    mae_per_task = []
+    for k in range(len(actuals_list)):
+        mse_per_task.append(mean_squared_error(actuals_list[k], preds_list[k]))
+        mae_per_task.append(mean_absolute_error(actuals_list[k], preds_list[k]))
+    return mse_per_task, mae_per_task, float(np.mean(mse_per_task)), float(np.mean(mae_per_task))
+
 # Step 8: Main function
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -396,7 +405,7 @@ def main():
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
     sigma = torch.tensor([1, 1, -1, -1], dtype=torch.float64, device=device)
-    lambda_penalty = torch.tensor([0.1, 1, 0.1, 0.1], dtype=torch.float64, device=device)
+    lambda_penalty = torch.tensor([0.05, 0.05, 0.05, 0.05], dtype=torch.float64, device=device)
 
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
@@ -429,7 +438,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 30  # Adjust as needed
+    num_epochs = 40  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -646,26 +655,43 @@ def main():
         #     with monotonicity_results.open("a", encoding="utf-8") as f:
         #         print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
 
+    mse_per_task, mae_per_task, mse_mean, mae_mean = _mse_mae_per_task(
+        regression_actuals, regression_predictions
+    )
+
     output_file = "./multitask_trials"
     from pathlib import Path
     monotonicity_results = Path(f"{output_file}/results.txt")
     monotonicity_results.touch(exist_ok=True)
 
     with monotonicity_results.open("a", encoding="utf-8") as f:
+        print(str(datetime.datetime.now())+'\n')
         print("\n=== Multitask Evaluation ===", file=f)
         print(f"Num tasks: {num_outputs}", file=f)
         print(f"Sigma per task: {sigma}", file=f)
+        print(f"Mean Test MSE (avg across tasks): {mse_mean:.4f}", file=f)
+        print(f"Mean Test MAE (avg across tasks): {mae_mean:.4f}", file=f)
 
         for k in range(num_outputs):
-            mse = mean_squared_error(regression_actuals[i], regression_predictions[i])
-            mae = mean_absolute_error(regression_actuals[i], regression_predictions[i])
-
             subj_pct = 100.0 * mono_subject_ok[k] / max(mono_subject_total, 1)
             samp_pct = 100.0 * mono_sample_ok[k] / max(mono_sample_total, 1)
 
             print(
-                f"Task {k+1}: MSE={mse:.4f}, "
-                f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%"
+                f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}, "
+                f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%", file=f
+            )
+    # Optionally, save the models
+    print(f"\nMean Test MSE (avg across tasks): {mse_mean:.4f}")
+    print(f"Mean Test MAE (avg across tasks): {mae_mean:.4f}")
+    for k in range(num_outputs):
+        print(f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}")
+        for k in range(num_outputs):
+            subj_pct = 100.0 * mono_subject_ok[k] / max(mono_subject_total, 1)
+            samp_pct = 100.0 * mono_sample_ok[k] / max(mono_sample_total, 1)
+
+            print(
+                f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}, "
+                f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%", file=f
             )
     # Optionally, save the models
     torch.save(gp_regression_model.state_dict(), 'gp_regression_model.pth')
