@@ -1,5 +1,6 @@
 # svdk_regression_multitask.py
-
+import pandas as pd
+import json
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader, Sampler
@@ -18,6 +19,75 @@ import matplotlib.pyplot as plt
 import datetime
 # Set default dtype to double precision
 torch.set_default_dtype(torch.float64)
+# Define Regions ROIs
+import json
+from collections import OrderedDict
+
+# --- 1) Define ROIs per region ---
+REGION_ROIS = OrderedDict({
+    0: ("Limbic system", [
+        "MUSE_Volume_100","MUSE_Volume_101","MUSE_Volume_116","MUSE_Volume_117","MUSE_Volume_138",
+        "MUSE_Volume_139","MUSE_Volume_166","MUSE_Volume_167","MUSE_Volume_170","MUSE_Volume_171",
+    ]),
+    1: ("Parietal lobe", [
+        "MUSE_Volume_83","MUSE_Volume_86","MUSE_Volume_107","MUSE_Volume_108","MUSE_Volume_114","MUSE_Volume_115",
+        "MUSE_Volume_128","MUSE_Volume_129","MUSE_Volume_134","MUSE_Volume_135","MUSE_Volume_144","MUSE_Volume_145",
+        "MUSE_Volume_156","MUSE_Volume_157",
+    ]),
+    2: ("Ventricular system", [
+        "MUSE_Volume_3","MUSE_Volume_4","MUSE_Volume_31","MUSE_Volume_32","MUSE_Volume_49","MUSE_Volume_50",
+    ]),
+    3: ("Cerebellum", [
+        "MUSE_Volume_63","MUSE_Volume_64","MUSE_Volume_65","MUSE_Volume_66","MUSE_Volume_67","MUSE_Volume_68","MUSE_Volume_69",
+    ]),
+    4: ("Temporal lobe", [
+        "MUSE_Volume_118","MUSE_Volume_119","MUSE_Volume_120","MUSE_Volume_121","MUSE_Volume_122","MUSE_Volume_123",
+        "MUSE_Volume_124","MUSE_Volume_125","MUSE_Volume_126","MUSE_Volume_127","MUSE_Volume_158","MUSE_Volume_159",
+        "MUSE_Volume_162","MUSE_Volume_163","MUSE_Volume_172","MUSE_Volume_173","MUSE_Volume_174","MUSE_Volume_175",
+    ]),
+    5: ("Occipital lobe", [
+        "MUSE_Volume_84","MUSE_Volume_85","MUSE_Volume_87","MUSE_Volume_88","MUSE_Volume_89","MUSE_Volume_90",
+        "MUSE_Volume_91","MUSE_Volume_92","MUSE_Volume_93","MUSE_Volume_94","MUSE_Volume_95","MUSE_Volume_96",
+        "MUSE_Volume_97","MUSE_Volume_98","MUSE_Volume_99","MUSE_Volume_150","MUSE_Volume_151","MUSE_Volume_152",
+    ]),
+})
+
+def get_region_y_indices_and_names(mode: int, roi_to_idx: dict):
+    if mode not in REGION_ROIS:
+        raise ValueError(f"Mode {mode} not supported")
+    
+    region_name, rois = REGION_ROIS[mode]
+    roi_ids = []
+    for roi in rois:
+        if isinstance(roi, (list, tuple)):
+            iterable = roi
+        else:
+            iterable = [roi]
+        
+        for r in iterable:
+            r = str(r).strip()
+            if r.startswith("MUSE_Volume_"):
+                r = r.split("_")[-1]
+            roi_ids.append(r)
+
+    missing = [rid for rid in roi_ids if rid not in roi_to_idx]
+
+    if missing:
+        raise KeyError(f"These ROIS are missing: {missing}")
+    
+    idxs = [int(roi_to_idx[rid]) for rid in roi_ids]
+
+    task_names = [f"ROI_{rid}" for rid in roi_ids]
+    
+    return region_name, idxs, task_names
+
+def select_region_targets(Y: np.ndarray, mode: int, roi_to_idx: dict):
+
+    if Y.ndim != 2 or Y.shape[1] != 145:
+        raise ValueError(f"Expected Y shape (n,145). Got {Y.shape}")
+    idxs = get_region_y_indices(mode, roi_to_idx)
+    return Y[:, idxs]
+
 
 # Step 1: Define the CognitiveDataset class
 class CognitiveDataset(Dataset):
@@ -267,22 +337,56 @@ def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None
 
     return inducing_points
 
+def load_and_preprocess_region_based_data(folder, file, train_ids, test_ids, mode: int):
+    f = open('/home/cbica/Desktop/LongGPClustering/roi_to_idx.json')
+    roi_to_idx = json.load(f)
+
+    index_to_roi = {v: k for k, v in roi_to_idx.items()}
+ 
+    datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_hmuse_allstudies.csv')
+
+    train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
+    train_y = datasamples[datasamples['PTID'].isin(train_ids)]['Y']
+    test_x  = datasamples[datasamples['PTID'].isin(test_ids)]['X']
+    test_y  = datasamples[datasamples['PTID'].isin(test_ids)]['Y']
+
+    corresponding_train_ids = datasamples[datasamples['PTID'].isin(train_ids)]['PTID'].tolist()
+    corresponding_test_ids  = datasamples[datasamples['PTID'].isin(test_ids)]['PTID'].tolist()
+
+    train_x, train_y, test_x, test_y = process_temporal_singletask_data(
+        train_x=train_x, train_y=train_y, test_x=test_x, test_y=test_y, test_ids=test_ids
+    )
+
+    train_x = train_x.numpy()
+    train_y = train_y.numpy()  # (n_train, 145)
+    test_x  = test_x.numpy()
+    test_y  = test_y.numpy()   # (n_test, 145)
+
+    region_name, idxs, task_names = get_region_y_indices_and_names(mode, roi_to_idx)
+    train_y_region = train_y[:, idxs]
+    test_y_region = test_y[:, idxs]
+
+    num_outputs = len(task_names)
+
+    print("Shape of train_x:", train_x.shape)
+    print("Shape of train_y:", train_y_region.shape)
+
+    return train_x, train_y_region, test_x, test_y_region,  corresponding_train_ids, corresponding_test_ids, num_outputs, task_names, region_name
+
 def load_and_preprocess_data(folder, file, train_ids, test_ids):
     f = open('/home/cbica/Desktop/LongGPClustering/roi_to_idx.json')
     roi_to_idx = json.load(f)
 
     index_to_roi = {v: k for k, v in roi_to_idx.items()}
-
     # Load your data
     
-    datasamples = pd.read_csv('/home/cbica/Desktop/SVDKRegression/multitask_neuroimaging_biomarkers_allstudies.csv')
-
+    #datasamples = pd.read_csv('/home/cbica/Desktop/SVDKRegression/multitask_neuroimaging_biomarkers_allstudies.csv')
+    datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_hmuse_allstudies.csv')
     # Set up the train/test data
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
     train_y = datasamples[datasamples['PTID'].isin(train_ids)]['Y']
     test_x = datasamples[datasamples['PTID'].isin(test_ids)]['X']
     test_y = datasamples[datasamples['PTID'].isin(test_ids)]['Y']
-    
     # Corresponding subject IDs
     corresponding_train_ids = datasamples[datasamples['PTID'].isin(train_ids)]['PTID'].tolist()
     corresponding_test_ids = datasamples[datasamples['PTID'].isin(test_ids)]['PTID'].tolist()
@@ -302,6 +406,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids):
     print("Shape of train_y, ", train_y.shape)
     print("Shape of test_x, ", test_x.shape)
     print("Shape of test_y, ", test_y.shape)
+
 
     return train_x, train_y, test_x, test_y, corresponding_train_ids, corresponding_test_ids
 
@@ -419,6 +524,8 @@ def save_subject_trajectory_plots(
                     "y_upper_2std": y_upper,
                 })
             df.to_csv(out_csv, index=False)
+
+
 # Step 8: Main function
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -427,13 +534,17 @@ def main():
     parser = argparse.ArgumentParser(description='Multi-output GP Regression and Classification for Neurodegeneration Prediction')
     # Data Parameters
     parser.add_argument("--experimentID", help="Indicates the Experiment Identifier", default='adniblsa')
-    parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_hmuse_adniblsa")
+    parser.add_argument("--file", help="Identifier for the data", default="subjectsamples_longclean_mmse_dlmuse_allstudies")
     parser.add_argument("--folder", type=int, default=2)
     parser.add_argument("--sigma", type=float, nargs="+", default=None, help="Per-task monotonic direction. 1 for decreasing, -1 for increasing")
+    parser.add_argument("--lambda_val", type=float, default=0.0, help="Monotonic penalty, all tasks are trained with the same penalty")
+    parser.add_argument("--mode", type=int, default=0, help="Mode for brain region training")
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
     folder = args.folder
+    lambda_val = args.lambda_val
+    mode = args.mode
 
     # Load train and test IDs
     train_ids, test_ids = [], []
@@ -459,11 +570,13 @@ def main():
 
     # Load and preprocess data
     train_x, train_y, test_x, test_y, \
-    corresponding_train_ids, corresponding_test_ids = load_and_preprocess_data(
+    corresponding_train_ids, corresponding_test_ids, \
+    num_outputs, task_names, region_name = load_and_preprocess_region_based_data(
         folder=folder,
         file=file,
         train_ids=train_ids,
-        test_ids=test_ids
+        test_ids=test_ids,
+        mode=mode
     )
     temporal_index = -1
 
@@ -497,15 +610,15 @@ def main():
     print("Train x shape :", train_x.shape)
     print("Train y shape :", train_y.shape)
 
-    #How many tasks we have
-
-    num_outputs = train_y.shape[1]
-
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
-    sigma = torch.tensor([1, -1, -1, -1], dtype=torch.float64, device=device)
-    lambda_penalty = torch.tensor([0.2, 0.2, 0.2, 0.2], dtype=torch.float64, device=device)
+    if mode == 2:
+        sigma = torch.tensor([-1] * num_outputs, dtype=torch.float64, device=device)
+    else:
+        sigma = torch.tensor([1] * num_outputs, dtype=torch.float64, device=device)
 
+    lambda_penalty = torch.tensor([lambda_val] * num_outputs, dtype=torch.float64, device=device)
+    print(sigma)
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
@@ -532,18 +645,17 @@ def main():
     # =======================================
     # Initialize the model
     feature_extractor = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
-    model = RegressionNNLatentConcatenation(feature_extractor).to(device)
+    model = RegressionNNLatentConcatenation(feature_extractor, output_dim=num_outputs).to(device)
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 40  # Adjust as needed
+    num_epochs = 1  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
         for inputs, targets, _ in train_loader:
-            
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
             optimizer.zero_grad()
@@ -565,11 +677,8 @@ def main():
 
     MAX_SUBJECT_PLOTS_PER_TASK = 10
     plots_saved_per_task = [0] * num_outputs
-
-    plots_root = os.path.join(output_file, "test_trajectories")
+    plots_root = os.path.join(output_file, f"test_trajectories_mode{mode}_{region_name.replace(' ', '_')}")
     task_plots_dirs = _ensure_task_plot_dirs(plots_root, num_outputs)
-
-    task_names = ["ROI_47", "ROI_48", "ROI_51" ,"ROI_52"]
 
     from pathlib import Path
     monotonicity_results = Path(f"{output_file}/results.txt")
@@ -626,7 +735,7 @@ def main():
     ], lr=1e-3)
 
     # Training Loop
-    num_epochs = 200
+    num_epochs = 1
       # Adjust as neededd
 
     for epoch in range(num_epochs):
@@ -672,6 +781,7 @@ def main():
             total_penalty = torch.sum(lambda_penalty * penalty)
 
             total_loss = loss_regression + total_penalty
+            print(total_loss)
             total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
@@ -820,6 +930,7 @@ def main():
         print("\n=== Multitask Evaluation ===", file=f)
         print(f"Num tasks: {num_outputs}", file=f)
         print(f"Sigma per task: {sigma}", file=f)
+        print(f"Lambda penalty value: {lambda_val}", file=f)
         print(f"Mean Test MSE (avg across tasks): {mse_mean:.4f}", file=f)
         print(f"Mean Test MAE (avg across tasks): {mae_mean:.4f}", file=f)
 
