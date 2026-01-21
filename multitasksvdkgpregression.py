@@ -14,6 +14,7 @@ import json
 import pickle
 import argparse
 import os
+import matplotlib.pyplot as plt 
 import datetime
 # Set default dtype to double precision
 torch.set_default_dtype(torch.float64)
@@ -319,7 +320,105 @@ def _mse_mae_per_task(actuals_list, preds_list):
         mse_per_task.append(mean_squared_error(actuals_list[k], preds_list[k]))
         mae_per_task.append(mean_absolute_error(actuals_list[k], preds_list[k]))
     return mse_per_task, mae_per_task, float(np.mean(mse_per_task)), float(np.mean(mae_per_task))
+    
+#Plot trajectories
+def _safe_filename(s:str) -> str:
+    s = str(s)
+    keep = []
+    for ch in s:
+        if ch.isalnum() or ch in ("-", "_", "."):
+            keep.append(ch)
+        else:
+            keep.append("_")
+    return "".join(keep)
 
+def _ensure_task_plot_dirs(root_dir:str, num_tasks:int):
+    task_dirs=[]
+    os.makedirs(root_dir, exist_ok=True)
+    for k in range(num_tasks):
+        d = os.path.join(root_dir, f"task{k+1}")
+        os.makedirs(d, exist_ok=True)
+        task_dirs.append(d)
+    return task_dirs
+
+def _transpose_task_matrix(x, num_tasks:int):
+    if x is None:
+        return None
+    if x.ndim != 2:
+        return x
+    if x.shape[0] == num_tasks and x.shape[1] != num_tasks:
+        return x.T 
+    return x
+
+def save_subject_trajectory_plots(
+    subject_id,
+    t_np,
+    y_true_np,
+    y_pred_np,
+    y_var_np,
+    task_dirs,
+    task_names=None,
+    dpi=300,
+    save_csv=True
+    ):
+
+    order = np.argsort(t_np)
+    t = t_np[order]
+    y_true = y_true_np[order, :]
+    y_pred = y_pred_np[order, :]
+    y_var = y_var_np[order, :] if y_var_np is not None else None
+
+    subj_safe = _safe_filename(subject_id)
+    num_tasks = y_true.shape[1]
+
+    for k in range(num_tasks):
+        fig = plt.figure(figsize=(7,4))
+
+        plt.plot(t, y_true[:, k], marker='o', linewidth=2, label="Ground Truth")
+
+        plt.plot(t, y_pred[:, k], marker='x', linestyle="--", linewidth=2, label="Predicted Trajectory")
+
+        #Uncertainty 
+        y_std = None
+        y_lower = None
+        y_upper = None
+        if y_var is not None:
+            y_std = np.sqrt(np.maximum(y_var[:, k], 0.0))
+            y_lower = y_pred[:, k] - 2.0 * y_std
+            y_upper = y_pred[:, k] + 2.0 * y_std
+            plt.fill_between(t, y_lower, y_upper, alpha=0.2)
+
+        task_label = (task_names[k] if task_names is not None else f"Task {k+1}")
+        plt.title(f"Subject {subject_id} | {task_label}")
+        plt.xlabel("Time")
+        plt.ylabel("Value")
+        plt.grid(True, alpha=0.3)
+        plt.legend()
+        plt.tight_layout()
+
+        #Save
+        out_png = os.path.join(task_dirs[k], f"{subj_safe}_task{k+1}_csv")
+        fig.savefig(out_png, dpi=dpi)
+        plt.close(fig)
+
+        if save_csv:
+            out_csv = os.path.join(task_dirs[k], f"{subj_safe}_task{k+1}.csv")
+            if y_std is None:
+                df = pf.DataFrame({
+                    "time": t,
+                    "y_true": y_true[:, k],
+                    "y_pred": y_pred[:, k],
+                })
+            else:
+                df = pd.DataFrame({
+                    "time": t,
+                    "y_true": y_true[:, k],
+                    "y_pred": y_pred[:, k],
+                    "y_std": y_std,
+                    "y_lower_2std": y_lower,
+                    "y_upper_2std": y_upper,
+                })
+            df.to_csv(out_csv, index=False)
 # Step 8: Main function
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -404,8 +503,8 @@ def main():
 
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
-    sigma = torch.tensor([1, 1, -1, -1], dtype=torch.float64, device=device)
-    lambda_penalty = torch.tensor([0.05, 0.05, 0.05, 0.05], dtype=torch.float64, device=device)
+    sigma = torch.tensor([1, -1, -1, -1], dtype=torch.float64, device=device)
+    lambda_penalty = torch.tensor([0.2, 0.2, 0.2, 0.2], dtype=torch.float64, device=device)
 
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
@@ -464,6 +563,14 @@ def main():
     os.makedirs(output_file, exist_ok=True)
     print(f"Output directory {output_file} created")
 
+    MAX_SUBJECT_PLOTS_PER_TASK = 10
+    plots_saved_per_task = [0] * num_outputs
+
+    plots_root = os.path.join(output_file, "test_trajectories")
+    task_plots_dirs = _ensure_task_plot_dirs(plots_root, num_outputs)
+
+    task_names = ["ROI_47", "ROI_48", "ROI_51" ,"ROI_52"]
+
     from pathlib import Path
     monotonicity_results = Path(f"{output_file}/results.txt")
     monotonicity_results.touch(exist_ok=True)
@@ -519,7 +626,8 @@ def main():
     ], lr=1e-3)
 
     # Training Loop
-    num_epochs = 200  # Adjust as neededd
+    num_epochs = 200
+      # Adjust as neededd
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -596,18 +704,60 @@ def main():
         mono_sample_ok = [0] * num_outputs
         mono_sample_total = 0
 
-        for inputs, targets, _ in test_loader:
+        for inputs, targets, subject_ids in test_loader:
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
-            gp_regression_output = model_wrapper(inputs)
-            
+            subject_id = subject_ids[0]
+
             # Regression Predictions
+            gp_regression_output = model_wrapper(inputs)    
             pred_regression = regression_likelihood(gp_regression_output)
             mean_pred = pred_regression.mean  # Shape: [batch_size, num_outputs]
+            var_pred = pred_regression.variance
+
+            mean_np = _transpose_task_matrix(mean_pred.detach().cpu().numpy(), num_outputs)
+            var_np = _transpose_task_matrix(var_pred.detach().cpu().numpy(), num_outputs)
+
+            t_np = inputs[:, -1].detach().cpu().numpy()
+            y_true_np = targets.detach().cpu().numpy()
+
+            can_plot_any = (MAX_SUBJECT_PLOTS_PER_TASK is None) or any(
+                plots_saved_per_task[k] < MAX_SUBJECT_PLOTS_PER_TASK for k in range(num_outputs)
+            )
+
+            if can_plot_any:
+                if MAX_SUBJECT_PLOTS_PER_TASK is None:
+                    save_subject_trajectory_plots(
+                        subject_id=subject_id,
+                        t_np=t_np,
+                        y_true_np=y_true_np,
+                        y_pred_np=mean_np,
+                        y_var_np=var_np,
+                        task_dirs=task_plots_dirs,
+                        task_names=task_names
+                    )
+
+                    for k in range(num_outputs):
+                        plots_saved_per_task[k]+=1
+
+                else:
+                    save_subject_trajectory_plots(
+                        subject_id=subject_id,
+                        t_np=t_np,
+                        y_true_np=y_true_np,
+                        y_pred_np=mean_np,
+                        y_var_np=var_np,
+                        task_dirs=task_plots_dirs,
+                        task_names=task_names
+                    )
+                    for k in range(num_outputs):
+                        if plots_saved_per_task[k] < MAX_SUBJECT_PLOTS_PER_TASK:
+                            plots_saved_per_task[k]+=1
 
             for i in range(num_outputs):
                 regression_predictions[i].extend(mean_pred[:, i].cpu().numpy())
                 regression_actuals[i].extend(targets[:, i].cpu().numpy())
+
             #Check monotnicity
             t = inputs[:, -1].detach().cpu().numpy()
             order = np.argsort(t)
@@ -618,6 +768,7 @@ def main():
                 if is_monotonic(seq_k, sigma[k]):
                     mono_subject_ok[k] += 1
 
+    
 
     for inputs, targets, _ in test_loader:
         inputs = inputs.to(device).clone().detach().requires_grad_(True)
@@ -665,7 +816,7 @@ def main():
     monotonicity_results.touch(exist_ok=True)
 
     with monotonicity_results.open("a", encoding="utf-8") as f:
-        print(str(datetime.datetime.now())+'\n')
+        print(str(datetime.datetime.now())+'\n', file=f)
         print("\n=== Multitask Evaluation ===", file=f)
         print(f"Num tasks: {num_outputs}", file=f)
         print(f"Sigma per task: {sigma}", file=f)
@@ -680,19 +831,10 @@ def main():
                 f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}, "
                 f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%", file=f
             )
-    # Optionally, save the models
+
     print(f"\nMean Test MSE (avg across tasks): {mse_mean:.4f}")
     print(f"Mean Test MAE (avg across tasks): {mae_mean:.4f}")
-    for k in range(num_outputs):
-        print(f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}")
-        for k in range(num_outputs):
-            subj_pct = 100.0 * mono_subject_ok[k] / max(mono_subject_total, 1)
-            samp_pct = 100.0 * mono_sample_ok[k] / max(mono_sample_total, 1)
 
-            print(
-                f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}, "
-                f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%", file=f
-            )
     # Optionally, save the models
     torch.save(gp_regression_model.state_dict(), 'gp_regression_model.pth')
     torch.save(regression_likelihood.state_dict(), 'regression_likelihood.pth')
