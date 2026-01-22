@@ -17,8 +17,6 @@ import argparse
 import os
 import matplotlib.pyplot as plt 
 import datetime
-# Set default dtype to double precision
-torch.set_default_dtype(torch.float64)
 # Define Regions ROIs
 import json
 from collections import OrderedDict
@@ -99,8 +97,8 @@ class CognitiveDataset(Dataset):
         """
         assert len(inputs) == len(targets) == len(subject_ids), "Inputs, targets, and subject_ids must have the same length."
 
-        self.inputs = torch.tensor(inputs, dtype=torch.float64)
-        self.targets = torch.tensor(targets, dtype=torch.float64)
+        self.inputs = torch.tensor(inputs, dtype=torch.float32)
+        self.targets = torch.tensor(targets, dtype=torch.float32)
         self.subject_ids = subject_ids  # List or array of subject IDs
 
         # Create a mapping from subject ID to indices
@@ -324,14 +322,14 @@ def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None
                 continue  # Skip this subject or handle as appropriate
 
             # Ensure numerical data type
-            selected_values = selected_values.astype(np.float64)
+            selected_values = selected_values.astype(np.float32)
             inducing_points_list.append(selected_values)
         else:
             print(f"Warning: No inducing points for subject {subject_id}.")
 
     if inducing_points_list:
         inducing_points_array = np.vstack(inducing_points_list)
-        inducing_points = torch.tensor(inducing_points_array, dtype=torch.float64)
+        inducing_points = torch.tensor(inducing_points_array, dtype=torch.float32)
     else:
         raise ValueError("No inducing points were selected. Check your data and selection criteria.")
 
@@ -649,7 +647,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 30  # Adjust as needed
+    num_epochs = 0  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -751,26 +749,31 @@ def main():
             # Regression Loss
             loss_regression = -mll_regression(gp_regression_output, targets)
 
-            mean = gp_regression_output.mean
+            #mean = gp_regression_output.mean.detach()
+            #mean.requires_grad_(True)
             #print(mean.shape, mean)
 
-            if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                mean = mean.transpose(0, 1)
+            #t = inputs[:, -1].detach().clone().requires_grad_(True)
 
+            #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                #mean = mean.transpose(0, 1)
+            features = feature_extractor_gp(inputs)
             penalty_terms = []
             for k in range(num_tasks):
-                mean_k = mean[k]
-                df_dx_k = torch.autograd.grad(
-                    outputs=mean_k,
+
+                z = features[:, k % features.shape[1]]
+
+                df_dt = torch.autograd.grad(
+                    outputs=z,
                     inputs=inputs,
-                    grad_outputs=torch.ones_like(mean_k),
-                    create_graph=True,
-                    retain_graph=True,
-                )[0]
+                    grad_outputs=torch.ones_like(z),
+                    create_graph=False,
+                    retain_graph=True
+                )[0][:, -1]
 
-                df_dt_k = df_dx_k[:, -1]
+                #df_dt_k = df_dx_k[:, -1]
 
-                penalty_k = torch.mean(torch.relu(sigma[k] * df_dt_k))
+                penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
                 penalty_terms.append(penalty_k)
                 
 
@@ -880,22 +883,21 @@ def main():
 
     for inputs, targets, _ in test_loader:
         inputs = inputs.to(device).clone().detach().requires_grad_(True)
-        gp_out = model_wrapper(inputs)
-        mean = gp_out.mean
+        features = feature_extractor_gp(inputs)
 
-        if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-            mean = mean.transpose(0, 1)
+        #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+            #mean = mean.transpose(0, 1)
 
         N = inputs.shape[0]
         mono_sample_total += N
         
         for k in range(num_outputs):
-            mean_k = mean[k]
+            z_k = features[:, k % features.shape[1]]
 
             df_dx_k = torch.autograd.grad(
-                outputs=mean_k,
+                outputs=z_k,
                 inputs=inputs,
-                grad_outputs=torch.ones_like(mean_k),
+                grad_outputs=torch.ones_like(z_k),
                 create_graph=False,
                 retain_graph=True
             )[0]
