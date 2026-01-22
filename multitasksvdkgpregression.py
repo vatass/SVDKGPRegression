@@ -22,7 +22,7 @@ torch.set_default_dtype(torch.float64)
 # Define Regions ROIs
 import json
 from collections import OrderedDict
-
+torch.set_default_dtype(torch.float32)
 # --- 1) Define ROIs per region ---
 REGION_ROIS = OrderedDict({
     0: ("Limbic system", [
@@ -596,16 +596,16 @@ def main():
     test_x = np.hstack((test_x_baseline, test_x_time))
 
     # Convert data tensors
-    train_x = torch.tensor(train_x, dtype=torch.float64)
-    train_y = torch.tensor(train_y, dtype=torch.float64)
-    test_x = torch.tensor(test_x, dtype=torch.float64)
-    test_y = torch.tensor(test_y, dtype=torch.float64)
+    train_x = torch.tensor(train_x, dtype=torch.float32)
+    train_y = torch.tensor(train_y, dtype=torch.float32)
+    test_x = torch.tensor(test_x, dtype=torch.float32)
+    test_y = torch.tensor(test_y, dtype=torch.float32)
 
     # Ensure double precision
-    train_x = train_x.double()
-    train_y = train_y.double()
-    test_x = test_x.double()
-    test_y = test_y.double()
+    train_x = train_x
+    train_y = train_y
+    test_x = test_x
+    test_y = test_y
 
     print("Train x shape :", train_x.shape)
     print("Train y shape :", train_y.shape)
@@ -613,31 +613,30 @@ def main():
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
     if mode == 2:
-        sigma = torch.tensor([-1] * num_outputs, dtype=torch.float64, device=device)
+        sigma = torch.tensor([-1] * num_outputs, dtype=torch.float32, device=device)
     else:
-        sigma = torch.tensor([1] * num_outputs, dtype=torch.float64, device=device)
+        sigma = torch.tensor([1] * num_outputs, dtype=torch.float32, device=device)
 
-    lambda_penalty = torch.tensor([lambda_val] * num_outputs, dtype=torch.float64, device=device)
-    print(sigma)
+    lambda_penalty = torch.tensor([lambda_val] * num_outputs, dtype=torch.float32, device=device)
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
 
-    batch_size = 64  # Adjust as needed
+    batch_size = 16  # Adjust as needed
     train_sampler = SubjectBatchSampler(train_dataset, batch_size=batch_size, shuffle=True)
     test_subject_sampler = TestSubjectBatchSampler(test_dataset, shuffle=False)
 
     pin = device.type == 'cuda'
-    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, pin_memory=pin, num_workers=2)
+    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, pin_memory=False, num_workers=0)
     test_loader = DataLoader(
         test_dataset,
         batch_sampler=test_subject_sampler,
-        collate_fn=collate_fn, pin_memory=pin, num_workers=2
+        collate_fn=collate_fn, pin_memory=False, num_workers=0
 )
 
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 256  # Adjust as needed
+    hidden_dim = 64  # Adjust as needed
 
     # Determine input dimension
     # =======================================
@@ -650,7 +649,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 1  # Adjust as needed
+    num_epochs = 30  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -686,16 +685,16 @@ def main():
     torch.save(feature_extractor.state_dict(), '{}/multitask_feature_extractor_latentconcatenation.pth'.format(output_file))
 
     # Visualize the training loss
-    import matplotlib.pyplot as plt
-    plt.figure(figsize=(10, 6))
-    plt.plot(total_regression_loss)
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.title('Training Loss Over Epochs')
-    plt.grid(True)
-    plt.show()
-    plt.savefig('{}/regression_training_loss.png'.format(output_file),  dpi=300)
-    plt.savefig('{}/regression_training_loss.svg'.format(output_file),  dpi=300)
+    # import matplotlib.pyplot as plt
+    # plt.figure(figsize=(10, 6))
+    # plt.plot(total_regression_loss)
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Loss')
+    # plt.title('Training Loss Over Epochs')
+    # plt.grid(True)
+    # plt.show()
+    # plt.savefig('{}/regression_training_loss.png'.format(output_file),  dpi=300)
+    # plt.savefig('{}/regression_training_loss.svg'.format(output_file),  dpi=300)
 
     # =======================================
     # Step 2: Load Feature Extractor for GP Model
@@ -714,7 +713,7 @@ def main():
     inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=3)
 
     # Ensure inducing points are in torch.float64
-    inducing_points = inducing_points.double().to(device)
+    #inducing_points = inducing_points.double().to(device)
 
     # Initialize GP Regression Model and Likelihood
     gp_regression_model = MultitaskDeepKernelGPModel(inducing_points, num_tasks=num_outputs, feature_extractor=feature_extractor_gp)
@@ -722,8 +721,8 @@ def main():
 
 
     # Convert models and likelihoods to double precision
-    gp_regression_model = gp_regression_model.double()
-    regression_likelihood = regression_likelihood.double()
+    #gp_regression_model = gp_regression_model.double()
+    #regression_likelihood = regression_likelihood.double()
     model_wrapper = GPModelWrapper(gp_regression_model, regression_likelihood).to(device)
     # Define loss functions
     mll_regression = gpytorch.mlls.VariationalELBO(regression_likelihood, gp_regression_model, num_data=len(train_dataset), combine_terms = True)
@@ -736,7 +735,6 @@ def main():
 
     # Training Loop
     num_epochs = 1
-      # Adjust as neededd
 
     for epoch in range(num_epochs):
         model_wrapper.train()
