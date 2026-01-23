@@ -620,7 +620,7 @@ def main():
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
 
-    batch_size = 16  # Adjust as needed
+    batch_size = 64  # Adjust as needed
     train_sampler = SubjectBatchSampler(train_dataset, batch_size=batch_size, shuffle=True)
     test_subject_sampler = TestSubjectBatchSampler(test_dataset, shuffle=False)
 
@@ -634,7 +634,7 @@ def main():
 
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 64  # Adjust as needed
+    hidden_dim = 256 # Adjust as needed
 
     # Determine input dimension
     # =======================================
@@ -647,7 +647,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
-    num_epochs = 0  # Adjust as needed
+    num_epochs = 40  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -674,7 +674,7 @@ def main():
 
     MAX_SUBJECT_PLOTS_PER_TASK = 10
     plots_saved_per_task = [0] * num_outputs
-    plots_root = os.path.join(output_file, f"test_trajectories_mode{mode}_{region_name.replace(' ', '_')}")
+    plots_root = os.path.join(output_file, f"test_trajectories_mode{mode}_{lambda_val}_{region_name.replace(' ', '_')}")
     task_plots_dirs = _ensure_task_plot_dirs(plots_root, num_outputs)
 
     from pathlib import Path
@@ -732,7 +732,7 @@ def main():
     ], lr=1e-3)
 
     # Training Loop
-    num_epochs = 1
+    num_epochs = 300
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -782,7 +782,6 @@ def main():
             total_penalty = torch.sum(lambda_penalty * penalty)
 
             total_loss = loss_regression + total_penalty
-            print(total_loss)
             total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
