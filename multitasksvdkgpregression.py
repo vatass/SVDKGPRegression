@@ -751,7 +751,7 @@ def main():
             # Regression Loss
             loss_regression = -mll_regression(gp_regression_output, targets)
 
-            #mean = gp_regression_output.mean.detach()
+            mean = gp_regression_output.mean
             #mean.requires_grad_(True)
             #print(mean.shape, mean)
 
@@ -759,21 +759,19 @@ def main():
 
             #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
                 #mean = mean.transpose(0, 1)
-            features = feature_extractor_gp(inputs)
             penalty_terms = []
             for k in range(num_tasks):
 
-                z = features[:, k % features.shape[1]]
+                z = mean[:, k]
 
                 df_dt = torch.autograd.grad(
                     outputs=z,
                     inputs=inputs,
                     grad_outputs=torch.ones_like(z),
-                    create_graph=False,
+                    create_graph=True,
                     retain_graph=True
                 )[0][:, -1]
 
-                #df_dt_k = df_dx_k[:, -1]
 
                 penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
                 penalty_terms.append(penalty_k)
@@ -884,7 +882,9 @@ def main():
 
     for inputs, targets, _ in test_loader:
         inputs = inputs.to(device).clone().detach().requires_grad_(True)
-        features = feature_extractor_gp(inputs)
+        gp_regression_output = model_wrapper(inputs)
+        loss_regression = -mll_regression(gp_regression_output, targets)
+        mean = gp_regression_output.mean
 
         #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
             #mean = mean.transpose(0, 1)
@@ -893,17 +893,17 @@ def main():
         mono_sample_total += N
         
         for k in range(num_outputs):
-            z_k = features[:, k % features.shape[1]]
+            z_k = features[:, k]
 
             df_dx_k = torch.autograd.grad(
                 outputs=z_k,
                 inputs=inputs,
                 grad_outputs=torch.ones_like(z_k),
-                create_graph=False,
+                create_graph=True,
                 retain_graph=True
-            )[0]
+            )[0][:, -1]
 
-            df_dt_k = df_dx_k[:, -1]
+            #df_dt_k = df_dx_k
 
             if sigma[k] < 0:
                 mono_sample_ok[k] += (df_dt_k >= 0).sum().item()
