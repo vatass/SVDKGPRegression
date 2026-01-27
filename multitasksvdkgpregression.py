@@ -20,7 +20,7 @@ import datetime
 # Define Regions ROIs
 import json
 from collections import OrderedDict
-torch.set_default_dtype(torch.float32)
+torch.set_default_dtype(torch.float64)
 # --- 1) Define ROIs per region ---
 REGION_ROIS = OrderedDict({
     0: ("Limbic system", [
@@ -97,8 +97,8 @@ class CognitiveDataset(Dataset):
         """
         assert len(inputs) == len(targets) == len(subject_ids), "Inputs, targets, and subject_ids must have the same length."
 
-        self.inputs = torch.tensor(inputs, dtype=torch.float32)
-        self.targets = torch.tensor(targets, dtype=torch.float32)
+        self.inputs = torch.tensor(inputs, dtype=torch.float64)
+        self.targets = torch.tensor(targets, dtype=torch.float64)
         self.subject_ids = subject_ids  # List or array of subject IDs
 
         # Create a mapping from subject ID to indices
@@ -265,7 +265,7 @@ class TestSubjectBatchSampler(Sampler):
         return len(self.subject_ids)
 
 # Step 7: Define the select_inducing_points function
-def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None, num_points_per_subject=3):
+def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None, num_points_per_subject=3, device='cuda'):
     """
     Selects inducing points by sampling observations from selected subjects.
 
@@ -322,14 +322,15 @@ def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None
                 continue  # Skip this subject or handle as appropriate
 
             # Ensure numerical data type
-            selected_values = selected_values.astype(np.float32)
+            selected_values = selected_values.astype(np.float64)
             inducing_points_list.append(selected_values)
         else:
             print(f"Warning: No inducing points for subject {subject_id}.")
 
     if inducing_points_list:
         inducing_points_array = np.vstack(inducing_points_list)
-        inducing_points = torch.tensor(inducing_points_array, dtype=torch.float32)
+        inducing_points = torch.tensor(inducing_points_array, dtype=torch.float64)
+        inducing_points = inducing_points.to(device)
     else:
         raise ValueError("No inducing points were selected. Check your data and selection criteria.")
 
@@ -594,10 +595,10 @@ def main():
     test_x = np.hstack((test_x_baseline, test_x_time))
 
     # Convert data tensors
-    train_x = torch.tensor(train_x, dtype=torch.float32)
-    train_y = torch.tensor(train_y, dtype=torch.float32)
-    test_x = torch.tensor(test_x, dtype=torch.float32)
-    test_y = torch.tensor(test_y, dtype=torch.float32)
+    train_x = torch.tensor(train_x, dtype=torch.float64)
+    train_y = torch.tensor(train_y, dtype=torch.float64)
+    test_x = torch.tensor(test_x, dtype=torch.float64)
+    test_y = torch.tensor(test_y, dtype=torch.float64)
 
     # Ensure double precision
     train_x = train_x
@@ -611,11 +612,11 @@ def main():
     #Define monotonicity hyper-parameters
     num_tasks = num_outputs
     if mode == 2:
-        sigma = torch.tensor([-1] * num_outputs, dtype=torch.float32, device=device)
+        sigma = torch.tensor([-1] * num_outputs, dtype=torch.float64, device=device)
     else:
-        sigma = torch.tensor([1] * num_outputs, dtype=torch.float32, device=device)
+        sigma = torch.tensor([1] * num_outputs, dtype=torch.float64, device=device)
 
-    lambda_penalty = torch.tensor([lambda_val] * num_outputs, dtype=torch.float32, device=device)
+    lambda_penalty = torch.tensor([lambda_val] * num_outputs, dtype=torch.float64, device=device)
     # Create datasets
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
@@ -634,7 +635,7 @@ def main():
 
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 256 # Adjust as needed
+    hidden_dim = 512 # Adjust as needed
 
     # Determine input dimension
     # =======================================
@@ -704,11 +705,12 @@ def main():
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
     feature_extractor_gp.load_state_dict(torch.load('{}/multitask_feature_extractor_latentconcatenation.pth'.format(output_file)))
     feature_extractor_gp.eval()
+    feature_extractor_gp = feature_extractor_gp.double()
 
     # Prepare the inducing points
     unique_train_subject_ids = list(set(corresponding_train_ids))
-    selected_subject_ids = random.sample(unique_train_subject_ids, 200)  # Adjust the number as needed
-    inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=3)
+    selected_subject_ids = random.sample(unique_train_subject_ids, 300)  # Adjust the number as needed
+    inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=5)
 
     # Ensure inducing points are in torch.float64
     #inducing_points = inducing_points.double().to(device)
@@ -719,8 +721,8 @@ def main():
 
 
     # Convert models and likelihoods to double precision
-    #gp_regression_model = gp_regression_model.double()
-    #regression_likelihood = regression_likelihood.double()
+    gp_regression_model = gp_regression_model.double().to(device)
+    regression_likelihood = regression_likelihood.double().to(device)
     model_wrapper = GPModelWrapper(gp_regression_model, regression_likelihood).to(device)
     # Define loss functions
     mll_regression = gpytorch.mlls.VariationalELBO(regression_likelihood, gp_regression_model, num_data=len(train_dataset), combine_terms = True)
@@ -741,7 +743,7 @@ def main():
 
         for inputs, targets, _ in train_loader:
             inputs = inputs.to(device).clone().detach().requires_grad_(True)
-            targets = targets.to(device)
+            targets = targets.to(device, dtype=torch.float64)
 
             optimizer.zero_grad()
             gp_regression_output = model_wrapper(inputs)
