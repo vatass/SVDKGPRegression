@@ -645,7 +645,7 @@ def main():
     feature_extractor = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
     model = RegressionNNLatentConcatenation(feature_extractor, output_dim=num_outputs).to(device)
     criterion = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
+    optimizer = torch.optim.Adam(model.parameters(), lr=2e-4)
 
     # Training loop for deep regression model
     num_epochs = 40  # Adjust as needed
@@ -731,7 +731,7 @@ def main():
     optimizer = torch.optim.Adam([
         {'params': gp_regression_model.parameters()},
         {'params': regression_likelihood.parameters()}
-    ], lr=1e-3)
+    ], lr=2e-3)
 
     # Training Loop
     num_epochs = 300
@@ -753,31 +753,44 @@ def main():
                 loss_regression = -mll_regression(gp_regression_output, targets)
 
                 mean = gp_regression_output.mean
+                combined_mean = mean.sum(dim=-1)
                 #mean.requires_grad_(True)
                 #print(mean.shape, mean)
                 #t = inputs[:, -1].detach().clone().requires_grad_(True)
-                #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                    #mean = mean.transpose(0, 1)
-                penalty_terms = []
-                for k in range(num_tasks):
-                    z = mean[:, k]
+                if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                    mean = mean.transpose(0, 1)
+                # penalty_terms = []
+                # for k in range(num_tasks):
+                #     print(k)
+                #     z = mean[:, k]
 
-                    df_dt = torch.autograd.grad(
-                        outputs=z,
-                        inputs=inputs,
-                        grad_outputs=torch.ones_like(z),
-                        create_graph=True
-                    )[0][:, -1]
+                #     df_dt = torch.autograd.grad(
+                #         outputs=z,
+                #         inputs=inputs,
+                #         grad_outputs=torch.ones_like(z),
+                #         create_graph=True,
+                #         retain_graph=True,
+                #         allow_unused=True
+                #     )[0][:, -1]
 
-                    penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
-                    penalty_terms.append(penalty_k)
+                #     penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
+                #     penalty_terms.append(penalty_k)
                     
                 # Total Loss
-                penalty = torch.stack(penalty_terms)
-                total_penalty = torch.sum(lambda_penalty * penalty)
+                grad = torch.autograd.grad(
+                    outputs=combined_mean,
+                    inputs=inputs,
+                    grad_outputs=torch.ones_like(combined_mean),
+                    create_graph=True
+                )[0][:,-1]
 
-                total_loss = loss_regression + total_penalty
-                print(total_loss)
+                #penalty = torch.stack(penalty_terms)
+                penalty = torch.mean(torch.relu(sigma[0] * grad))
+                #total_penalty = torch.sum(lambda_penalty * penalty)
+
+                #total_loss = loss_regression + total_penalty
+                total_loss = loss_regression + lambda_val * penalty
+                #print(total_loss)
                 total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
@@ -879,38 +892,24 @@ def main():
     for inputs, targets, _ in test_loader:
         inputs = inputs.to(device).clone().detach().requires_grad_(True)
         gp_regression_output = model_wrapper(inputs)
-        loss_regression = -mll_regression(gp_regression_output, targets)
-        mean = gp_regression_output.mean
 
-        #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-            #mean = mean.transpose(0, 1)
+        mean = gp_regression_output.mean  # shape: [N, K]
+        combined_mean = mean.sum(dim=-1)  # shape: [N]
 
         N = inputs.shape[0]
         mono_sample_total += N
-        
-        for k in range(num_outputs):
-            z_k = mean[:, k]
 
-            df_dx_k = torch.autograd.grad(
-                outputs=z_k,
-                inputs=inputs,
-                grad_outputs=torch.ones_like(z_k),
-                create_graph=True,
-            )[0][:, -1]
+        grad = torch.autograd.grad(
+            outputs=combined_mean,
+            inputs=inputs,
+            grad_outputs=torch.ones_like(combined_mean),
+            create_graph=False,
+        )[0][:, -1]  # derivative w.r.t. time
 
-            #df_dt_k = df_dx_k
-
-            if sigma[k] < 0:
-                mono_sample_ok[k] += (df_dt_k >= 0).sum().item()
-            else:
-                mono_sample_ok[k] += (df_dt_k <= 0).sum().item()
-
-        # Regression Metrics for Each Output
-        # for i in range(num_outputs):
-        #     mse = mean_squared_error(regression_actuals[i], regression_predictions[i])
-        #     mae = mean_absolute_error(regression_actuals[i], regression_predictions[i])
-        #     with monotonicity_results.open("a", encoding="utf-8") as f:
-        #         print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
+        if sigma[0] < 0:
+            mono_sample_ok[0] += (grad >= 0).sum().item()
+        else:
+            mono_sample_ok[0] += (grad <= 0).sum().item()
 
     mse_per_task, mae_per_task, mse_mean, mae_mean = _mse_mae_per_task(
         regression_actuals, regression_predictions
