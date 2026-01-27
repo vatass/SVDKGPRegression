@@ -53,7 +53,7 @@ REGION_ROIS = OrderedDict({
 def get_region_y_indices_and_names(mode: int, roi_to_idx: dict):
     if mode not in REGION_ROIS:
         raise ValueError(f"Mode {mode} not supported")
-    
+
     region_name, rois = REGION_ROIS[mode]
     roi_ids = []
     for roi in rois:
@@ -61,7 +61,7 @@ def get_region_y_indices_and_names(mode: int, roi_to_idx: dict):
             iterable = roi
         else:
             iterable = [roi]
-        
+
         for r in iterable:
             r = str(r).strip()
             if r.startswith("MUSE_Volume_"):
@@ -72,11 +72,11 @@ def get_region_y_indices_and_names(mode: int, roi_to_idx: dict):
 
     if missing:
         raise KeyError(f"These ROIS are missing: {missing}")
-    
+
     idxs = [int(roi_to_idx[rid]) for rid in roi_ids]
 
     task_names = [f"ROI_{rid}" for rid in roi_ids]
-    
+
     return region_name, idxs, task_names
 
 def select_region_targets(Y: np.ndarray, mode: int, roi_to_idx: dict):
@@ -265,7 +265,7 @@ class TestSubjectBatchSampler(Sampler):
         return len(self.subject_ids)
 
 # Step 7: Define the select_inducing_points function
-def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None, num_points_per_subject=3, device='cuda'):
+def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None, num_points_per_subject=3):
     """
     Selects inducing points by sampling observations from selected subjects.
 
@@ -330,7 +330,6 @@ def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None
     if inducing_points_list:
         inducing_points_array = np.vstack(inducing_points_list)
         inducing_points = torch.tensor(inducing_points_array, dtype=torch.float64)
-        inducing_points = inducing_points.to(device)
     else:
         raise ValueError("No inducing points were selected. Check your data and selection criteria.")
 
@@ -341,7 +340,7 @@ def load_and_preprocess_region_based_data(folder, file, train_ids, test_ids, mod
     roi_to_idx = json.load(f)
 
     index_to_roi = {v: k for k, v in roi_to_idx.items()}
- 
+
     datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_hmuse_allstudies.csv')
 
     train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
@@ -378,7 +377,7 @@ def load_and_preprocess_data(folder, file, train_ids, test_ids):
 
     index_to_roi = {v: k for k, v in roi_to_idx.items()}
     # Load your data
-    
+
     #datasamples = pd.read_csv('/home/cbica/Desktop/SVDKRegression/multitask_neuroimaging_biomarkers_allstudies.csv')
     datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_hmuse_allstudies.csv')
     # Set up the train/test data
@@ -414,7 +413,7 @@ def collate_fn(batch):
     inputs = torch.stack([item[0] for item in batch])
     targets = torch.stack([item[1] for item in batch])
     subject_ids = [item[2] for item in batch]  # Keep as list or convert to tensor if numeric
-    
+
     return inputs, targets, subject_ids
 
 def _mse_mae_per_task(actuals_list, preds_list):
@@ -424,7 +423,7 @@ def _mse_mae_per_task(actuals_list, preds_list):
         mse_per_task.append(mean_squared_error(actuals_list[k], preds_list[k]))
         mae_per_task.append(mean_absolute_error(actuals_list[k], preds_list[k]))
     return mse_per_task, mae_per_task, float(np.mean(mse_per_task)), float(np.mean(mae_per_task))
-    
+
 #Plot trajectories
 def _safe_filename(s:str) -> str:
     s = str(s)
@@ -553,7 +552,7 @@ def main():
                 train_ids.append(pickle.load(openfile))
             except EOFError:
                 break 
-    
+
     with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_mmse" + str(fold) +  ".pkl", "rb")) as openfile:
         while True:
             try:
@@ -622,6 +621,7 @@ def main():
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
 
     batch_size = 16  # Adjust as needed
+    batch_size = 64  # Adjust as needed
     train_sampler = SubjectBatchSampler(train_dataset, batch_size=batch_size, shuffle=True)
     test_subject_sampler = TestSubjectBatchSampler(test_dataset, shuffle=False)
 
@@ -635,7 +635,8 @@ def main():
 
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 128 # Adjust as needed
+    hidden_dim = 64  # Adjust as needed
+    hidden_dim = 256 # Adjust as needed
 
     # Determine input dimension
     # =======================================
@@ -645,10 +646,11 @@ def main():
     feature_extractor = FeatureExtractorLatentConcatenation(input_dim, hidden_dim)
     model = RegressionNNLatentConcatenation(feature_extractor, output_dim=num_outputs).to(device)
     criterion = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=2e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
 
     # Training loop for deep regression model
     num_epochs = 0  # Adjust as needed
+    num_epochs = 40  # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -675,6 +677,7 @@ def main():
 
     MAX_SUBJECT_PLOTS_PER_TASK = 10
     plots_saved_per_task = [0] * num_outputs
+    plots_root = os.path.join(output_file, f"test_trajectories_mode{mode}_{region_name.replace(' ', '_')}")
     plots_root = os.path.join(output_file, f"test_trajectories_mode{mode}_{lambda_val}_{region_name.replace(' ', '_')}")
     task_plots_dirs = _ensure_task_plot_dirs(plots_root, num_outputs)
 
@@ -700,12 +703,11 @@ def main():
     # =======================================
     # Re-initialize the feature extractor and load the saved parameters
     #Create output folder for runs
-    
+
 
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
     feature_extractor_gp.load_state_dict(torch.load('{}/multitask_feature_extractor_latentconcatenation.pth'.format(output_file)))
     feature_extractor_gp.eval()
-    feature_extractor_gp = feature_extractor_gp.double()
 
     # Prepare the inducing points
     unique_train_subject_ids = list(set(corresponding_train_ids))
@@ -713,15 +715,16 @@ def main():
     inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=3)
 
     # Ensure inducing points are in torch.float64
-    inducing_points = inducing_points.double().to(device)
+    #inducing_points = inducing_points.double().to(device)
+
     # Initialize GP Regression Model and Likelihood
     gp_regression_model = MultitaskDeepKernelGPModel(inducing_points, num_tasks=num_outputs, feature_extractor=feature_extractor_gp)
     regression_likelihood = gpytorch.likelihoods.MultitaskGaussianLikelihood(num_tasks=num_outputs)
 
 
     # Convert models and likelihoods to double precision
-    gp_regression_model = gp_regression_model.double().to(device)
-    regression_likelihood = regression_likelihood.double().to(device)
+    #gp_regression_model = gp_regression_model.double()
+    #regression_likelihood = regression_likelihood.double()
     model_wrapper = GPModelWrapper(gp_regression_model, regression_likelihood).to(device)
     # Define loss functions
     mll_regression = gpytorch.mlls.VariationalELBO(regression_likelihood, gp_regression_model, num_data=len(train_dataset), combine_terms = True)
@@ -730,9 +733,10 @@ def main():
     optimizer = torch.optim.Adam([
         {'params': gp_regression_model.parameters()},
         {'params': regression_likelihood.parameters()}
-    ], lr=2e-3)
+    ], lr=1e-3)
 
     # Training Loop
+    num_epochs = 1
     num_epochs = 300
 
     for epoch in range(num_epochs):
@@ -741,54 +745,50 @@ def main():
         running_loss = 0.0
 
         for inputs, targets, _ in train_loader:
-            inputs = inputs.to(device).clone().requires_grad_(True)
-            targets = targets.to(device, dtype=torch.float64)
+            inputs = inputs.to(device).clone().detach().requires_grad_(True)
+            targets = targets.to(device)
 
             optimizer.zero_grad()
-            with gpytorch.settings.fast_pred_var(False):
-                gp_regression_output = model_wrapper(inputs)
+            gp_regression_output = model_wrapper(inputs)
 
-                # Regression Loss
-                loss_regression = -mll_regression(gp_regression_output, targets)
+            # Regression Loss
+            loss_regression = -mll_regression(gp_regression_output, targets)
 
-                mean = gp_regression_output.mean
-                #combined_mean = mean.sum(dim=-1)
-                #mean.requires_grad_(True)
-                #print(mean.shape, mean)
-                #t = inputs[:, -1].detach().clone().requires_grad_(True)
-                if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                    mean = mean.transpose(0, 1)
-                penalty_terms = []
-                for k in range(num_tasks):
-                    print(k)
-                    z = mean[:, k]
+            #mean = gp_regression_output.mean.detach()
+            #mean.requires_grad_(True)
+            #print(mean.shape, mean)
 
-                    df_dt = torch.autograd.grad(
-                        outputs=z,
-                        inputs=inputs,
-                        grad_outputs=torch.ones_like(z),
-                        create_graph=True
-                    )[0][:, -1]
+            #t = inputs[:, -1].detach().clone().requires_grad_(True)
 
-                    penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
-                    penalty_terms.append(penalty_k)
-                    
-                # Total Loss
-                # grad = torch.autograd.grad(
-                #     outputs=combined_mean,
-                #     inputs=inputs,
-                #     grad_outputs=torch.ones_like(combined_mean),
-                #     create_graph=True
-                # )[0][:,-1]
+            #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                #mean = mean.transpose(0, 1)
+            features = feature_extractor_gp(inputs)
+            penalty_terms = []
+            for k in range(num_tasks):
 
-                penalty = torch.stack(penalty_terms)
-                #penalty = torch.mean(torch.relu(sigma[0] * grad))
-                total_penalty = torch.sum(lambda_penalty * penalty)
+                z = features[:, k % features.shape[1]]
 
-                total_loss = loss_regression + total_penalty
-                #total_loss = loss_regression + lambda_val * penalty
-                print(total_loss)
-                total_loss.backward()
+                df_dt = torch.autograd.grad(
+                    outputs=z,
+                    inputs=inputs,
+                    grad_outputs=torch.ones_like(z),
+                    create_graph=True,
+                    retain_graph=True
+                )[0][:, -1]
+
+                #df_dt_k = df_dx_k[:, -1]
+
+                penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
+                penalty_terms.append(penalty_k)
+
+
+            # Total Loss
+            penalty = torch.stack(penalty_terms)
+            total_penalty = torch.sum(lambda_penalty * penalty)
+
+            total_loss = loss_regression + total_penalty
+            #print(total_loss)
+            total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
             optimizer.step()
@@ -807,7 +807,7 @@ def main():
         else:
             return np.all(np.diff(seq) <= 0)
 
-        
+
     model_wrapper.eval()
     regression_likelihood.eval()
     with torch.no_grad():
@@ -884,29 +884,42 @@ def main():
                 if is_monotonic(seq_k, sigma[k]):
                     mono_subject_ok[k] += 1
 
-    
+
 
     for inputs, targets, _ in test_loader:
         inputs = inputs.to(device).clone().detach().requires_grad_(True)
-        gp_regression_output = model_wrapper(inputs)
+        features = feature_extractor_gp(inputs)
 
-        mean = gp_regression_output.mean  # shape: [N, K]
-        combined_mean = mean.sum(dim=-1)  # shape: [N]
+        #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+            #mean = mean.transpose(0, 1)
 
         N = inputs.shape[0]
         mono_sample_total += N
 
-        grad = torch.autograd.grad(
-            outputs=combined_mean,
-            inputs=inputs,
-            grad_outputs=torch.ones_like(combined_mean),
-            create_graph=False,
-        )[0][:, -1]  # derivative w.r.t. time
+        for k in range(num_outputs):
+            z_k = features[:, k % features.shape[1]]
 
-        if sigma[0] < 0:
-            mono_sample_ok[0] += (grad >= 0).sum().item()
-        else:
-            mono_sample_ok[0] += (grad <= 0).sum().item()
+            df_dx_k = torch.autograd.grad(
+                outputs=z_k,
+                inputs=inputs,
+                grad_outputs=torch.ones_like(z_k),
+                create_graph=False,
+                retain_graph=True
+            )[0]
+
+            df_dt_k = df_dx_k[:, -1]
+
+            if sigma[k] < 0:
+                mono_sample_ok[k] += (df_dt_k >= 0).sum().item()
+            else:
+                mono_sample_ok[k] += (df_dt_k <= 0).sum().item()
+
+        # Regression Metrics for Each Output
+        # for i in range(num_outputs):
+        #     mse = mean_squared_error(regression_actuals[i], regression_predictions[i])
+        #     mae = mean_absolute_error(regression_actuals[i], regression_predictions[i])
+        #     with monotonicity_results.open("a", encoding="utf-8") as f:
+        #         print(f"Output {i+1} - Test MSE: {mse:.4f}, MAE: {mae:.4f}")
 
     mse_per_task, mae_per_task, mse_mean, mae_mean = _mse_mae_per_task(
         regression_actuals, regression_predictions
