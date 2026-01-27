@@ -746,43 +746,39 @@ def main():
             targets = targets.to(device, dtype=torch.float64)
 
             optimizer.zero_grad()
-            gp_regression_output = model_wrapper(inputs)
+            with gpytorch.settings.fast_pred_var(False):
+                gp_regression_output = model_wrapper(inputs)
 
-            # Regression Loss
-            loss_regression = -mll_regression(gp_regression_output, targets)
+                # Regression Loss
+                loss_regression = -mll_regression(gp_regression_output, targets)
 
-            mean = gp_regression_output.mean
-            #mean.requires_grad_(True)
-            #print(mean.shape, mean)
+                mean = gp_regression_output.mean
+                #mean.requires_grad_(True)
+                #print(mean.shape, mean)
+                #t = inputs[:, -1].detach().clone().requires_grad_(True)
+                #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                    #mean = mean.transpose(0, 1)
+                penalty_terms = []
+                for k in range(num_tasks):
+                    z = mean[:, k]
 
-            #t = inputs[:, -1].detach().clone().requires_grad_(True)
+                    df_dt = torch.autograd.grad(
+                        outputs=z,
+                        inputs=inputs,
+                        grad_outputs=torch.ones_like(z),
+                        create_graph=True
+                    )[0][:, -1]
 
-            #if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                #mean = mean.transpose(0, 1)
-            penalty_terms = []
-            for k in range(num_tasks):
+                    penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
+                    penalty_terms.append(penalty_k)
+                    
+                # Total Loss
+                penalty = torch.stack(penalty_terms)
+                total_penalty = torch.sum(lambda_penalty * penalty)
 
-                z = mean[:, k]
-
-                df_dt = torch.autograd.grad(
-                    outputs=z,
-                    inputs=inputs,
-                    grad_outputs=torch.ones_like(z),
-                    create_graph=True,
-                    retain_graph=True
-                )[0][:, -1]
-
-
-                penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
-                penalty_terms.append(penalty_k)
-                
-
-            # Total Loss
-            penalty = torch.stack(penalty_terms)
-            total_penalty = torch.sum(lambda_penalty * penalty)
-
-            total_loss = loss_regression + total_penalty
-            total_loss.backward()
+                total_loss = loss_regression + total_penalty
+                print(total_loss)
+                total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
             optimizer.step()
@@ -893,14 +889,13 @@ def main():
         mono_sample_total += N
         
         for k in range(num_outputs):
-            z_k = features[:, k]
+            z_k = mean[:, k]
 
             df_dx_k = torch.autograd.grad(
                 outputs=z_k,
                 inputs=inputs,
                 grad_outputs=torch.ones_like(z_k),
                 create_graph=True,
-                retain_graph=True
             )[0][:, -1]
 
             #df_dt_k = df_dx_k
