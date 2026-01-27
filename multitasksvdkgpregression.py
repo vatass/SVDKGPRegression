@@ -626,7 +626,7 @@ def main():
     test_subject_sampler = TestSubjectBatchSampler(test_dataset, shuffle=False)
 
     pin = device.type == 'cuda'
-    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, pin_memory=False, num_workers=0)
+    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, collate_fn=collate_fn, pin_memory=False, num_workers=0)
     test_loader = DataLoader(
         test_dataset,
         batch_sampler=test_subject_sampler,
@@ -741,37 +741,44 @@ def main():
         running_loss = 0.0
 
         for inputs, targets, _ in train_loader:
-            inputs = inputs.to(device).clone().requires_grad_(True)
-            targets = targets.to(device, dtype=torch.float64)
-
+            inputs = inputs.to(device, non_blocking=True)
+            targets = targets.to(device, non_blocking=True)
             optimizer.zero_grad()
+
             with gpytorch.settings.fast_pred_var(False):
-                gp_regression_output = model_wrapper(inputs)
+                #gp_regression_output = model_wrapper(inputs)
 
                 # Regression Loss
+                f = model_wrapper(inputs)
+                pred = regression_likelihood(f)
+                mean_pred = pred.mean
                 loss_regression = -mll_regression(gp_regression_output, targets)
-
-                mean = gp_regression_output.mean
+                t = inputs[:, -1]
+                order = torch.argsort(t)
+                mu = mean_pred[order]
+                delta = mu[1:] - mu[:-1]
+                pen = torch.relu(sigma.view(1, -1) * delta).mean(dim=0)
+                #mean = gp_regression_output.mean
                 #combined_mean = mean.sum(dim=-1)
                 #mean.requires_grad_(True)
                 #print(mean.shape, mean)
                 #t = inputs[:, -1].detach().clone().requires_grad_(True)
-                if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
-                    mean = mean.transpose(0, 1)
-                penalty_terms = []
-                for k in range(num_tasks):
-                    print(k)
-                    z = mean[:, k]
+                # if mean.dim() == 2 and mean.shape[0] == inputs.shape[0]:
+                #     mean = mean.transpose(0, 1)
+                # penalty_terms = []
+                # for k in range(num_tasks):
+                #     print(k)
+                #     z = mean[:, k]
 
-                    df_dt = torch.autograd.grad(
-                        outputs=z,
-                        inputs=inputs,
-                        grad_outputs=torch.ones_like(z),
-                        create_graph=True
-                    )[0][:, -1]
+                #     df_dt = torch.autograd.grad(
+                #         outputs=z,
+                #         inputs=inputs,
+                #         grad_outputs=torch.ones_like(z),
+                #         create_graph=True
+                #     )[0][:, -1]
 
-                    penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
-                    penalty_terms.append(penalty_k)
+                #     penalty_k = torch.mean(torch.relu(sigma[k] * df_dt))
+                #     penalty_terms.append(penalty_k)
                     
                 # Total Loss
                 # grad = torch.autograd.grad(
@@ -781,10 +788,10 @@ def main():
                 #     create_graph=True
                 # )[0][:,-1]
 
-                penalty = torch.stack(penalty_terms)
+                #penalty = torch.stack(penalty_terms)
                 #penalty = torch.mean(torch.relu(sigma[0] * grad))
-                total_penalty = torch.sum(lambda_penalty * penalty)
-
+                #total_penalty = torch.sum(lambda_penalty * penalty)
+                total_penalty = (lambda_penalty * pen).sum()
                 total_loss = loss_regression + total_penalty
                 #total_loss = loss_regression + lambda_val * penalty
                 print(total_loss)
