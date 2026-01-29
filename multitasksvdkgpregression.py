@@ -28,26 +28,34 @@ REGION_ROIS = OrderedDict({
         "MUSE_Volume_139","MUSE_Volume_166","MUSE_Volume_167","MUSE_Volume_170","MUSE_Volume_171",
     ]),
     1: ("Parietal lobe", [
-        "MUSE_Volume_83","MUSE_Volume_86","MUSE_Volume_107","MUSE_Volume_108","MUSE_Volume_114","MUSE_Volume_115",
-        "MUSE_Volume_128","MUSE_Volume_129","MUSE_Volume_134","MUSE_Volume_135","MUSE_Volume_144","MUSE_Volume_145",
-        "MUSE_Volume_156","MUSE_Volume_157",
+        "MUSE_Volume_85","MUSE_Volume_86","MUSE_Volume_106","MUSE_Volume_107","MUSE_Volume_148","MUSE_Volume_149",
+        "MUSE_Volume_168","MUSE_Volume_169","MUSE_Volume_176","MUSE_Volume_177","MUSE_Volume_194","MUSE_Volume_195",
+        "MUSE_Volume_198","MUSE_Volume_199",
     ]),
     2: ("Ventricular system", [
-        "MUSE_Volume_3","MUSE_Volume_4","MUSE_Volume_31","MUSE_Volume_32","MUSE_Volume_49","MUSE_Volume_50",
+        "MUSE_Volume_4","MUSE_Volume_11", "MUSE_Volume_49","MUSE_Volume_50","MUSE_Volume_51","MUSE_Volume_52",
     ]),
-    3: ("Cerebellum", [
-        "MUSE_Volume_63","MUSE_Volume_64","MUSE_Volume_65","MUSE_Volume_66","MUSE_Volume_67","MUSE_Volume_68","MUSE_Volume_69",
+    3: ("Temporal lobe", [
+        "MUSE_Volume_87","MUSE_Volume_88","MUSE_Volume_122","MUSE_Volume_123",
+        "MUSE_Volume_132","MUSE_Volume_133","MUSE_Volume_154","MUSE_Volume_155","MUSE_Volume_180","MUSE_Volume_181",
+        "MUSE_Volume_184","MUSE_Volume_185","MUSE_Volume_200","MUSE_Volume_201","MUSE_Volume_202","MUSE_Volume_203",
+        "MUSE_Volume_206", "MUSE_Volume_207"
     ]),
-    4: ("Temporal lobe", [
-        "MUSE_Volume_118","MUSE_Volume_119","MUSE_Volume_120","MUSE_Volume_121","MUSE_Volume_122","MUSE_Volume_123",
-        "MUSE_Volume_124","MUSE_Volume_125","MUSE_Volume_126","MUSE_Volume_127","MUSE_Volume_158","MUSE_Volume_159",
-        "MUSE_Volume_162","MUSE_Volume_163","MUSE_Volume_172","MUSE_Volume_173","MUSE_Volume_174","MUSE_Volume_175",
+    4: ("Occipital lobe", [
+        "MUSE_Volume_83","MUSE_Volume_84","MUSE_Volume_108","MUSE_Volume_109","MUSE_Volume_114","MUSE_Volume_115",
+        "MUSE_Volume_128","MUSE_Volume_129","MUSE_Volume_134","MUSE_Volume_135","MUSE_Volume_144","MUSE_Volume_145",
+        "MUSE_Volume_156","MUSE_Volume_157","MUSE_Volume_160","MUSE_Volume_161","MUSE_Volume_196","MUSE_Volume_197",
     ]),
-    5: ("Occipital lobe", [
-        "MUSE_Volume_84","MUSE_Volume_85","MUSE_Volume_87","MUSE_Volume_88","MUSE_Volume_89","MUSE_Volume_90",
-        "MUSE_Volume_91","MUSE_Volume_92","MUSE_Volume_93","MUSE_Volume_94","MUSE_Volume_95","MUSE_Volume_96",
-        "MUSE_Volume_97","MUSE_Volume_98","MUSE_Volume_99","MUSE_Volume_150","MUSE_Volume_151","MUSE_Volume_152",
-    ]),
+    5: ("Frontal lobe", [
+        "MUSE_Volume_81", "MUSE_Volume_82", "MUSE_Volume_102", "MUSE_Volume_103", "MUSE_Volume_104", "MUSE_Volume_105",
+        "MUSE_Volume_112", "MUSE_Volume_113", "MUSE_Volume_118", "MUSE_Volume_119", "MUSE_Volume_120", "MUSE_Volume_121",
+        "MUSE_Volume_124", "MUSE_Volume_125", "MUSE_Volume_136", "MUSE_Volume_137", "MUSE_Volume_140", "MUSE_Volume_141", 
+        "MUSE_Volume_142", "MUSE_Volume_143", "MUSE_Volume_146", "MUSE_Volume_147", "MUSE_Volume_150", "MUSE_Volume_151",
+        "MUSE_Volume_152", "MUSE_Volume_153", "MUSE_Volume_162", "MUSE_Volume_163", "MUSE_Volume_164", "MUSE_Volume_165",
+        "MUSE_Volume_172", "MUSE_Volume_173", "MUSE_Volume_174", "MUSE_Volume_175", "MUSE_Volume_178", "MUSE_Volume_179",
+        "MUSE_Volume_182", "MUSE_Volume_183", "MUSE_Volume_186", "MUSE_Volume_187", "MUSE_Volume_190", "MUSE_Volume_191"
+        "MUSE_Volume_192", "MUSE_Volume_193", "MUSE_Volume_204", "MUSE_Volume_205"
+    ])
 })
 
 def get_region_y_indices_and_names(mode: int, roi_to_idx: dict):
@@ -69,7 +77,7 @@ def get_region_y_indices_and_names(mode: int, roi_to_idx: dict):
             roi_ids.append(r)
 
     missing = [rid for rid in roi_ids if rid not in roi_to_idx]
-
+    print(roi_to_idx)
     if missing:
         raise KeyError(f"These ROIS are missing: {missing}")
     
@@ -301,7 +309,7 @@ def select_inducing_points(train_x, train_subject_ids, selected_subject_ids=None
 
     for subject_id, group in grouped:
         # Sort the group by temporal variable (assuming it's the last column minus one)
-        temporal_col_index = expected_num_features - 2  # Adjust index if necessary
+        temporal_col_index = expected_num_features - 1  # Adjust index if necessary
         group_sorted = group.sort_values(by=group.columns[temporal_col_index])
         num_observations = group_sorted.shape[0]
 
@@ -508,7 +516,7 @@ def save_subject_trajectory_plots(
         if save_csv:
             out_csv = os.path.join(task_dirs[k], f"{subj_safe}_task{k+1}.csv")
             if y_std is None:
-                df = pf.DataFrame({
+                df = pd.DataFrame({
                     "time": t,
                     "y_true": y_true[:, k],
                     "y_pred": y_pred[:, k],
@@ -621,21 +629,21 @@ def main():
     train_dataset = CognitiveDataset(inputs=train_x, targets=train_y, subject_ids=corresponding_train_ids)
     test_dataset = CognitiveDataset(inputs=test_x, targets=test_y, subject_ids=corresponding_test_ids)
 
-    batch_size = 16  # Adjust as needed
+    batch_size = 32  # Adjust as needed
     train_sampler = SubjectBatchSampler(train_dataset, batch_size=batch_size, shuffle=True)
     test_subject_sampler = TestSubjectBatchSampler(test_dataset, shuffle=False)
 
     pin = device.type == 'cuda'
-    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, collate_fn=collate_fn, pin_memory=False, num_workers=0)
+    train_loader = DataLoader(train_dataset, batch_sampler=train_sampler, collate_fn=collate_fn, pin_memory=False, num_workers=4)
     test_loader = DataLoader(
         test_dataset,
         batch_sampler=test_subject_sampler,
-        collate_fn=collate_fn, pin_memory=False, num_workers=0
+        collate_fn=collate_fn, pin_memory=False, num_workers=4
 )
 
     # Determine input dimension
     input_dim = train_x.shape[1]
-    hidden_dim = 128 # Adjust as needed
+    hidden_dim = 256 # Adjust as needed
 
     # Determine input dimension
     # =======================================
@@ -709,8 +717,8 @@ def main():
 
     # Prepare the inducing points
     unique_train_subject_ids = list(set(corresponding_train_ids))
-    selected_subject_ids = random.sample(unique_train_subject_ids, 200)  # Adjust the number as needed
-    inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=3)
+    selected_subject_ids = random.sample(unique_train_subject_ids, 300)  # Adjust the number as needed
+    inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=5, device='cuda')
 
     # Ensure inducing points are in torch.float64
     inducing_points = inducing_points.double().to(device)
@@ -740,24 +748,44 @@ def main():
         regression_likelihood.train()
         running_loss = 0.0
 
-        for inputs, targets, _ in train_loader:
+        for inputs, targets, subject_ids in train_loader:
             inputs = inputs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
             optimizer.zero_grad()
 
-            with gpytorch.settings.fast_pred_var(False):
-                #gp_regression_output = model_wrapper(inputs)
+            
+            #gp_regression_output = model_wrapper(inputs)
 
-                # Regression Loss
-                f = model_wrapper(inputs)
-                pred = regression_likelihood(f)
-                mean_pred = pred.mean
-                loss_regression = -mll_regression(gp_regression_output, targets)
-                t = inputs[:, -1]
-                order = torch.argsort(t)
-                mu = mean_pred[order]
-                delta = mu[1:] - mu[:-1]
-                pen = torch.relu(sigma.view(1, -1) * delta).mean(dim=0)
+            # Regression Loss
+            f = model_wrapper(inputs)
+            pred = regression_likelihood(f)
+            mean_pred = pred.mean
+            loss_regression = -mll_regression(f, targets)
+
+
+            # t = inputs[:, -1]
+            # order = torch.argsort(t)
+            # mu = mean_pred[order]
+            # delta = mu[1:] - mu[:-1]
+            # pen = torch.relu(sigma.view(1, -1) * delta).mean(dim=0)
+            
+            # Multi Subject Calculations
+            total_penalty = 0.0
+            unique_sids = set(subject_ids)
+            for sid in unique_sids:
+                idx = [i for i, s in enumerate(subject_ids) if s == sid]
+                if len(idx) < 2:
+                    continue
+                idx = torch.tensor(idx, device = inputs.device)
+
+                t_sid = inputs[idx, -1]
+                order = torch.argsort(t_sid)
+                mu_sid = mean_pred[idx][order]
+                delta_sid = mu_sid[1:] - mu_sid[:-1]
+
+                pen_sid = torch.relu(sigma.view(1, -1) * delta_sid).mean(dim=0)
+                total_penalty = total_penalty + (lambda_penalty * pen_sid).sum()
+
                 #mean = gp_regression_output.mean
                 #combined_mean = mean.sum(dim=-1)
                 #mean.requires_grad_(True)
@@ -791,11 +819,9 @@ def main():
                 #penalty = torch.stack(penalty_terms)
                 #penalty = torch.mean(torch.relu(sigma[0] * grad))
                 #total_penalty = torch.sum(lambda_penalty * penalty)
-                total_penalty = (lambda_penalty * pen).sum()
-                total_loss = loss_regression + total_penalty
-                #total_loss = loss_regression + lambda_val * penalty
-                print(total_loss)
-                total_loss.backward()
+ 
+            total_loss = loss_regression + total_penalty
+            total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
             optimizer.step()
@@ -892,28 +918,46 @@ def main():
                     mono_subject_ok[k] += 1
 
     
+    with torch.no_grad():
+        for inputs, targets, subject_ids in test_loader:
+            inputs = inputs.to(device, non_blocking=True)
+            f = model_wrapper(inputs)
+            pred = regression_likelihood(f)
+            mean_pred = pred.mean
+            t = inputs[:, -1]
+            order = torch.argsort(t)
+            mu = mean_pred[order]
+            delta = mu[1:] - mu[:-1]
+            mono_sample_total += delta.shape[0]
+            for k in range(num_outputs):
+                if sigma[k].item() < 0:
+                    mono_sample_ok[k] += (delta[:, k] >= 0).sum().item()
+                else:
+                    mono_sample_ok[k] += (delta[:, k] <= 0).sum().item()
 
-    for inputs, targets, _ in test_loader:
-        inputs = inputs.to(device).clone().detach().requires_grad_(True)
-        gp_regression_output = model_wrapper(inputs)
+    # for inputs, targets, _ in test_loader:
+    #     inputs = inputs.to(device).clone().detach().requires_grad_(True)
+    #     gp_regression_output = model_wrapper(inputs)
 
-        mean = gp_regression_output.mean  # shape: [N, K]
-        combined_mean = mean.sum(dim=-1)  # shape: [N]
+    #     mean = gp_regression_output.mean  # shape: [N, K]
+    #     combined_mean = mean.sum(dim=-1)  # shape: [N]
 
-        N = inputs.shape[0]
-        mono_sample_total += N
+    #     N = inputs.shape[0]
+    #     mono_sample_total += N
 
-        grad = torch.autograd.grad(
-            outputs=combined_mean,
-            inputs=inputs,
-            grad_outputs=torch.ones_like(combined_mean),
-            create_graph=False,
-        )[0][:, -1]  # derivative w.r.t. time
+    #     grad = torch.autograd.grad(
+    #         outputs=combined_mean,
+    #         inputs=inputs,
+    #         grad_outputs=torch.ones_like(combined_mean),
+    #         create_graph=False,
+    #     )[0][:, -1]  # derivative w.r.t. time
 
-        if sigma[0] < 0:
-            mono_sample_ok[0] += (grad >= 0).sum().item()
-        else:
-            mono_sample_ok[0] += (grad <= 0).sum().item()
+    #     if sigma[0] < 0:
+    #         mono_sample_ok[0] += (grad >= 0).sum().item()
+    #     else:
+    #         mono_sample_ok[0] += (grad <= 0).sum().item()
+
+
 
     mse_per_task, mae_per_task, mse_mean, mae_mean = _mse_mae_per_task(
         regression_actuals, regression_predictions
@@ -930,6 +974,7 @@ def main():
         print(f"Num tasks: {num_outputs}", file=f)
         print(f"Sigma per task: {sigma}", file=f)
         print(f"Lambda penalty value: {lambda_val}", file=f)
+        print(f"Mode: {mode}", file=f)
         print(f"Mean Test MSE (avg across tasks): {mse_mean:.4f}", file=f)
         print(f"Mean Test MAE (avg across tasks): {mae_mean:.4f}", file=f)
 
