@@ -392,6 +392,15 @@ def load_and_preprocess_region_based_data(folder, file, train_ids, test_ids, mod
     train_y_region = train_y[:, idxs]
     test_y_region = test_y[:, idxs]
 
+    print("NaNs per task:", np.isnan(train_y_region).sum(axis=0))
+    print("std per task:", train_y_region.std(axis=0))
+    print("mix/max per task:", train_y_region.min(axis=0), train_y_region.max(axis=0))
+
+    y_mean = train_y_region.mean(axis=0, keepdims=True)
+    y_std = train_y_region.std(axis=0, keepdims=True)
+
+    
+
     num_outputs = len(task_names)
 
     print("Shape of train_x:", train_x.shape)
@@ -568,6 +577,7 @@ def main():
     parser.add_argument("--mode", type=int, default=0, help="Mode for brain region training")
     parser.add_argument("--hidden_dim", type=int, default=64, help="Hidden dimension for network")
     parser.add_argument("--points", type=int, default=3, help="Points per subject")
+    parser.add_argument("--epochs", type=int, default=30, help="Epochs for pre-training")
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
@@ -584,7 +594,7 @@ def main():
             except EOFError:
                 break 
     
-    with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+    with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
         while True:
             try:
                 test_ids.append(pickle.load(openfile))
@@ -673,7 +683,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=2e-4)
 
     # Training loop for deep regression model
-    num_epochs = 50 # Adjust as needed
+    num_epochs = args.epochs # Adjust as needed
     total_regression_loss = [] 
     for epoch in range(num_epochs):
         model.train()
@@ -698,7 +708,7 @@ def main():
     os.makedirs(output_file, exist_ok=True)
     print(f"Output directory {output_file} created")
 
-    MAX_SUBJECT_PLOTS_PER_TASK = 10
+    MAX_SUBJECT_PLOTS_PER_TASK = 20
     plots_saved_per_task = [0] * num_outputs
     plots_root = os.path.join(output_file, f"test_trajectories_mode{mode}_{lambda_val}_{region_name.replace(' ', '_')}")
     task_plots_dirs = _ensure_task_plot_dirs(plots_root, num_outputs)
@@ -730,10 +740,13 @@ def main():
     feature_extractor_gp = FeatureExtractorLatentConcatenation(input_dim, hidden_dim).to(device)
     feature_extractor_gp.load_state_dict(torch.load('{}/multitask_feature_extractor_latentconcatenation.pth'.format(output_file)))
     feature_extractor_gp = feature_extractor_gp.double()
+    feature_extractor_gp.eval()
+    for p in feature_extractor_gp.parameters():
+        p.requires_grad = False
 
     # Prepare the inducing points
     unique_train_subject_ids = list(set(corresponding_train_ids))
-    selected_subject_ids = random.sample(unique_train_subject_ids, 256)  # Adjust the number as needed
+    selected_subject_ids = random.sample(unique_train_subject_ids, 128)  # Adjust the number as needed
     inducing_points = select_inducing_points(train_x, corresponding_train_ids, selected_subject_ids=selected_subject_ids, num_points_per_subject=args.points, device='cuda')
     # Ensure inducing points are in torch.float64
     inducing_points = inducing_points.double().to(device)
@@ -753,18 +766,22 @@ def main():
     # Set up the optimizer
     optimizer = torch.optim.Adam([
         {'params': regression_likelihood.parameters()},
-        {'params': gp_regression_model.parameters()}
+        {'params': gp_regression_model.mean_module.parameters()},
+        {'params': gp_regression_model.covar_module.parameters()},
+        {'params': gp_regression_model.variational_strategy.parameters()},
     ], lr=1e-3)
-    
+
+    print(any(p.requires_grad for p in feature_extractor_gp.parameters()))
+
     # Setup Scheduler
     scheduler = torch.optim.lr_scheduler.StepLR(
         optimizer,
-        step_size=10,
+        step_size=50,
         gamma=0.5  
     )
 
     # Training Loops
-    num_epochs = 200
+    num_epochs = 100
 
     for epoch in range(num_epochs):
         model_wrapper.train()
