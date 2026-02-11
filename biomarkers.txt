@@ -15,6 +15,19 @@ lateral ventricle right : H_MUSE_Volume_51 |    roi_idx = 17
 lateral ventricle left : H_MUSE_Volume_52 | roi_idx = 18 
 
 
+
+### HELD-OUT STUDY VALIDATION ### 
+# Generalizability.
+heldout_study = {ADNI, BLSA, AIBL, CARDIA, HABS, OASIS, PENN, PreventAD, WRAP} 
+
+/Desktop/LongGPClustering/data1/train_subject_allstudies_ids_hmuse_{heldout_study}.pkl
+/Desktop/LongGPClustering/data1/test_subject_allstudies_ids_hmuse_{heldout_study}.pkl
+
+##################################
+
+
+
+
 ##### SPARE Scores: SPARE-AD | SPARE-BA #####
 
 file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv
