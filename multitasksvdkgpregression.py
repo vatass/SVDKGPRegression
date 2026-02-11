@@ -21,6 +21,7 @@ import datetime
 import json
 from collections import OrderedDict
 torch.set_default_dtype(torch.float64)
+import math
 # --- 1) Define ROIs per region ---
 REGION_ROIS = OrderedDict({
     0: ("Limbic system", [
@@ -560,6 +561,21 @@ def save_subject_trajectory_plots(
                 })
             df.to_csv(out_csv, index=False)
 
+# Added metrics
+def gaussian_nll_per_task(y_true, mean, var, eps=1e-9):
+    var = np.maximum(var, eps)
+    nll = 0.5 * (np.log(2.0 * math.pi * var) + ((y_true - mean) ** 2) / var)
+    nll_per_task = np.mean(nll, axis=0)
+    return nll_per_task, float(np.mean(nll_per_task))
+
+def coverage_and_width_per_task(y_true, mean, var, z=1.96, eps=1e-9):
+    std = np.sqrt(np.maximum(var, eps))
+    lower = mean - z * std
+    upper = mean + z * std
+    within = (y_true >= lower) & (y_true <= upper)
+    coverage_per_task = 100.0 * np.mean(within, axis=0)
+    width_per_task = np.mean(upper - lower, axis=0)
+    return coverage_per_task, width_per_task, float(np.mean(coverage_per_task)), float(np.mean(width_per_task))
 
 # Step 8: Main function
 def main():
@@ -781,7 +797,7 @@ def main():
     )
 
     # Training Loops
-    num_epochs = 100
+    num_epochs = 150
 
     for epoch in range(num_epochs):
         model_wrapper.train()
@@ -861,6 +877,11 @@ def main():
         regression_predictions = [[] for _ in range(num_outputs)]
         regression_actuals = [[] for _ in range(num_outputs)]
 
+        all_means = []
+        all_vars = []
+        all_trues = []
+        all_subjects = []
+
         mono_subject_ok = [0] * num_outputs
         mono_subject_total = 0
 
@@ -920,6 +941,11 @@ def main():
             for i in range(num_outputs):
                 regression_predictions[i].extend(mean_pred[:, i].cpu().numpy())
                 regression_actuals[i].extend(targets[:, i].cpu().numpy())
+            
+            all_means.append(mean_pred.detach().cpu().numpy())
+            all_vars.append(var_pred.detach().cpu().numpy())
+            all_trues.append(targets.detach().cpu().numpy())
+            all_subjects.append(subject_ids)
 
             #Check monotnicity
             t = inputs[:, -1].detach().cpu().numpy()
@@ -949,6 +975,13 @@ def main():
                 else:
                     mono_sample_ok[k] += (delta[:, k] <= 0).sum().item()
 
+    Y_mean = np.vstack(all_means)
+    Y_var = np.vstack(all_vars)
+    Y_true = np.vstack(all_trues)
+
+    nll_per_task, nll_mean = gaussian_nll_per_task(Y_true, Y_mean, Y_var)
+
+    cov_per_task, width_per_task, cov_mean, width_mean = coverage_and_width_per_task(Y_true, Y_mean, Y_var, z=1.96)
 
     mse_per_task, mae_per_task, mse_mean, mae_mean = _mse_mae_per_task(
         regression_actuals, regression_predictions
@@ -968,6 +1001,9 @@ def main():
         print(f"Mode: {mode}", file=f)
         print(f"Mean Test MSE (avg across tasks): {mse_mean:.4f}", file=f)
         print(f"Mean Test MAE (avg across tasks): {mae_mean:.4f}", file=f)
+        print(f"Mean Test NLL (avg across tasks): {nll_mean:.4f}", file=f)
+        print(f"Mean Test Coverage% (avg across tasks): {cov_mean:.2f}", file=f)
+        print(f"Mean Test Interval Width (avg across task): {width_mean:.4f}", file=f)
 
         for k in range(num_outputs):
             subj_pct = 100.0 * mono_subject_ok[k] / max(mono_subject_total, 1)
@@ -975,6 +1011,7 @@ def main():
 
             print(
                 f"Task {k+1}: Test MSE={mse_per_task[k]:.4f}, Test Mae={mae_per_task[k]:.4f}, "
+                f"NLL={nll_per_task[k]:.4f}, Coverage%={cov_per_task[k]:.4f}, Width={width_per_task[k]:.4f}, "
                 f"Monotonic subjects={subj_pct:.2f}%, Monotonic samples(df/dt)={samp_pct:.2f}%", file=f
             )
 
