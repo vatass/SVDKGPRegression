@@ -1,0 +1,1822 @@
+Output 1 - Test MSE: 0.0821, MAE: 0.2031
+Output 2 - Test MSE: 0.0366, MAE: 0.1342
+Output 3 - Test MSE: 0.0426, MAE: 0.1428
+Output 4 - Test MSE: 0.0929, MAE: 0.2207
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+Mean Test MSE (avg across tasks): 0.7518
+Mean Test MAE (avg across tasks): 0.6628
+Task 1: Test MSE=0.8674, Test Mae=0.7223, Monotonic subjects=62.65%, Monotonic samples(df/dt)=68.73%
+Task 2: Test MSE=0.8448, Test Mae=0.6706, Monotonic subjects=5.10%, Monotonic samples(df/dt)=49.39%
+Task 3: Test MSE=0.7239, Test Mae=0.6667, Monotonic subjects=60.82%, Monotonic samples(df/dt)=55.68%
+Task 4: Test MSE=0.5711, Test Mae=0.5917, Monotonic subjects=68.78%, Monotonic samples(df/dt)=62.87%
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+Mean Test MSE (avg across tasks): 0.0842
+Mean Test MAE (avg across tasks): 0.1888
+Task 1: Test MSE=0.0809, Test Mae=0.1923, Monotonic subjects=64.49%, Monotonic samples(df/dt)=86.05%
+Task 2: Test MSE=0.0453, Test Mae=0.1351, Monotonic subjects=0.20%, Monotonic samples(df/dt)=26.82%
+Task 3: Test MSE=0.1175, Test Mae=0.2210, Monotonic subjects=59.39%, Monotonic samples(df/dt)=81.41%
+Task 4: Test MSE=0.0930, Test Mae=0.2067, Monotonic subjects=66.94%, Monotonic samples(df/dt)=93.71%
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+Mean Test MSE (avg across tasks): 0.0849
+Mean Test MAE (avg across tasks): 0.1940
+Task 1: Test MSE=0.0837, Test Mae=0.2003, Monotonic subjects=64.49%, Monotonic samples(df/dt)=90.35%
+Task 2: Test MSE=0.0498, Test Mae=0.1441, Monotonic subjects=2.04%, Monotonic samples(df/dt)=29.90%
+Task 3: Test MSE=0.1208, Test Mae=0.2251, Monotonic subjects=58.98%, Monotonic samples(df/dt)=83.87%
+Task 4: Test MSE=0.0853, Test Mae=0.2065, Monotonic subjects=70.20%, Monotonic samples(df/dt)=96.69%
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+Mean Test MSE (avg across tasks): 0.7113
+Mean Test MAE (avg across tasks): 0.6414
+Task 1: Test MSE=0.8446, Test Mae=0.7180, Monotonic subjects=65.51%, Monotonic samples(df/dt)=74.08%
+Task 2: Test MSE=0.7912, Test Mae=0.6383, Monotonic subjects=9.80%, Monotonic samples(df/dt)=32.97%
+Task 3: Test MSE=0.6782, Test Mae=0.6428, Monotonic subjects=60.20%, Monotonic samples(df/dt)=72.00%
+Task 4: Test MSE=0.5312, Test Mae=0.5666, Monotonic subjects=58.57%, Monotonic samples(df/dt)=70.34%
+2026-01-20 21:11:44.097910
+
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1.,  1., -1., -1.], device='cuda:0')
+Mean Test MSE (avg across tasks): 0.0815
+Mean Test MAE (avg across tasks): 0.1900
+Task 1: Test MSE=0.0810, Test Mae=0.1931, Monotonic subjects=70.00%, Monotonic samples(df/dt)=92.57%
+Task 2: Test MSE=0.0422, Test Mae=0.1337, Monotonic subjects=1.22%, Monotonic samples(df/dt)=29.04%
+Task 3: Test MSE=0.1169, Test Mae=0.2295, Monotonic subjects=55.71%, Monotonic samples(df/dt)=85.00%
+Task 4: Test MSE=0.0857, Test Mae=0.2037, Monotonic subjects=81.43%, Monotonic samples(df/dt)=95.65%
+2026-01-21 14:10:17.546012
+
+
+=== Multitask Evaluation ===
+Num tasks: 4
+Sigma per task: tensor([ 1., -1., -1., -1.], device='cuda:0')
+Mean Test MSE (avg across tasks): 0.0833
+Mean Test MAE (avg across tasks): 0.1909
+Task 1: Test MSE=0.0813, Test Mae=0.1925, Monotonic subjects=64.08%, Monotonic samples(df/dt)=83.63%
+Task 2: Test MSE=0.0452, Test Mae=0.1393, Monotonic subjects=80.00%, Monotonic samples(df/dt)=94.65%
+Task 3: Test MSE=0.1161, Test Mae=0.2249, Monotonic subjects=51.02%, Monotonic samples(df/dt)=80.09%
+Task 4: Test MSE=0.0906, Test Mae=0.2067, Monotonic subjects=66.94%, Monotonic samples(df/dt)=91.30%
+2026-01-21 19:55:30.265411
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.6505
+Mean Test MAE (avg across tasks): 0.6267
+Task 1: Test MSE=0.7559, Test Mae=0.6861, Monotonic subjects=57.96%, Monotonic samples(df/dt)=71.24%
+Task 2: Test MSE=0.6696, Test Mae=0.6496, Monotonic subjects=55.51%, Monotonic samples(df/dt)=69.47%
+Task 3: Test MSE=0.5822, Test Mae=0.5645, Monotonic subjects=54.29%, Monotonic samples(df/dt)=69.06%
+Task 4: Test MSE=0.5909, Test Mae=0.5988, Monotonic subjects=54.69%, Monotonic samples(df/dt)=69.01%
+Task 5: Test MSE=0.7692, Test Mae=0.6920, Monotonic subjects=56.33%, Monotonic samples(df/dt)=69.87%
+Task 6: Test MSE=0.8385, Test Mae=0.7268, Monotonic subjects=56.12%, Monotonic samples(df/dt)=69.47%
+Task 7: Test MSE=0.6095, Test Mae=0.6216, Monotonic subjects=56.94%, Monotonic samples(df/dt)=70.28%
+Task 8: Test MSE=0.6163, Test Mae=0.6140, Monotonic subjects=55.92%, Monotonic samples(df/dt)=69.52%
+Task 9: Test MSE=0.5431, Test Mae=0.5594, Monotonic subjects=54.29%, Monotonic samples(df/dt)=68.91%
+Task 10: Test MSE=0.5298, Test Mae=0.5545, Monotonic subjects=53.88%, Monotonic samples(df/dt)=68.56%
+2026-01-22 09:30:36.004035
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.6277
+Mean Test MAE (avg across tasks): 0.6164
+Task 1: Test MSE=0.7611, Test Mae=0.6898, Monotonic subjects=80.61%, Monotonic samples(df/dt)=78.48%
+Task 2: Test MSE=0.6459, Test Mae=0.6402, Monotonic subjects=73.67%, Monotonic samples(df/dt)=74.33%
+Task 3: Test MSE=0.5694, Test Mae=0.5592, Monotonic subjects=71.84%, Monotonic samples(df/dt)=72.25%
+Task 4: Test MSE=0.5926, Test Mae=0.5979, Monotonic subjects=73.67%, Monotonic samples(df/dt)=74.28%
+Task 5: Test MSE=0.7088, Test Mae=0.6621, Monotonic subjects=74.49%, Monotonic samples(df/dt)=76.15%
+Task 6: Test MSE=0.8013, Test Mae=0.7142, Monotonic subjects=72.24%, Monotonic samples(df/dt)=74.38%
+Task 7: Test MSE=0.5649, Test Mae=0.6009, Monotonic subjects=77.14%, Monotonic samples(df/dt)=77.92%
+Task 8: Test MSE=0.5630, Test Mae=0.5901, Monotonic subjects=76.33%, Monotonic samples(df/dt)=77.62%
+Task 9: Test MSE=0.5336, Test Mae=0.5525, Monotonic subjects=72.04%, Monotonic samples(df/dt)=73.22%
+Task 10: Test MSE=0.5368, Test Mae=0.5572, Monotonic subjects=71.84%, Monotonic samples(df/dt)=72.91%
+2026-01-22 09:37:44.118991
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.6558
+Mean Test MAE (avg across tasks): 0.6317
+Task 1: Test MSE=0.7548, Test Mae=0.6895, Monotonic subjects=87.76%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.6511, Test Mae=0.6377, Monotonic subjects=85.51%, Monotonic samples(df/dt)=99.54%
+Task 3: Test MSE=0.6301, Test Mae=0.5837, Monotonic subjects=83.88%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.6243, Test Mae=0.6196, Monotonic subjects=84.08%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.7579, Test Mae=0.6860, Monotonic subjects=86.33%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.8164, Test Mae=0.7208, Monotonic subjects=85.71%, Monotonic samples(df/dt)=99.75%
+Task 7: Test MSE=0.5953, Test Mae=0.6178, Monotonic subjects=85.31%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.6067, Test Mae=0.6124, Monotonic subjects=83.27%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.5647, Test Mae=0.5772, Monotonic subjects=84.08%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.5570, Test Mae=0.5721, Monotonic subjects=82.65%, Monotonic samples(df/dt)=100.00%
+2026-01-22 12:17:27.242488
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.2761
+Mean Test MAE (avg across tasks): 0.3673
+Task 1: Test MSE=0.0757, Test Mae=0.2029, Monotonic subjects=99.59%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.0951, Test Mae=0.2262, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.3610, Test Mae=0.4515, Monotonic subjects=92.04%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3252, Test Mae=0.4212, Monotonic subjects=91.43%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.0868, Test Mae=0.2156, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.8065, Test Mae=0.7032, Monotonic subjects=96.53%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.0805, Test Mae=0.2065, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.3974, Test Mae=0.5025, Monotonic subjects=98.98%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2887, Test Mae=0.3901, Monotonic subjects=91.43%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2437, Test Mae=0.3536, Monotonic subjects=91.43%, Monotonic samples(df/dt)=100.00%
+2026-01-22 15:05:07.023341
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.2768
+Mean Test MAE (avg across tasks): 0.3646
+Task 1: Test MSE=0.0717, Test Mae=0.1949, Monotonic subjects=47.55%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.5928, Test Mae=0.6195, Monotonic subjects=61.43%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.1718, Test Mae=0.2784, Monotonic subjects=62.65%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3098, Test Mae=0.3999, Monotonic subjects=51.63%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.6262, Test Mae=0.6265, Monotonic subjects=32.86%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.0739, Test Mae=0.2022, Monotonic subjects=48.57%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.3849, Test Mae=0.4846, Monotonic subjects=34.90%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.0940, Test Mae=0.2263, Monotonic subjects=62.45%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2802, Test Mae=0.3737, Monotonic subjects=45.51%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.1626, Test Mae=0.2395, Monotonic subjects=78.16%, Monotonic samples(df/dt)=100.00%
+2026-01-22 17:46:43.805824
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mean Test MSE (avg across tasks): 0.2605
+Mean Test MAE (avg across tasks): 0.3429
+Task 1: Test MSE=0.0633, Test Mae=0.1821, Monotonic subjects=77.55%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.6017, Test Mae=0.6253, Monotonic subjects=79.39%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.1601, Test Mae=0.2667, Monotonic subjects=80.61%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3378, Test Mae=0.4273, Monotonic subjects=82.65%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.0782, Test Mae=0.2055, Monotonic subjects=82.86%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.7248, Test Mae=0.6672, Monotonic subjects=69.59%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.0742, Test Mae=0.1944, Monotonic subjects=81.02%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.0911, Test Mae=0.2139, Monotonic subjects=72.86%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.3165, Test Mae=0.4110, Monotonic subjects=81.43%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.1570, Test Mae=0.2354, Monotonic subjects=77.96%, Monotonic samples(df/dt)=100.00%
+2026-01-22 18:52:12.976472
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mean Test MSE (avg across tasks): 0.3012
+Mean Test MAE (avg across tasks): 0.3929
+Task 1: Test MSE=0.6164, Test Mae=0.6286, Monotonic subjects=52.86%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.0684, Test Mae=0.1864, Monotonic subjects=70.61%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.3353, Test Mae=0.4246, Monotonic subjects=59.18%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3012, Test Mae=0.4016, Monotonic subjects=64.69%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.5794, Test Mae=0.6089, Monotonic subjects=53.47%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.1291, Test Mae=0.2752, Monotonic subjects=67.55%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.0711, Test Mae=0.1895, Monotonic subjects=67.96%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.3825, Test Mae=0.4897, Monotonic subjects=64.29%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2986, Test Mae=0.3954, Monotonic subjects=66.53%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2301, Test Mae=0.3288, Monotonic subjects=56.94%, Monotonic samples(df/dt)=100.00%
+2026-01-22 19:56:14.779648
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 2.0
+Mean Test MSE (avg across tasks): 0.2848
+Mean Test MAE (avg across tasks): 0.3671
+Task 1: Test MSE=0.6759, Test Mae=0.6590, Monotonic subjects=56.73%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.0765, Test Mae=0.2035, Monotonic subjects=74.29%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.1555, Test Mae=0.2675, Monotonic subjects=78.37%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.2893, Test Mae=0.3959, Monotonic subjects=61.22%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.0820, Test Mae=0.2078, Monotonic subjects=66.53%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.7155, Test Mae=0.6639, Monotonic subjects=40.20%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.0794, Test Mae=0.2045, Monotonic subjects=67.14%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.3233, Test Mae=0.4456, Monotonic subjects=39.39%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2957, Test Mae=0.3897, Monotonic subjects=50.00%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.1545, Test Mae=0.2340, Monotonic subjects=81.22%, Monotonic samples(df/dt)=100.00%
+2026-01-22 21:12:09.878223
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.5
+Mean Test MSE (avg across tasks): 0.3071
+Mean Test MAE (avg across tasks): 0.3900
+Task 1: Test MSE=0.1496, Test Mae=0.2679, Monotonic subjects=20.20%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.2711, Test Mae=0.3722, Monotonic subjects=26.12%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.4777, Test Mae=0.4997, Monotonic subjects=57.35%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.5173, Test Mae=0.5228, Monotonic subjects=43.27%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.1011, Test Mae=0.2290, Monotonic subjects=52.24%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.3697, Test Mae=0.4654, Monotonic subjects=46.94%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.4853, Test Mae=0.5103, Monotonic subjects=41.63%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.4450, Test Mae=0.4960, Monotonic subjects=39.80%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.0828, Test Mae=0.2058, Monotonic subjects=43.67%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2570, Test Mae=0.3793, Monotonic subjects=46.73%, Monotonic samples(df/dt)=100.00%
+Task 11: Test MSE=0.4094, Test Mae=0.4798, Monotonic subjects=53.47%, Monotonic samples(df/dt)=100.00%
+Task 12: Test MSE=0.1318, Test Mae=0.2488, Monotonic subjects=57.96%, Monotonic samples(df/dt)=100.00%
+Task 13: Test MSE=0.1630, Test Mae=0.2759, Monotonic subjects=47.96%, Monotonic samples(df/dt)=100.00%
+Task 14: Test MSE=0.4387, Test Mae=0.5068, Monotonic subjects=45.71%, Monotonic samples(df/dt)=100.00%
+2026-01-22 22:31:04.872258
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 2.0
+Mean Test MSE (avg across tasks): 0.2995
+Mean Test MAE (avg across tasks): 0.3967
+Task 1: Test MSE=0.1696, Test Mae=0.2880, Monotonic subjects=22.04%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.3251, Test Mae=0.4153, Monotonic subjects=29.39%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.4229, Test Mae=0.4951, Monotonic subjects=68.57%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.5728, Test Mae=0.5836, Monotonic subjects=53.06%, Monotonic samples(df/dt)=59.90%
+Task 5: Test MSE=0.1183, Test Mae=0.2528, Monotonic subjects=63.06%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.3785, Test Mae=0.4796, Monotonic subjects=52.24%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.4705, Test Mae=0.5102, Monotonic subjects=42.24%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.4849, Test Mae=0.5287, Monotonic subjects=40.61%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.1006, Test Mae=0.2291, Monotonic subjects=58.57%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2728, Test Mae=0.4082, Monotonic subjects=57.55%, Monotonic samples(df/dt)=100.00%
+Task 11: Test MSE=0.3843, Test Mae=0.4729, Monotonic subjects=54.69%, Monotonic samples(df/dt)=100.00%
+Task 12: Test MSE=0.1638, Test Mae=0.2953, Monotonic subjects=65.71%, Monotonic samples(df/dt)=99.80%
+Task 13: Test MSE=0.1862, Test Mae=0.3149, Monotonic subjects=34.08%, Monotonic samples(df/dt)=100.00%
+Task 14: Test MSE=0.1433, Test Mae=0.2808, Monotonic subjects=29.59%, Monotonic samples(df/dt)=100.00%
+2026-01-23 11:57:28.117293
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.2308
+Mean Test MAE (avg across tasks): 0.3272
+Task 1: Test MSE=0.0617, Test Mae=0.1816, Monotonic subjects=60.61%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.0752, Test Mae=0.1983, Monotonic subjects=70.82%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.1708, Test Mae=0.2765, Monotonic subjects=69.80%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3246, Test Mae=0.4162, Monotonic subjects=74.90%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.0844, Test Mae=0.2136, Monotonic subjects=53.88%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.6144, Test Mae=0.6033, Monotonic subjects=23.27%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.3898, Test Mae=0.4917, Monotonic subjects=47.35%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.0985, Test Mae=0.2270, Monotonic subjects=60.41%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.3233, Test Mae=0.4134, Monotonic subjects=63.67%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.1653, Test Mae=0.2504, Monotonic subjects=74.69%, Monotonic samples(df/dt)=100.00%
+2026-01-23 15:13:55.527040
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.3136
+Mean Test MAE (avg across tasks): 0.3899
+Task 1: Test MSE=0.0763, Test Mae=0.2008, Monotonic subjects=64.69%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.4743, Test Mae=0.5195, Monotonic subjects=40.82%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.3099, Test Mae=0.4021, Monotonic subjects=47.76%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.2825, Test Mae=0.3721, Monotonic subjects=51.84%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.5082, Test Mae=0.5357, Monotonic subjects=38.37%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.5932, Test Mae=0.5606, Monotonic subjects=33.27%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.2928, Test Mae=0.4026, Monotonic subjects=39.59%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.1182, Test Mae=0.2397, Monotonic subjects=33.47%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2490, Test Mae=0.3399, Monotonic subjects=53.88%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2313, Test Mae=0.3262, Monotonic subjects=47.55%, Monotonic samples(df/dt)=100.00%
+2026-01-23 19:27:53.497509
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.1732
+Mean Test MAE (avg across tasks): 0.2836
+Task 1: Test MSE=0.0684, Test Mae=0.1921, Monotonic subjects=65.10%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.0964, Test Mae=0.2333, Monotonic subjects=68.98%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.1615, Test Mae=0.2653, Monotonic subjects=76.33%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3172, Test Mae=0.4119, Monotonic subjects=60.41%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.0825, Test Mae=0.2021, Monotonic subjects=53.67%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.0870, Test Mae=0.2158, Monotonic subjects=57.35%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.0845, Test Mae=0.2070, Monotonic subjects=68.98%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.3831, Test Mae=0.4923, Monotonic subjects=52.65%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2934, Test Mae=0.3849, Monotonic subjects=77.35%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.1581, Test Mae=0.2311, Monotonic subjects=84.08%, Monotonic samples(df/dt)=100.00%
+2026-01-26 21:23:35.931755
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.4628
+Mean Test MAE (avg across tasks): 0.4769
+Task 1: Test MSE=0.5616, Test Mae=0.5419, Monotonic subjects=46.73%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.5488, Test Mae=0.5360, Monotonic subjects=45.71%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.3292, Test Mae=0.4001, Monotonic subjects=52.65%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.3358, Test Mae=0.4076, Monotonic subjects=55.31%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.6123, Test Mae=0.5453, Monotonic subjects=52.65%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.6546, Test Mae=0.5776, Monotonic subjects=47.14%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.4913, Test Mae=0.5032, Monotonic subjects=53.67%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.4908, Test Mae=0.5052, Monotonic subjects=45.31%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2953, Test Mae=0.3665, Monotonic subjects=58.98%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.3077, Test Mae=0.3858, Monotonic subjects=57.96%, Monotonic samples(df/dt)=100.00%
+2026-01-27 01:35:08.311375
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mean Test MSE (avg across tasks): 0.8480
+Mean Test MAE (avg across tasks): 0.6938
+Task 1: Test MSE=0.8083, Test Mae=0.6758, Monotonic subjects=50.82%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.7719, Test Mae=0.6664, Monotonic subjects=49.80%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.9244, Test Mae=0.7178, Monotonic subjects=59.18%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.8780, Test Mae=0.7147, Monotonic subjects=59.18%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.8000, Test Mae=0.6712, Monotonic subjects=54.29%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.8188, Test Mae=0.6729, Monotonic subjects=51.43%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.8352, Test Mae=0.6959, Monotonic subjects=52.24%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.8381, Test Mae=0.7029, Monotonic subjects=52.45%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.9207, Test Mae=0.7124, Monotonic subjects=58.16%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.8842, Test Mae=0.7080, Monotonic subjects=59.59%, Monotonic samples(df/dt)=100.00%
+2026-01-27 05:49:57.265906
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.5
+Mean Test MSE (avg across tasks): 0.3119
+Mean Test MAE (avg across tasks): 0.3808
+Task 1: Test MSE=0.5548, Test Mae=0.5496, Monotonic subjects=43.06%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.4976, Test Mae=0.5173, Monotonic subjects=41.02%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.2952, Test Mae=0.3933, Monotonic subjects=52.04%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.2728, Test Mae=0.3630, Monotonic subjects=43.06%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.0795, Test Mae=0.1985, Monotonic subjects=63.27%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.5879, Test Mae=0.5479, Monotonic subjects=38.78%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.0808, Test Mae=0.1950, Monotonic subjects=66.53%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.3077, Test Mae=0.4077, Monotonic subjects=42.24%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2152, Test Mae=0.3137, Monotonic subjects=54.69%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2276, Test Mae=0.3215, Monotonic subjects=47.96%, Monotonic samples(df/dt)=100.00%
+2026-01-27 10:01:37.807912
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mean Test MSE (avg across tasks): 0.3142
+Mean Test MAE (avg across tasks): 0.3764
+Task 1: Test MSE=0.0735, Test Mae=0.1868, Monotonic subjects=52.86%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=0.4731, Test Mae=0.5028, Monotonic subjects=44.29%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=0.3059, Test Mae=0.3885, Monotonic subjects=51.63%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=0.2862, Test Mae=0.3563, Monotonic subjects=42.24%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.5464, Test Mae=0.5317, Monotonic subjects=51.43%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.6200, Test Mae=0.5640, Monotonic subjects=45.10%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=0.3016, Test Mae=0.3977, Monotonic subjects=47.96%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.0884, Test Mae=0.2009, Monotonic subjects=59.59%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.2104, Test Mae=0.3083, Monotonic subjects=55.71%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.2365, Test Mae=0.3270, Monotonic subjects=45.92%, Monotonic samples(df/dt)=100.00%
+2026-01-27 12:30:32.791351
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 1.0051
+Mean Test MAE (avg across tasks): 0.7929
+Task 1: Test MSE=0.9969, Test Mae=0.7945, Monotonic subjects=22.65%, Monotonic samples(df/dt)=46.38%
+Task 2: Test MSE=0.9261, Test Mae=0.7610, Monotonic subjects=21.02%, Monotonic samples(df/dt)=0.00%
+Task 3: Test MSE=1.0629, Test Mae=0.7885, Monotonic subjects=22.65%, Monotonic samples(df/dt)=0.00%
+Task 4: Test MSE=1.0198, Test Mae=0.8031, Monotonic subjects=22.65%, Monotonic samples(df/dt)=0.00%
+Task 5: Test MSE=0.9774, Test Mae=0.7902, Monotonic subjects=21.22%, Monotonic samples(df/dt)=0.00%
+Task 6: Test MSE=1.0154, Test Mae=0.8106, Monotonic subjects=22.86%, Monotonic samples(df/dt)=0.00%
+Task 7: Test MSE=0.9882, Test Mae=0.7975, Monotonic subjects=20.00%, Monotonic samples(df/dt)=0.00%
+Task 8: Test MSE=0.9935, Test Mae=0.8013, Monotonic subjects=21.22%, Monotonic samples(df/dt)=0.00%
+Task 9: Test MSE=1.0486, Test Mae=0.7877, Monotonic subjects=23.27%, Monotonic samples(df/dt)=0.00%
+Task 10: Test MSE=1.0222, Test Mae=0.7941, Monotonic subjects=22.86%, Monotonic samples(df/dt)=0.00%
+2026-01-27 15:56:14.302639
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.8377
+Mean Test MAE (avg across tasks): 0.7141
+Task 1: Test MSE=0.9162, Test Mae=0.7584, Monotonic subjects=37.96%, Monotonic samples(df/dt)=61.35%
+Task 2: Test MSE=0.8102, Test Mae=0.7076, Monotonic subjects=36.33%, Monotonic samples(df/dt)=60.20%
+Task 3: Test MSE=0.8524, Test Mae=0.6945, Monotonic subjects=37.96%, Monotonic samples(df/dt)=59.66%
+Task 4: Test MSE=0.8276, Test Mae=0.7083, Monotonic subjects=38.16%, Monotonic samples(df/dt)=59.93%
+Task 5: Test MSE=0.8690, Test Mae=0.7414, Monotonic subjects=36.12%, Monotonic samples(df/dt)=60.20%
+Task 6: Test MSE=0.9247, Test Mae=0.7728, Monotonic subjects=38.37%, Monotonic samples(df/dt)=60.74%
+Task 7: Test MSE=0.7858, Test Mae=0.7000, Monotonic subjects=36.33%, Monotonic samples(df/dt)=59.93%
+Task 8: Test MSE=0.8006, Test Mae=0.7024, Monotonic subjects=35.92%, Monotonic samples(df/dt)=59.26%
+Task 9: Test MSE=0.8045, Test Mae=0.6792, Monotonic subjects=37.55%, Monotonic samples(df/dt)=60.40%
+Task 10: Test MSE=0.7857, Test Mae=0.6768, Monotonic subjects=37.55%, Monotonic samples(df/dt)=59.80%
+
+#######################################################################################################################################################
+
+2026-01-27 22:10:06.819703
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.1720
+Mean Test MAE (avg across tasks): 0.2747
+Task 1: Test MSE=0.0674, Test Mae=0.1888, Monotonic subjects=97.14%, Monotonic samples(df/dt)=98.72%
+Task 2: Test MSE=0.6154, Test Mae=0.6270, Monotonic subjects=79.39%, Monotonic samples(df/dt)=88.82%
+Task 3: Test MSE=0.1792, Test Mae=0.2837, Monotonic subjects=78.37%, Monotonic samples(df/dt)=88.15%
+Task 4: Test MSE=0.1420, Test Mae=0.2370, Monotonic subjects=94.69%, Monotonic samples(df/dt)=97.91%
+Task 5: Test MSE=0.0705, Test Mae=0.1979, Monotonic subjects=94.29%, Monotonic samples(df/dt)=97.58%
+Task 6: Test MSE=0.0709, Test Mae=0.2016, Monotonic subjects=88.78%, Monotonic samples(df/dt)=95.22%
+Task 7: Test MSE=0.0798, Test Mae=0.2083, Monotonic subjects=87.76%, Monotonic samples(df/dt)=94.07%
+Task 8: Test MSE=0.0957, Test Mae=0.2208, Monotonic subjects=84.90%, Monotonic samples(df/dt)=90.91%
+Task 9: Test MSE=0.2391, Test Mae=0.3405, Monotonic subjects=90.20%, Monotonic samples(df/dt)=95.69%
+Task 10: Test MSE=0.1603, Test Mae=0.2412, Monotonic subjects=86.73%, Monotonic samples(df/dt)=93.87%
+2026-01-28 03:47:19.714600
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mean Test MSE (avg across tasks): 0.5959
+Mean Test MAE (avg across tasks): 0.5706
+Task 1: Test MSE=1.0330, Test Mae=0.8085, Monotonic subjects=68.98%, Monotonic samples(df/dt)=83.10%
+Task 2: Test MSE=0.6057, Test Mae=0.6031, Monotonic subjects=51.84%, Monotonic samples(df/dt)=73.87%
+Task 3: Test MSE=0.4340, Test Mae=0.4851, Monotonic subjects=51.84%, Monotonic samples(df/dt)=75.22%
+Task 4: Test MSE=0.3997, Test Mae=0.4527, Monotonic subjects=52.04%, Monotonic samples(df/dt)=75.42%
+Task 5: Test MSE=1.0086, Test Mae=0.8031, Monotonic subjects=65.92%, Monotonic samples(df/dt)=82.36%
+Task 6: Test MSE=1.0553, Test Mae=0.8273, Monotonic subjects=68.16%, Monotonic samples(df/dt)=82.69%
+Task 7: Test MSE=0.3009, Test Mae=0.3989, Monotonic subjects=44.90%, Monotonic samples(df/dt)=70.10%
+Task 8: Test MSE=0.3282, Test Mae=0.4306, Monotonic subjects=48.78%, Monotonic samples(df/dt)=73.00%
+Task 9: Test MSE=0.4072, Test Mae=0.4505, Monotonic subjects=48.57%, Monotonic samples(df/dt)=73.40%
+Task 10: Test MSE=0.3862, Test Mae=0.4459, Monotonic subjects=50.41%, Monotonic samples(df/dt)=73.67%
+2026-01-28 09:42:15.815641
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.5
+Mean Test MSE (avg across tasks): 0.1082
+Mean Test MAE (avg across tasks): 0.2131
+Task 1: Test MSE=0.0609, Test Mae=0.1759, Monotonic subjects=78.57%, Monotonic samples(df/dt)=92.32%
+Task 2: Test MSE=0.0690, Test Mae=0.1788, Monotonic subjects=89.39%, Monotonic samples(df/dt)=95.15%
+Task 3: Test MSE=0.1708, Test Mae=0.2788, Monotonic subjects=90.41%, Monotonic samples(df/dt)=95.29%
+Task 4: Test MSE=0.1502, Test Mae=0.2347, Monotonic subjects=91.63%, Monotonic samples(df/dt)=95.56%
+Task 5: Test MSE=0.0711, Test Mae=0.1870, Monotonic subjects=87.14%, Monotonic samples(df/dt)=95.42%
+Task 6: Test MSE=0.0754, Test Mae=0.1959, Monotonic subjects=77.96%, Monotonic samples(df/dt)=91.92%
+Task 7: Test MSE=0.0684, Test Mae=0.1782, Monotonic subjects=85.31%, Monotonic samples(df/dt)=93.47%
+Task 8: Test MSE=0.0871, Test Mae=0.2077, Monotonic subjects=86.33%, Monotonic samples(df/dt)=93.67%
+Task 9: Test MSE=0.1748, Test Mae=0.2584, Monotonic subjects=90.20%, Monotonic samples(df/dt)=95.02%
+Task 10: Test MSE=0.1540, Test Mae=0.2355, Monotonic subjects=88.16%, Monotonic samples(df/dt)=95.29%
+2026-01-28 15:43:49.233367
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mean Test MSE (avg across tasks): 0.1035
+Mean Test MAE (avg across tasks): 0.2069
+Task 1: Test MSE=0.0583, Test Mae=0.1702, Monotonic subjects=96.53%, Monotonic samples(df/dt)=98.86%
+Task 2: Test MSE=0.0648, Test Mae=0.1727, Monotonic subjects=88.98%, Monotonic samples(df/dt)=96.30%
+Task 3: Test MSE=0.1588, Test Mae=0.2681, Monotonic subjects=94.08%, Monotonic samples(df/dt)=97.71%
+Task 4: Test MSE=0.1496, Test Mae=0.2315, Monotonic subjects=96.12%, Monotonic samples(df/dt)=98.72%
+Task 5: Test MSE=0.0729, Test Mae=0.1855, Monotonic subjects=76.73%, Monotonic samples(df/dt)=90.71%
+Task 6: Test MSE=0.0583, Test Mae=0.1716, Monotonic subjects=86.53%, Monotonic samples(df/dt)=95.02%
+Task 7: Test MSE=0.0673, Test Mae=0.1791, Monotonic subjects=92.86%, Monotonic samples(df/dt)=97.10%
+Task 8: Test MSE=0.0818, Test Mae=0.1965, Monotonic subjects=95.31%, Monotonic samples(df/dt)=97.98%
+Task 9: Test MSE=0.1684, Test Mae=0.2622, Monotonic subjects=94.08%, Monotonic samples(df/dt)=97.85%
+Task 10: Test MSE=0.1545, Test Mae=0.2313, Monotonic subjects=94.49%, Monotonic samples(df/dt)=97.98%
+2026-01-28 23:36:40.469001
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mean Test MSE (avg across tasks): 0.1907
+Mean Test MAE (avg across tasks): 0.3096
+Task 1: Test MSE=0.1883, Test Mae=0.3231, Monotonic subjects=5.51%, Monotonic samples(df/dt)=21.75%
+Task 2: Test MSE=0.1890, Test Mae=0.2995, Monotonic subjects=17.14%, Monotonic samples(df/dt)=39.73%
+Task 3: Test MSE=0.1864, Test Mae=0.3002, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.87%
+Task 4: Test MSE=0.0915, Test Mae=0.2149, Monotonic subjects=69.39%, Monotonic samples(df/dt)=89.83%
+Task 5: Test MSE=0.1186, Test Mae=0.2536, Monotonic subjects=95.31%, Monotonic samples(df/dt)=98.38%
+Task 6: Test MSE=0.1121, Test Mae=0.2441, Monotonic subjects=87.55%, Monotonic samples(df/dt)=95.82%
+Task 7: Test MSE=0.1754, Test Mae=0.2791, Monotonic subjects=40.20%, Monotonic samples(df/dt)=76.50%
+Task 8: Test MSE=0.4540, Test Mae=0.5058, Monotonic subjects=56.12%, Monotonic samples(df/dt)=83.91%
+Task 9: Test MSE=0.0881, Test Mae=0.2128, Monotonic subjects=58.78%, Monotonic samples(df/dt)=80.81%
+Task 10: Test MSE=0.3109, Test Mae=0.4389, Monotonic subjects=67.96%, Monotonic samples(df/dt)=83.57%
+Task 11: Test MSE=0.1395, Test Mae=0.2669, Monotonic subjects=85.92%, Monotonic samples(df/dt)=95.35%
+Task 12: Test MSE=0.3390, Test Mae=0.4563, Monotonic subjects=98.57%, Monotonic samples(df/dt)=99.53%
+Task 13: Test MSE=0.1457, Test Mae=0.2772, Monotonic subjects=59.80%, Monotonic samples(df/dt)=86.60%
+Task 14: Test MSE=0.1313, Test Mae=0.2613, Monotonic subjects=47.76%, Monotonic samples(df/dt)=82.69%
+2026-01-29 07:25:51.840813
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mean Test MSE (avg across tasks): 0.2331
+Mean Test MAE (avg across tasks): 0.3410
+Task 1: Test MSE=0.1999, Test Mae=0.3245, Monotonic subjects=74.29%, Monotonic samples(df/dt)=83.84%
+Task 2: Test MSE=0.1491, Test Mae=0.2466, Monotonic subjects=85.31%, Monotonic samples(df/dt)=92.32%
+Task 3: Test MSE=0.4647, Test Mae=0.5120, Monotonic subjects=97.96%, Monotonic samples(df/dt)=98.92%
+Task 4: Test MSE=0.0896, Test Mae=0.2047, Monotonic subjects=90.82%, Monotonic samples(df/dt)=96.36%
+Task 5: Test MSE=0.1152, Test Mae=0.2427, Monotonic subjects=84.90%, Monotonic samples(df/dt)=93.06%
+Task 6: Test MSE=0.2608, Test Mae=0.4042, Monotonic subjects=85.10%, Monotonic samples(df/dt)=94.14%
+Task 7: Test MSE=0.4630, Test Mae=0.5161, Monotonic subjects=95.31%, Monotonic samples(df/dt)=98.25%
+Task 8: Test MSE=0.4695, Test Mae=0.5193, Monotonic subjects=95.71%, Monotonic samples(df/dt)=98.18%
+Task 9: Test MSE=0.0877, Test Mae=0.2096, Monotonic subjects=79.39%, Monotonic samples(df/dt)=89.56%
+Task 10: Test MSE=0.2726, Test Mae=0.4060, Monotonic subjects=96.53%, Monotonic samples(df/dt)=98.86%
+Task 11: Test MSE=0.1345, Test Mae=0.2535, Monotonic subjects=91.63%, Monotonic samples(df/dt)=96.84%
+Task 12: Test MSE=0.1330, Test Mae=0.2590, Monotonic subjects=89.39%, Monotonic samples(df/dt)=96.16%
+Task 13: Test MSE=0.2826, Test Mae=0.4035, Monotonic subjects=87.76%, Monotonic samples(df/dt)=94.34%
+Task 14: Test MSE=0.1414, Test Mae=0.2720, Monotonic subjects=86.73%, Monotonic samples(df/dt)=94.61%
+2026-01-29 16:40:37.288031
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.9677
+Mean Test MAE (avg across tasks): 0.7730
+Task 1: Test MSE=0.9599, Test Mae=0.7761, Monotonic subjects=60.61%, Monotonic samples(df/dt)=87.00%
+Task 2: Test MSE=0.8875, Test Mae=0.7430, Monotonic subjects=56.53%, Monotonic samples(df/dt)=85.66%
+Task 3: Test MSE=1.0540, Test Mae=0.7839, Monotonic subjects=59.18%, Monotonic samples(df/dt)=86.53%
+Task 4: Test MSE=1.0200, Test Mae=0.7911, Monotonic subjects=59.59%, Monotonic samples(df/dt)=86.67%
+Task 5: Test MSE=0.9261, Test Mae=0.7666, Monotonic subjects=59.59%, Monotonic samples(df/dt)=86.67%
+Task 6: Test MSE=0.9839, Test Mae=0.7994, Monotonic subjects=55.10%, Monotonic samples(df/dt)=85.19%
+Task 7: Test MSE=0.9458, Test Mae=0.7744, Monotonic subjects=52.86%, Monotonic samples(df/dt)=84.44%
+Task 8: Test MSE=0.9351, Test Mae=0.7697, Monotonic subjects=53.47%, Monotonic samples(df/dt)=84.65%
+Task 9: Test MSE=1.0060, Test Mae=0.7665, Monotonic subjects=56.73%, Monotonic samples(df/dt)=85.72%
+Task 10: Test MSE=0.9586, Test Mae=0.7594, Monotonic subjects=58.37%, Monotonic samples(df/dt)=86.26%
+2026-01-29 16:50:45.414505
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 0
+Mean Test MSE (avg across tasks): 1.0928
+Mean Test MAE (avg across tasks): 0.8342
+Task 1: Test MSE=1.0384, Test Mae=0.8124, Monotonic subjects=23.67%, Monotonic samples(df/dt)=50.71%
+Task 2: Test MSE=1.0000, Test Mae=0.7975, Monotonic subjects=21.22%, Monotonic samples(df/dt)=50.77%
+Task 3: Test MSE=1.1950, Test Mae=0.8459, Monotonic subjects=18.78%, Monotonic samples(df/dt)=49.23%
+Task 4: Test MSE=1.1621, Test Mae=0.8608, Monotonic subjects=21.22%, Monotonic samples(df/dt)=50.57%
+Task 5: Test MSE=1.0215, Test Mae=0.8146, Monotonic subjects=18.78%, Monotonic samples(df/dt)=50.03%
+Task 6: Test MSE=1.0685, Test Mae=0.8417, Monotonic subjects=19.59%, Monotonic samples(df/dt)=50.64%
+Task 7: Test MSE=1.0903, Test Mae=0.8466, Monotonic subjects=18.57%, Monotonic samples(df/dt)=46.20%
+Task 8: Test MSE=1.0749, Test Mae=0.8419, Monotonic subjects=21.02%, Monotonic samples(df/dt)=50.10%
+Task 9: Test MSE=1.1598, Test Mae=0.8408, Monotonic subjects=23.88%, Monotonic samples(df/dt)=50.30%
+Task 10: Test MSE=1.1173, Test Mae=0.8401, Monotonic subjects=22.04%, Monotonic samples(df/dt)=50.57%
+2026-01-29 18:44:44.667142
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mode: 0
+Mean Test MSE (avg across tasks): 1.0269
+Mean Test MAE (avg across tasks): 0.7980
+Task 1: Test MSE=0.9154, Test Mae=0.7588, Monotonic subjects=29.18%, Monotonic samples(df/dt)=57.37%
+Task 2: Test MSE=0.8861, Test Mae=0.7518, Monotonic subjects=34.49%, Monotonic samples(df/dt)=62.76%
+Task 3: Test MSE=1.2123, Test Mae=0.8555, Monotonic subjects=25.31%, Monotonic samples(df/dt)=54.01%
+Task 4: Test MSE=1.2014, Test Mae=0.8586, Monotonic subjects=26.53%, Monotonic samples(df/dt)=54.48%
+Task 5: Test MSE=0.8820, Test Mae=0.7496, Monotonic subjects=27.55%, Monotonic samples(df/dt)=54.34%
+Task 6: Test MSE=0.9413, Test Mae=0.7748, Monotonic subjects=28.78%, Monotonic samples(df/dt)=53.87%
+Task 7: Test MSE=1.0013, Test Mae=0.7859, Monotonic subjects=25.10%, Monotonic samples(df/dt)=55.08%
+Task 8: Test MSE=1.0072, Test Mae=0.7974, Monotonic subjects=25.71%, Monotonic samples(df/dt)=54.61%
+Task 9: Test MSE=1.1387, Test Mae=0.8402, Monotonic subjects=24.29%, Monotonic samples(df/dt)=52.12%
+Task 10: Test MSE=1.0834, Test Mae=0.8071, Monotonic subjects=24.49%, Monotonic samples(df/dt)=52.05%
+2026-01-29 20:39:54.487562
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.6857
+Mean Test MAE (avg across tasks): 0.6221
+Task 1: Test MSE=1.0205, Test Mae=0.8029, Monotonic subjects=68.16%, Monotonic samples(df/dt)=80.81%
+Task 2: Test MSE=0.8700, Test Mae=0.7408, Monotonic subjects=62.45%, Monotonic samples(df/dt)=78.79%
+Task 3: Test MSE=0.5650, Test Mae=0.5394, Monotonic subjects=51.43%, Monotonic samples(df/dt)=74.88%
+Task 4: Test MSE=0.5137, Test Mae=0.5216, Monotonic subjects=51.84%, Monotonic samples(df/dt)=74.95%
+Task 5: Test MSE=0.9887, Test Mae=0.7971, Monotonic subjects=65.51%, Monotonic samples(df/dt)=80.54%
+Task 6: Test MSE=1.0601, Test Mae=0.8351, Monotonic subjects=65.71%, Monotonic samples(df/dt)=79.87%
+Task 7: Test MSE=0.4078, Test Mae=0.4641, Monotonic subjects=46.33%, Monotonic samples(df/dt)=69.16%
+Task 8: Test MSE=0.4352, Test Mae=0.4934, Monotonic subjects=46.73%, Monotonic samples(df/dt)=69.90%
+Task 9: Test MSE=0.5099, Test Mae=0.5158, Monotonic subjects=48.16%, Monotonic samples(df/dt)=72.66%
+Task 10: Test MSE=0.4862, Test Mae=0.5109, Monotonic subjects=45.71%, Monotonic samples(df/dt)=71.31%
+2026-01-29 22:58:25.454941
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.6119
+Mean Test MAE (avg across tasks): 0.5819
+Task 1: Test MSE=0.5561, Test Mae=0.5396, Monotonic subjects=74.29%, Monotonic samples(df/dt)=89.23%
+Task 2: Test MSE=0.5308, Test Mae=0.5451, Monotonic subjects=73.67%, Monotonic samples(df/dt)=88.48%
+Task 3: Test MSE=0.6466, Test Mae=0.5776, Monotonic subjects=70.41%, Monotonic samples(df/dt)=86.20%
+Task 4: Test MSE=0.6184, Test Mae=0.5818, Monotonic subjects=70.41%, Monotonic samples(df/dt)=85.99%
+Task 5: Test MSE=0.7923, Test Mae=0.7050, Monotonic subjects=80.41%, Monotonic samples(df/dt)=93.54%
+Task 6: Test MSE=0.6960, Test Mae=0.6449, Monotonic subjects=80.20%, Monotonic samples(df/dt)=93.33%
+Task 7: Test MSE=0.3798, Test Mae=0.4740, Monotonic subjects=73.88%, Monotonic samples(df/dt)=88.82%
+Task 8: Test MSE=0.3545, Test Mae=0.4708, Monotonic subjects=73.27%, Monotonic samples(df/dt)=88.01%
+Task 9: Test MSE=0.5740, Test Mae=0.5693, Monotonic subjects=73.27%, Monotonic samples(df/dt)=88.22%
+Task 10: Test MSE=0.6120, Test Mae=0.5804, Monotonic subjects=72.65%, Monotonic samples(df/dt)=87.68%
+Task 11: Test MSE=0.7708, Test Mae=0.6239, Monotonic subjects=75.92%, Monotonic samples(df/dt)=90.64%
+Task 12: Test MSE=0.7184, Test Mae=0.5882, Monotonic subjects=71.63%, Monotonic samples(df/dt)=87.07%
+Task 13: Test MSE=0.7280, Test Mae=0.6539, Monotonic subjects=78.98%, Monotonic samples(df/dt)=92.12%
+Task 14: Test MSE=0.5890, Test Mae=0.5922, Monotonic subjects=72.45%, Monotonic samples(df/dt)=87.54%
+2026-01-30 01:17:11.039465
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 1
+Mean Test MSE (avg across tasks): 1.0242
+Mean Test MAE (avg across tasks): 0.7898
+Task 1: Test MSE=1.0493, Test Mae=0.7905, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=1.0535, Test Mae=0.8068, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=1.0001, Test Mae=0.7671, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=1.0081, Test Mae=0.7650, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=0.9659, Test Mae=0.7687, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=0.8938, Test Mae=0.7329, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=1.0180, Test Mae=0.8218, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=0.9919, Test Mae=0.8249, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=1.0446, Test Mae=0.8056, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=1.0184, Test Mae=0.7724, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 11: Test MSE=1.1557, Test Mae=0.8170, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 12: Test MSE=1.0279, Test Mae=0.7651, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 13: Test MSE=1.1118, Test Mae=0.8245, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 14: Test MSE=0.9995, Test Mae=0.7951, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+2026-01-30 03:08:47.253517
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.1355
+Mean Test MAE (avg across tasks): 0.2429
+Task 1: Test MSE=0.3001, Test Mae=0.4299, Monotonic subjects=99.18%, Monotonic samples(df/dt)=99.26%
+Task 2: Test MSE=0.0573, Test Mae=0.1719, Monotonic subjects=52.86%, Monotonic samples(df/dt)=71.04%
+Task 3: Test MSE=0.1831, Test Mae=0.2665, Monotonic subjects=99.18%, Monotonic samples(df/dt)=99.46%
+Task 4: Test MSE=0.1478, Test Mae=0.2542, Monotonic subjects=97.96%, Monotonic samples(df/dt)=98.92%
+Task 5: Test MSE=0.0588, Test Mae=0.1663, Monotonic subjects=99.18%, Monotonic samples(df/dt)=99.60%
+Task 6: Test MSE=0.0657, Test Mae=0.1684, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.87%
+2026-01-30 05:00:40.895953
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0575
+Mean Test MAE (avg across tasks): 0.1455
+Task 1: Test MSE=0.0315, Test Mae=0.1166, Monotonic subjects=74.49%, Monotonic samples(df/dt)=91.45%
+Task 2: Test MSE=0.0501, Test Mae=0.1504, Monotonic subjects=56.73%, Monotonic samples(df/dt)=79.06%
+Task 3: Test MSE=0.1013, Test Mae=0.1875, Monotonic subjects=70.20%, Monotonic samples(df/dt)=86.20%
+Task 4: Test MSE=0.0908, Test Mae=0.1744, Monotonic subjects=70.41%, Monotonic samples(df/dt)=87.27%
+Task 5: Test MSE=0.0378, Test Mae=0.1274, Monotonic subjects=79.80%, Monotonic samples(df/dt)=92.93%
+Task 6: Test MSE=0.0336, Test Mae=0.1166, Monotonic subjects=84.08%, Monotonic samples(df/dt)=94.41%
+2026-01-30 07:43:02.341749
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 3
+Mean Test MSE (avg across tasks): 0.5920
+Mean Test MAE (avg across tasks): 0.5896
+Task 1: Test MSE=0.4310, Test Mae=0.4974, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.60%
+Task 2: Test MSE=0.4628, Test Mae=0.5183, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.66%
+Task 3: Test MSE=0.4097, Test Mae=0.4916, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.73%
+Task 4: Test MSE=0.4398, Test Mae=0.5070, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.73%
+Task 5: Test MSE=0.4217, Test Mae=0.4795, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.66%
+Task 6: Test MSE=0.5218, Test Mae=0.5352, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.73%
+Task 7: Test MSE=0.4729, Test Mae=0.5163, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.80%
+Task 8: Test MSE=0.5618, Test Mae=0.5440, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=0.5951, Test Mae=0.6161, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=0.6392, Test Mae=0.6215, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 11: Test MSE=0.7487, Test Mae=0.6838, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 12: Test MSE=0.7828, Test Mae=0.6878, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 13: Test MSE=0.6049, Test Mae=0.6075, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.87%
+Task 14: Test MSE=0.7399, Test Mae=0.6554, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 15: Test MSE=0.5024, Test Mae=0.5516, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.60%
+Task 16: Test MSE=0.5978, Test Mae=0.5909, Monotonic subjects=99.59%, Monotonic samples(df/dt)=99.66%
+Task 17: Test MSE=0.8742, Test Mae=0.7548, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 18: Test MSE=0.8501, Test Mae=0.7549, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+
+#####################################################################################################################################2026-01-30 16:57:56.218224
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.3336
+Mean Test MAE (avg across tasks): 0.4089
+Task 1: Test MSE=0.5951, Test Mae=0.6016, Monotonic subjects=51.84%, Monotonic samples(df/dt)=82.42%
+Task 2: Test MSE=0.5562, Test Mae=0.5870, Monotonic subjects=49.39%, Monotonic samples(df/dt)=80.07%
+Task 3: Test MSE=0.3322, Test Mae=0.4127, Monotonic subjects=58.37%, Monotonic samples(df/dt)=86.13%
+Task 4: Test MSE=0.2869, Test Mae=0.3728, Monotonic subjects=59.59%, Monotonic samples(df/dt)=86.60%
+Task 5: Test MSE=0.0732, Test Mae=0.1906, Monotonic subjects=53.67%, Monotonic samples(df/dt)=82.83%
+Task 6: Test MSE=0.5427, Test Mae=0.5454, Monotonic subjects=43.27%, Monotonic samples(df/dt)=77.24%
+Task 7: Test MSE=0.3448, Test Mae=0.4586, Monotonic subjects=52.45%, Monotonic samples(df/dt)=80.40%
+Task 8: Test MSE=0.0900, Test Mae=0.2156, Monotonic subjects=51.43%, Monotonic samples(df/dt)=72.53%
+Task 9: Test MSE=0.2684, Test Mae=0.3609, Monotonic subjects=62.86%, Monotonic samples(df/dt)=87.54%
+Task 10: Test MSE=0.2460, Test Mae=0.3442, Monotonic subjects=57.76%, Monotonic samples(df/dt)=85.93%
+
+###################################################################################################################################2026-02-02 12:36:43.554414
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.1201
+Mean Test MAE (avg across tasks): 0.2338
+Task 1: Test MSE=0.5642, Test Mae=0.6067, Monotonic subjects=92.05%, Monotonic samples(df/dt)=96.98%
+Task 2: Test MSE=0.0656, Test Mae=0.1954, Monotonic subjects=98.01%, Monotonic samples(df/dt)=99.25%
+Task 3: Test MSE=0.1332, Test Mae=0.2749, Monotonic subjects=75.42%, Monotonic samples(df/dt)=90.68%
+Task 4: Test MSE=0.0874, Test Mae=0.2227, Monotonic subjects=77.24%, Monotonic samples(df/dt)=91.35%
+Task 5: Test MSE=0.0315, Test Mae=0.1330, Monotonic subjects=94.48%, Monotonic samples(df/dt)=96.88%
+Task 6: Test MSE=0.0340, Test Mae=0.1378, Monotonic subjects=83.77%, Monotonic samples(df/dt)=89.37%
+Task 7: Test MSE=0.0387, Test Mae=0.1516, Monotonic subjects=98.42%, Monotonic samples(df/dt)=99.38%
+Task 8: Test MSE=0.0371, Test Mae=0.1452, Monotonic subjects=94.20%, Monotonic samples(df/dt)=96.86%
+Task 9: Test MSE=0.1041, Test Mae=0.2346, Monotonic subjects=84.67%, Monotonic samples(df/dt)=94.18%
+Task 10: Test MSE=0.1049, Test Mae=0.2356, Monotonic subjects=96.15%, Monotonic samples(df/dt)=98.46%
+###########################################################################################################################
+2026-02-02 13:24:20.679104
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mode: 0
+Mean Test MSE (avg across tasks): 0.1783
+Mean Test MAE (avg across tasks): 0.2963
+Task 1: Test MSE=0.0384, Test Mae=0.1429, Monotonic subjects=47.10%, Monotonic samples(df/dt)=69.72%
+Task 2: Test MSE=0.5196, Test Mae=0.5693, Monotonic subjects=27.67%, Monotonic samples(df/dt)=45.35%
+Task 3: Test MSE=0.2355, Test Mae=0.3702, Monotonic subjects=53.51%, Monotonic samples(df/dt)=73.70%
+Task 4: Test MSE=0.2124, Test Mae=0.3572, Monotonic subjects=78.38%, Monotonic samples(df/dt)=90.94%
+Task 5: Test MSE=0.0303, Test Mae=0.1311, Monotonic subjects=36.43%, Monotonic samples(df/dt)=60.38%
+Task 6: Test MSE=0.0391, Test Mae=0.1483, Monotonic subjects=12.01%, Monotonic samples(df/dt)=23.60%
+Task 7: Test MSE=0.0519, Test Mae=0.1725, Monotonic subjects=18.90%, Monotonic samples(df/dt)=32.22%
+Task 8: Test MSE=0.2852, Test Mae=0.4228, Monotonic subjects=38.42%, Monotonic samples(df/dt)=50.45%
+Task 9: Test MSE=0.2091, Test Mae=0.3482, Monotonic subjects=87.02%, Monotonic samples(df/dt)=94.74%
+Task 10: Test MSE=0.1619, Test Mae=0.3006, Monotonic subjects=88.36%, Monotonic samples(df/dt)=95.28%
+2026-02-02 14:07:55.258798
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.1096
+Mean Test MAE (avg across tasks): 0.2221
+Task 1: Test MSE=0.0304, Test Mae=0.1274, Monotonic subjects=94.93%, Monotonic samples(df/dt)=97.65%
+Task 2: Test MSE=0.0323, Test Mae=0.1287, Monotonic subjects=93.31%, Monotonic samples(df/dt)=97.37%
+Task 3: Test MSE=0.2810, Test Mae=0.4050, Monotonic subjects=90.99%, Monotonic samples(df/dt)=96.28%
+Task 4: Test MSE=0.0715, Test Mae=0.1934, Monotonic subjects=92.09%, Monotonic samples(df/dt)=96.66%
+Task 5: Test MSE=0.0277, Test Mae=0.1247, Monotonic subjects=91.72%, Monotonic samples(df/dt)=96.38%
+Task 6: Test MSE=0.0271, Test Mae=0.1241, Monotonic subjects=91.28%, Monotonic samples(df/dt)=95.77%
+Task 7: Test MSE=0.0332, Test Mae=0.1365, Monotonic subjects=94.04%, Monotonic samples(df/dt)=97.35%
+Task 8: Test MSE=0.2982, Test Mae=0.4320, Monotonic subjects=94.44%, Monotonic samples(df/dt)=97.45%
+Task 9: Test MSE=0.0801, Test Mae=0.1973, Monotonic subjects=88.52%, Monotonic samples(df/dt)=94.57%
+Task 10: Test MSE=0.2141, Test Mae=0.3517, Monotonic subjects=93.51%, Monotonic samples(df/dt)=97.14%
+
+2026-02-02 16:19:55.249362
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.4497
+Mean Test MAE (avg across tasks): 0.4808
+Task 1: Test MSE=0.2147, Test Mae=0.2987, Monotonic subjects=54.32%, Monotonic samples(df/dt)=72.15%
+Task 2: Test MSE=0.2230, Test Mae=0.3034, Monotonic subjects=50.99%, Monotonic samples(df/dt)=68.78%
+Task 3: Test MSE=0.4217, Test Mae=0.4636, Monotonic subjects=87.75%, Monotonic samples(df/dt)=92.98%
+Task 4: Test MSE=0.4014, Test Mae=0.4497, Monotonic subjects=79.15%, Monotonic samples(df/dt)=86.32%
+Task 5: Test MSE=0.8218, Test Mae=0.7094, Monotonic subjects=44.54%, Monotonic samples(df/dt)=69.29%
+Task 6: Test MSE=0.8217, Test Mae=0.7068, Monotonic subjects=59.96%, Monotonic samples(df/dt)=79.47%
+Task 7: Test MSE=0.1518, Test Mae=0.2958, Monotonic subjects=79.15%, Monotonic samples(df/dt)=89.20%
+Task 8: Test MSE=0.1575, Test Mae=0.3069, Monotonic subjects=79.11%, Monotonic samples(df/dt)=89.23%
+Task 9: Test MSE=0.4722, Test Mae=0.5160, Monotonic subjects=41.10%, Monotonic samples(df/dt)=58.73%
+Task 10: Test MSE=0.4743, Test Mae=0.5070, Monotonic subjects=34.40%, Monotonic samples(df/dt)=50.44%
+Task 11: Test MSE=0.5810, Test Mae=0.5520, Monotonic subjects=45.35%, Monotonic samples(df/dt)=68.72%
+Task 12: Test MSE=0.5754, Test Mae=0.5392, Monotonic subjects=42.88%, Monotonic samples(df/dt)=61.06%
+Task 13: Test MSE=0.4951, Test Mae=0.5449, Monotonic subjects=59.23%, Monotonic samples(df/dt)=79.70%
+Task 14: Test MSE=0.4838, Test Mae=0.5374, Monotonic subjects=54.40%, Monotonic samples(df/dt)=77.74%
+2026-02-03 00:32:46.319766
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 1
+Mean Test MSE (avg across tasks): 1.0312
+Mean Test MAE (avg across tasks): 0.7891
+Task 1: Test MSE=1.0140, Test Mae=0.7837, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 2: Test MSE=1.0149, Test Mae=0.7948, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 3: Test MSE=1.0556, Test Mae=0.7842, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 4: Test MSE=1.0472, Test Mae=0.7857, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 5: Test MSE=1.0241, Test Mae=0.7959, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 6: Test MSE=1.0301, Test Mae=0.7996, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 7: Test MSE=1.0131, Test Mae=0.7953, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 8: Test MSE=1.0123, Test Mae=0.7979, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 9: Test MSE=1.0254, Test Mae=0.7886, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 10: Test MSE=1.0245, Test Mae=0.7774, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 11: Test MSE=1.0678, Test Mae=0.7848, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 12: Test MSE=1.0497, Test Mae=0.7653, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 13: Test MSE=1.0262, Test Mae=0.7959, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+Task 14: Test MSE=1.0324, Test Mae=0.7984, Monotonic subjects=100.00%, Monotonic samples(df/dt)=100.00%
+
+################################################################################################################2026-02-03 13:33:26.856653
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mode: 0
+Mean Test MSE (avg across tasks): 0.0851
+Mean Test MAE (avg across tasks): 0.2028
+Task 1: Test MSE=0.0563, Test Mae=0.1726, Monotonic subjects=72.61%, Monotonic samples(df/dt)=87.28%
+Task 2: Test MSE=0.0612, Test Mae=0.1823, Monotonic subjects=78.12%, Monotonic samples(df/dt)=88.93%
+Task 3: Test MSE=0.1318, Test Mae=0.2506, Monotonic subjects=62.24%, Monotonic samples(df/dt)=79.09%
+Task 4: Test MSE=0.1409, Test Mae=0.2435, Monotonic subjects=73.58%, Monotonic samples(df/dt)=85.92%
+Task 5: Test MSE=0.0543, Test Mae=0.1743, Monotonic subjects=68.40%, Monotonic samples(df/dt)=81.92%
+Task 6: Test MSE=0.0624, Test Mae=0.1825, Monotonic subjects=67.91%, Monotonic samples(df/dt)=82.21%
+Task 7: Test MSE=0.0722, Test Mae=0.1909, Monotonic subjects=71.64%, Monotonic samples(df/dt)=84.92%
+Task 8: Test MSE=0.0637, Test Mae=0.1785, Monotonic subjects=69.53%, Monotonic samples(df/dt)=82.39%
+Task 9: Test MSE=0.1112, Test Mae=0.2364, Monotonic subjects=61.43%, Monotonic samples(df/dt)=78.92%
+Task 10: Test MSE=0.0974, Test Mae=0.2165, Monotonic subjects=67.26%, Monotonic samples(df/dt)=81.39%
+2026-02-03 13:59:55.372593
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.0884
+Mean Test MAE (avg across tasks): 0.2072
+Task 1: Test MSE=0.0564, Test Mae=0.1729, Monotonic subjects=75.53%, Monotonic samples(df/dt)=87.63%
+Task 2: Test MSE=0.0640, Test Mae=0.1880, Monotonic subjects=77.15%, Monotonic samples(df/dt)=88.57%
+Task 3: Test MSE=0.1350, Test Mae=0.2529, Monotonic subjects=71.80%, Monotonic samples(df/dt)=84.57%
+Task 4: Test MSE=0.1425, Test Mae=0.2459, Monotonic subjects=71.96%, Monotonic samples(df/dt)=84.22%
+Task 5: Test MSE=0.0522, Test Mae=0.1688, Monotonic subjects=67.42%, Monotonic samples(df/dt)=82.16%
+Task 6: Test MSE=0.0704, Test Mae=0.1913, Monotonic subjects=61.26%, Monotonic samples(df/dt)=77.86%
+Task 7: Test MSE=0.0705, Test Mae=0.1890, Monotonic subjects=71.47%, Monotonic samples(df/dt)=84.51%
+Task 8: Test MSE=0.0693, Test Mae=0.1884, Monotonic subjects=62.72%, Monotonic samples(df/dt)=79.51%
+Task 9: Test MSE=0.1187, Test Mae=0.2456, Monotonic subjects=70.34%, Monotonic samples(df/dt)=83.98%
+Task 10: Test MSE=0.1048, Test Mae=0.2290, Monotonic subjects=70.02%, Monotonic samples(df/dt)=83.63%
+2026-02-03 14:31:11.940500
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.1194
+Mean Test MAE (avg across tasks): 0.2159
+Task 1: Test MSE=0.1263, Test Mae=0.2134, Monotonic subjects=45.87%, Monotonic samples(df/dt)=65.67%
+Task 2: Test MSE=0.1288, Test Mae=0.2177, Monotonic subjects=47.33%, Monotonic samples(df/dt)=67.26%
+Task 3: Test MSE=0.1145, Test Mae=0.2129, Monotonic subjects=77.47%, Monotonic samples(df/dt)=91.05%
+Task 4: Test MSE=0.1206, Test Mae=0.2101, Monotonic subjects=82.17%, Monotonic samples(df/dt)=92.34%
+Task 5: Test MSE=0.1071, Test Mae=0.2379, Monotonic subjects=58.18%, Monotonic samples(df/dt)=77.97%
+Task 6: Test MSE=0.1188, Test Mae=0.2446, Monotonic subjects=64.34%, Monotonic samples(df/dt)=81.57%
+Task 7: Test MSE=0.0623, Test Mae=0.1762, Monotonic subjects=82.66%, Monotonic samples(df/dt)=92.82%
+Task 8: Test MSE=0.0585, Test Mae=0.1762, Monotonic subjects=79.90%, Monotonic samples(df/dt)=91.17%
+Task 9: Test MSE=0.1298, Test Mae=0.2168, Monotonic subjects=70.50%, Monotonic samples(df/dt)=87.04%
+Task 10: Test MSE=0.1617, Test Mae=0.2280, Monotonic subjects=79.25%, Monotonic samples(df/dt)=90.81%
+Task 11: Test MSE=0.1542, Test Mae=0.2367, Monotonic subjects=64.34%, Monotonic samples(df/dt)=84.10%
+Task 12: Test MSE=0.1889, Test Mae=0.2378, Monotonic subjects=75.69%, Monotonic samples(df/dt)=88.69%
+Task 13: Test MSE=0.0980, Test Mae=0.2108, Monotonic subjects=71.80%, Monotonic samples(df/dt)=87.22%
+Task 14: Test MSE=0.1017, Test Mae=0.2037, Monotonic subjects=79.42%, Monotonic samples(df/dt)=90.99%
+2026-02-03 15:08:11.532956
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.1193
+Mean Test MAE (avg across tasks): 0.2163
+Task 1: Test MSE=0.1260, Test Mae=0.2142, Monotonic subjects=64.18%, Monotonic samples(df/dt)=79.21%
+Task 2: Test MSE=0.1246, Test Mae=0.2126, Monotonic subjects=63.86%, Monotonic samples(df/dt)=79.86%
+Task 3: Test MSE=0.1136, Test Mae=0.2067, Monotonic subjects=83.47%, Monotonic samples(df/dt)=92.76%
+Task 4: Test MSE=0.1235, Test Mae=0.2145, Monotonic subjects=79.90%, Monotonic samples(df/dt)=91.70%
+Task 5: Test MSE=0.1116, Test Mae=0.2415, Monotonic subjects=68.56%, Monotonic samples(df/dt)=83.27%
+Task 6: Test MSE=0.1183, Test Mae=0.2422, Monotonic subjects=65.96%, Monotonic samples(df/dt)=83.04%
+Task 7: Test MSE=0.0676, Test Mae=0.1847, Monotonic subjects=80.55%, Monotonic samples(df/dt)=90.99%
+Task 8: Test MSE=0.0637, Test Mae=0.1809, Monotonic subjects=77.96%, Monotonic samples(df/dt)=90.64%
+Task 9: Test MSE=0.1278, Test Mae=0.2144, Monotonic subjects=82.01%, Monotonic samples(df/dt)=91.52%
+Task 10: Test MSE=0.1597, Test Mae=0.2300, Monotonic subjects=80.23%, Monotonic samples(df/dt)=89.81%
+Task 11: Test MSE=0.1450, Test Mae=0.2239, Monotonic subjects=84.12%, Monotonic samples(df/dt)=92.17%
+Task 12: Test MSE=0.1864, Test Mae=0.2398, Monotonic subjects=84.28%, Monotonic samples(df/dt)=93.17%
+Task 13: Test MSE=0.0998, Test Mae=0.2142, Monotonic subjects=76.82%, Monotonic samples(df/dt)=90.11%
+Task 14: Test MSE=0.1025, Test Mae=0.2081, Monotonic subjects=80.71%, Monotonic samples(df/dt)=91.40%
+2026-02-03 15:34:34.350265
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0560
+Mean Test MAE (avg across tasks): 0.1452
+Task 1: Test MSE=0.0292, Test Mae=0.1196, Monotonic subjects=88.98%, Monotonic samples(df/dt)=94.88%
+Task 2: Test MSE=0.0494, Test Mae=0.1512, Monotonic subjects=50.08%, Monotonic samples(df/dt)=71.55%
+Task 3: Test MSE=0.0836, Test Mae=0.1673, Monotonic subjects=79.42%, Monotonic samples(df/dt)=90.05%
+Task 4: Test MSE=0.0994, Test Mae=0.1753, Monotonic subjects=79.74%, Monotonic samples(df/dt)=90.99%
+Task 5: Test MSE=0.0377, Test Mae=0.1269, Monotonic subjects=87.36%, Monotonic samples(df/dt)=94.70%
+Task 6: Test MSE=0.0365, Test Mae=0.1306, Monotonic subjects=89.47%, Monotonic samples(df/dt)=95.41%
+2026-02-03 16:04:27.515289
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0569
+Mean Test MAE (avg across tasks): 0.1459
+Task 1: Test MSE=0.0304, Test Mae=0.1224, Monotonic subjects=86.22%, Monotonic samples(df/dt)=93.93%
+Task 2: Test MSE=0.0499, Test Mae=0.1536, Monotonic subjects=68.07%, Monotonic samples(df/dt)=80.33%
+Task 3: Test MSE=0.0926, Test Mae=0.1759, Monotonic subjects=80.88%, Monotonic samples(df/dt)=90.46%
+Task 4: Test MSE=0.0937, Test Mae=0.1652, Monotonic subjects=82.01%, Monotonic samples(df/dt)=91.22%
+Task 5: Test MSE=0.0390, Test Mae=0.1328, Monotonic subjects=85.90%, Monotonic samples(df/dt)=93.64%
+Task 6: Test MSE=0.0361, Test Mae=0.1257, Monotonic subjects=86.22%, Monotonic samples(df/dt)=93.93%
+2026-02-03 16:36:25.207342
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 3
+Mean Test MSE (avg across tasks): 0.0944
+Mean Test MAE (avg across tasks): 0.1999
+Task 1: Test MSE=0.0957, Test Mae=0.1942, Monotonic subjects=43.27%, Monotonic samples(df/dt)=66.96%
+Task 2: Test MSE=0.0935, Test Mae=0.1908, Monotonic subjects=49.11%, Monotonic samples(df/dt)=71.50%
+Task 3: Test MSE=0.0871, Test Mae=0.1854, Monotonic subjects=57.86%, Monotonic samples(df/dt)=78.62%
+Task 4: Test MSE=0.0946, Test Mae=0.1917, Monotonic subjects=65.96%, Monotonic samples(df/dt)=84.81%
+Task 5: Test MSE=0.1259, Test Mae=0.2124, Monotonic subjects=61.10%, Monotonic samples(df/dt)=82.16%
+Task 6: Test MSE=0.1452, Test Mae=0.2312, Monotonic subjects=62.88%, Monotonic samples(df/dt)=83.10%
+Task 7: Test MSE=0.1087, Test Mae=0.2020, Monotonic subjects=75.69%, Monotonic samples(df/dt)=90.16%
+Task 8: Test MSE=0.1277, Test Mae=0.2138, Monotonic subjects=71.96%, Monotonic samples(df/dt)=88.10%
+Task 9: Test MSE=0.0886, Test Mae=0.2225, Monotonic subjects=81.69%, Monotonic samples(df/dt)=91.87%
+Task 10: Test MSE=0.0929, Test Mae=0.2238, Monotonic subjects=81.04%, Monotonic samples(df/dt)=91.58%
+Task 11: Test MSE=0.0794, Test Mae=0.2061, Monotonic subjects=76.82%, Monotonic samples(df/dt)=90.05%
+Task 12: Test MSE=0.0756, Test Mae=0.1974, Monotonic subjects=72.77%, Monotonic samples(df/dt)=87.34%
+Task 13: Test MSE=0.0727, Test Mae=0.1836, Monotonic subjects=81.04%, Monotonic samples(df/dt)=91.87%
+Task 14: Test MSE=0.0893, Test Mae=0.1956, Monotonic subjects=75.69%, Monotonic samples(df/dt)=89.93%
+Task 15: Test MSE=0.1070, Test Mae=0.2166, Monotonic subjects=72.29%, Monotonic samples(df/dt)=87.10%
+Task 16: Test MSE=0.1147, Test Mae=0.2056, Monotonic subjects=73.58%, Monotonic samples(df/dt)=89.05%
+Task 17: Test MSE=0.0531, Test Mae=0.1668, Monotonic subjects=75.53%, Monotonic samples(df/dt)=90.34%
+Task 18: Test MSE=0.0475, Test Mae=0.1588, Monotonic subjects=76.66%, Monotonic samples(df/dt)=89.87%
+2026-02-03 17:33:07.032270
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.0747
+Mean Test MAE (avg across tasks): 0.1872
+Task 1: Test MSE=0.0520, Test Mae=0.1668, Monotonic subjects=84.44%, Monotonic samples(df/dt)=93.29%
+Task 2: Test MSE=0.0541, Test Mae=0.1708, Monotonic subjects=88.98%, Monotonic samples(df/dt)=95.47%
+Task 3: Test MSE=0.1137, Test Mae=0.2240, Monotonic subjects=69.53%, Monotonic samples(df/dt)=83.80%
+Task 4: Test MSE=0.1245, Test Mae=0.2214, Monotonic subjects=76.18%, Monotonic samples(df/dt)=88.16%
+Task 5: Test MSE=0.0474, Test Mae=0.1617, Monotonic subjects=80.88%, Monotonic samples(df/dt)=91.46%
+Task 6: Test MSE=0.0566, Test Mae=0.1764, Monotonic subjects=79.42%, Monotonic samples(df/dt)=90.99%
+Task 7: Test MSE=0.0606, Test Mae=0.1725, Monotonic subjects=79.74%, Monotonic samples(df/dt)=90.52%
+Task 8: Test MSE=0.0586, Test Mae=0.1708, Monotonic subjects=74.72%, Monotonic samples(df/dt)=85.51%
+Task 9: Test MSE=0.0945, Test Mae=0.2118, Monotonic subjects=66.61%, Monotonic samples(df/dt)=81.39%
+Task 10: Test MSE=0.0846, Test Mae=0.1954, Monotonic subjects=73.91%, Monotonic samples(df/dt)=85.81%
+2026-02-03 18:35:02.046329
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.0753
+Mean Test MAE (avg across tasks): 0.1891
+Task 1: Test MSE=0.0540, Test Mae=0.1699, Monotonic subjects=89.63%, Monotonic samples(df/dt)=95.64%
+Task 2: Test MSE=0.0516, Test Mae=0.1682, Monotonic subjects=90.92%, Monotonic samples(df/dt)=95.58%
+Task 3: Test MSE=0.1226, Test Mae=0.2374, Monotonic subjects=77.63%, Monotonic samples(df/dt)=87.69%
+Task 4: Test MSE=0.1289, Test Mae=0.2291, Monotonic subjects=78.93%, Monotonic samples(df/dt)=89.16%
+Task 5: Test MSE=0.0496, Test Mae=0.1661, Monotonic subjects=84.12%, Monotonic samples(df/dt)=92.82%
+Task 6: Test MSE=0.0511, Test Mae=0.1671, Monotonic subjects=82.66%, Monotonic samples(df/dt)=91.58%
+Task 7: Test MSE=0.0574, Test Mae=0.1700, Monotonic subjects=84.76%, Monotonic samples(df/dt)=92.70%
+Task 8: Test MSE=0.0573, Test Mae=0.1705, Monotonic subjects=80.88%, Monotonic samples(df/dt)=89.28%
+Task 9: Test MSE=0.0957, Test Mae=0.2146, Monotonic subjects=72.45%, Monotonic samples(df/dt)=84.92%
+Task 10: Test MSE=0.0849, Test Mae=0.1981, Monotonic subjects=77.96%, Monotonic samples(df/dt)=87.75%
+2026-02-03 19:38:24.686271
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.1175
+Mean Test MAE (avg across tasks): 0.2124
+Task 1: Test MSE=0.1248, Test Mae=0.2108, Monotonic subjects=38.57%, Monotonic samples(df/dt)=61.78%
+Task 2: Test MSE=0.1287, Test Mae=0.2138, Monotonic subjects=49.76%, Monotonic samples(df/dt)=71.20%
+Task 3: Test MSE=0.1154, Test Mae=0.2111, Monotonic subjects=71.80%, Monotonic samples(df/dt)=87.99%
+Task 4: Test MSE=0.1164, Test Mae=0.2047, Monotonic subjects=81.20%, Monotonic samples(df/dt)=93.05%
+Task 5: Test MSE=0.1036, Test Mae=0.2340, Monotonic subjects=42.46%, Monotonic samples(df/dt)=67.96%
+Task 6: Test MSE=0.1204, Test Mae=0.2435, Monotonic subjects=57.70%, Monotonic samples(df/dt)=77.21%
+Task 7: Test MSE=0.0595, Test Mae=0.1711, Monotonic subjects=72.77%, Monotonic samples(df/dt)=88.63%
+Task 8: Test MSE=0.0573, Test Mae=0.1749, Monotonic subjects=75.69%, Monotonic samples(df/dt)=90.69%
+Task 9: Test MSE=0.1283, Test Mae=0.2158, Monotonic subjects=68.88%, Monotonic samples(df/dt)=85.16%
+Task 10: Test MSE=0.1562, Test Mae=0.2241, Monotonic subjects=70.02%, Monotonic samples(df/dt)=87.40%
+Task 11: Test MSE=0.1538, Test Mae=0.2329, Monotonic subjects=58.35%, Monotonic samples(df/dt)=81.10%
+Task 12: Test MSE=0.1837, Test Mae=0.2263, Monotonic subjects=74.55%, Monotonic samples(df/dt)=90.05%
+Task 13: Test MSE=0.0984, Test Mae=0.2104, Monotonic subjects=68.40%, Monotonic samples(df/dt)=85.63%
+Task 14: Test MSE=0.0987, Test Mae=0.1995, Monotonic subjects=73.74%, Monotonic samples(df/dt)=88.69%
+2026-02-03 20:47:46.880603
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.1200
+Mean Test MAE (avg across tasks): 0.2150
+Task 1: Test MSE=0.1286, Test Mae=0.2114, Monotonic subjects=58.18%, Monotonic samples(df/dt)=74.56%
+Task 2: Test MSE=0.1326, Test Mae=0.2216, Monotonic subjects=69.04%, Monotonic samples(df/dt)=81.51%
+Task 3: Test MSE=0.1177, Test Mae=0.2091, Monotonic subjects=80.23%, Monotonic samples(df/dt)=91.05%
+Task 4: Test MSE=0.1248, Test Mae=0.2127, Monotonic subjects=89.30%, Monotonic samples(df/dt)=95.76%
+Task 5: Test MSE=0.1169, Test Mae=0.2478, Monotonic subjects=73.58%, Monotonic samples(df/dt)=86.81%
+Task 6: Test MSE=0.1179, Test Mae=0.2416, Monotonic subjects=77.96%, Monotonic samples(df/dt)=88.87%
+Task 7: Test MSE=0.0566, Test Mae=0.1709, Monotonic subjects=83.47%, Monotonic samples(df/dt)=92.40%
+Task 8: Test MSE=0.0600, Test Mae=0.1781, Monotonic subjects=86.06%, Monotonic samples(df/dt)=94.29%
+Task 9: Test MSE=0.1263, Test Mae=0.2132, Monotonic subjects=82.01%, Monotonic samples(df/dt)=91.52%
+Task 10: Test MSE=0.1574, Test Mae=0.2260, Monotonic subjects=89.14%, Monotonic samples(df/dt)=94.88%
+Task 11: Test MSE=0.1478, Test Mae=0.2238, Monotonic subjects=77.96%, Monotonic samples(df/dt)=89.34%
+Task 12: Test MSE=0.1917, Test Mae=0.2343, Monotonic subjects=89.63%, Monotonic samples(df/dt)=95.35%
+Task 13: Test MSE=0.0967, Test Mae=0.2098, Monotonic subjects=77.47%, Monotonic samples(df/dt)=90.40%
+Task 14: Test MSE=0.1044, Test Mae=0.2101, Monotonic subjects=82.66%, Monotonic samples(df/dt)=92.52%
+2026-02-03 21:53:16.263038
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0571
+Mean Test MAE (avg across tasks): 0.1455
+Task 1: Test MSE=0.0277, Test Mae=0.1147, Monotonic subjects=83.79%, Monotonic samples(df/dt)=92.82%
+Task 2: Test MSE=0.0479, Test Mae=0.1509, Monotonic subjects=58.02%, Monotonic samples(df/dt)=74.97%
+Task 3: Test MSE=0.0909, Test Mae=0.1735, Monotonic subjects=64.02%, Monotonic samples(df/dt)=83.27%
+Task 4: Test MSE=0.1030, Test Mae=0.1770, Monotonic subjects=60.13%, Monotonic samples(df/dt)=81.21%
+Task 5: Test MSE=0.0391, Test Mae=0.1327, Monotonic subjects=75.53%, Monotonic samples(df/dt)=88.99%
+Task 6: Test MSE=0.0342, Test Mae=0.1243, Monotonic subjects=76.66%, Monotonic samples(df/dt)=89.16%
+2026-02-03 22:57:22.940150
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0583
+Mean Test MAE (avg across tasks): 0.1465
+Task 1: Test MSE=0.0296, Test Mae=0.1212, Monotonic subjects=91.09%, Monotonic samples(df/dt)=96.05%
+Task 2: Test MSE=0.0478, Test Mae=0.1534, Monotonic subjects=63.70%, Monotonic samples(df/dt)=79.21%
+Task 3: Test MSE=0.1006, Test Mae=0.1794, Monotonic subjects=79.25%, Monotonic samples(df/dt)=90.16%
+Task 4: Test MSE=0.1010, Test Mae=0.1744, Monotonic subjects=81.04%, Monotonic samples(df/dt)=90.64%
+Task 5: Test MSE=0.0339, Test Mae=0.1223, Monotonic subjects=88.01%, Monotonic samples(df/dt)=94.52%
+Task 6: Test MSE=0.0367, Test Mae=0.1282, Monotonic subjects=89.30%, Monotonic samples(df/dt)=95.05%
+2026-02-04 00:06:26.891874
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 3
+Mean Test MSE (avg across tasks): 0.0912
+Mean Test MAE (avg across tasks): 0.1937
+Task 1: Test MSE=0.0965, Test Mae=0.1918, Monotonic subjects=41.82%, Monotonic samples(df/dt)=65.08%
+Task 2: Test MSE=0.0927, Test Mae=0.1887, Monotonic subjects=53.65%, Monotonic samples(df/dt)=75.44%
+Task 3: Test MSE=0.0820, Test Mae=0.1779, Monotonic subjects=70.18%, Monotonic samples(df/dt)=87.04%
+Task 4: Test MSE=0.0931, Test Mae=0.1851, Monotonic subjects=75.85%, Monotonic samples(df/dt)=90.28%
+Task 5: Test MSE=0.1274, Test Mae=0.2127, Monotonic subjects=58.83%, Monotonic samples(df/dt)=81.68%
+Task 6: Test MSE=0.1423, Test Mae=0.2221, Monotonic subjects=70.50%, Monotonic samples(df/dt)=88.04%
+Task 7: Test MSE=0.1056, Test Mae=0.1965, Monotonic subjects=75.20%, Monotonic samples(df/dt)=90.46%
+Task 8: Test MSE=0.1228, Test Mae=0.2098, Monotonic subjects=78.61%, Monotonic samples(df/dt)=91.81%
+Task 9: Test MSE=0.0884, Test Mae=0.2195, Monotonic subjects=83.95%, Monotonic samples(df/dt)=93.52%
+Task 10: Test MSE=0.0906, Test Mae=0.2202, Monotonic subjects=84.44%, Monotonic samples(df/dt)=94.23%
+Task 11: Test MSE=0.0754, Test Mae=0.2001, Monotonic subjects=78.77%, Monotonic samples(df/dt)=91.70%
+Task 12: Test MSE=0.0700, Test Mae=0.1861, Monotonic subjects=88.98%, Monotonic samples(df/dt)=94.82%
+Task 13: Test MSE=0.0676, Test Mae=0.1758, Monotonic subjects=79.58%, Monotonic samples(df/dt)=91.58%
+Task 14: Test MSE=0.0863, Test Mae=0.1890, Monotonic subjects=78.77%, Monotonic samples(df/dt)=91.93%
+Task 15: Test MSE=0.0954, Test Mae=0.2015, Monotonic subjects=76.99%, Monotonic samples(df/dt)=90.16%
+Task 16: Test MSE=0.1082, Test Mae=0.1953, Monotonic subjects=80.39%, Monotonic samples(df/dt)=91.99%
+Task 17: Test MSE=0.0539, Test Mae=0.1641, Monotonic subjects=77.15%, Monotonic samples(df/dt)=91.05%
+Task 18: Test MSE=0.0436, Test Mae=0.1500, Monotonic subjects=84.93%, Monotonic samples(df/dt)=93.93%
+2026-02-04 01:28:19.779670
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 3
+Mean Test MSE (avg across tasks): 0.0899
+Mean Test MAE (avg across tasks): 0.1927
+Task 1: Test MSE=0.0952, Test Mae=0.1916, Monotonic subjects=67.42%, Monotonic samples(df/dt)=81.57%
+Task 2: Test MSE=0.0927, Test Mae=0.1906, Monotonic subjects=76.50%, Monotonic samples(df/dt)=88.10%
+Task 3: Test MSE=0.0817, Test Mae=0.1775, Monotonic subjects=84.44%, Monotonic samples(df/dt)=92.82%
+Task 4: Test MSE=0.0893, Test Mae=0.1861, Monotonic subjects=82.82%, Monotonic samples(df/dt)=92.58%
+Task 5: Test MSE=0.1263, Test Mae=0.2100, Monotonic subjects=80.71%, Monotonic samples(df/dt)=91.17%
+Task 6: Test MSE=0.1325, Test Mae=0.2172, Monotonic subjects=83.79%, Monotonic samples(df/dt)=93.17%
+Task 7: Test MSE=0.1085, Test Mae=0.2003, Monotonic subjects=87.03%, Monotonic samples(df/dt)=94.76%
+Task 8: Test MSE=0.1242, Test Mae=0.2119, Monotonic subjects=86.55%, Monotonic samples(df/dt)=94.41%
+Task 9: Test MSE=0.0853, Test Mae=0.2151, Monotonic subjects=94.49%, Monotonic samples(df/dt)=97.70%
+Task 10: Test MSE=0.0862, Test Mae=0.2134, Monotonic subjects=95.30%, Monotonic samples(df/dt)=98.23%
+Task 11: Test MSE=0.0763, Test Mae=0.2024, Monotonic subjects=94.65%, Monotonic samples(df/dt)=97.76%
+Task 12: Test MSE=0.0669, Test Mae=0.1813, Monotonic subjects=90.44%, Monotonic samples(df/dt)=96.00%
+Task 13: Test MSE=0.0654, Test Mae=0.1742, Monotonic subjects=90.44%, Monotonic samples(df/dt)=96.00%
+Task 14: Test MSE=0.0845, Test Mae=0.1888, Monotonic subjects=89.30%, Monotonic samples(df/dt)=96.00%
+Task 15: Test MSE=0.1030, Test Mae=0.2098, Monotonic subjects=83.14%, Monotonic samples(df/dt)=92.40%
+Task 16: Test MSE=0.1085, Test Mae=0.1974, Monotonic subjects=84.44%, Monotonic samples(df/dt)=93.23%
+Task 17: Test MSE=0.0500, Test Mae=0.1568, Monotonic subjects=89.30%, Monotonic samples(df/dt)=95.64%
+Task 18: Test MSE=0.0409, Test Mae=0.1444, Monotonic subjects=91.25%, Monotonic samples(df/dt)=96.58%
+2026-02-04 02:41:45.603548
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 4
+Mean Test MSE (avg across tasks): 0.0950
+Mean Test MAE (avg across tasks): 0.2023
+Task 1: Test MSE=0.1010, Test Mae=0.2171, Monotonic subjects=31.60%, Monotonic samples(df/dt)=53.00%
+Task 2: Test MSE=0.1030, Test Mae=0.2129, Monotonic subjects=35.17%, Monotonic samples(df/dt)=56.18%
+Task 3: Test MSE=0.0653, Test Mae=0.1753, Monotonic subjects=68.07%, Monotonic samples(df/dt)=87.87%
+Task 4: Test MSE=0.0695, Test Mae=0.1831, Monotonic subjects=62.07%, Monotonic samples(df/dt)=85.69%
+Task 5: Test MSE=0.0684, Test Mae=0.1865, Monotonic subjects=54.62%, Monotonic samples(df/dt)=79.68%
+Task 6: Test MSE=0.0688, Test Mae=0.1891, Monotonic subjects=46.03%, Monotonic samples(df/dt)=75.03%
+Task 7: Test MSE=0.1576, Test Mae=0.2150, Monotonic subjects=33.87%, Monotonic samples(df/dt)=70.20%
+Task 8: Test MSE=0.1680, Test Mae=0.2354, Monotonic subjects=44.08%, Monotonic samples(df/dt)=71.20%
+Task 9: Test MSE=0.0667, Test Mae=0.1756, Monotonic subjects=47.81%, Monotonic samples(df/dt)=70.26%
+Task 10: Test MSE=0.0649, Test Mae=0.1693, Monotonic subjects=53.48%, Monotonic samples(df/dt)=77.39%
+Task 11: Test MSE=0.1022, Test Mae=0.2105, Monotonic subjects=68.23%, Monotonic samples(df/dt)=87.99%
+Task 12: Test MSE=0.1100, Test Mae=0.2200, Monotonic subjects=77.47%, Monotonic samples(df/dt)=91.81%
+Task 13: Test MSE=0.1016, Test Mae=0.2219, Monotonic subjects=52.19%, Monotonic samples(df/dt)=78.50%
+Task 14: Test MSE=0.0872, Test Mae=0.2051, Monotonic subjects=53.48%, Monotonic samples(df/dt)=79.03%
+Task 15: Test MSE=0.1060, Test Mae=0.2165, Monotonic subjects=41.65%, Monotonic samples(df/dt)=70.67%
+Task 16: Test MSE=0.1114, Test Mae=0.2114, Monotonic subjects=59.97%, Monotonic samples(df/dt)=82.57%
+Task 17: Test MSE=0.0755, Test Mae=0.1978, Monotonic subjects=61.75%, Monotonic samples(df/dt)=84.86%
+Task 18: Test MSE=0.0822, Test Mae=0.1986, Monotonic subjects=74.88%, Monotonic samples(df/dt)=89.05%
+2026-02-04 04:02:09.509512
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 4
+Mean Test MSE (avg across tasks): 0.0963
+Mean Test MAE (avg across tasks): 0.2035
+Task 1: Test MSE=0.1014, Test Mae=0.2169, Monotonic subjects=58.67%, Monotonic samples(df/dt)=72.61%
+Task 2: Test MSE=0.1060, Test Mae=0.2156, Monotonic subjects=57.70%, Monotonic samples(df/dt)=71.55%
+Task 3: Test MSE=0.0626, Test Mae=0.1691, Monotonic subjects=82.33%, Monotonic samples(df/dt)=92.82%
+Task 4: Test MSE=0.0663, Test Mae=0.1753, Monotonic subjects=74.23%, Monotonic samples(df/dt)=89.40%
+Task 5: Test MSE=0.0707, Test Mae=0.1916, Monotonic subjects=79.74%, Monotonic samples(df/dt)=90.75%
+Task 6: Test MSE=0.0689, Test Mae=0.1866, Monotonic subjects=70.66%, Monotonic samples(df/dt)=87.34%
+Task 7: Test MSE=0.1603, Test Mae=0.2229, Monotonic subjects=75.36%, Monotonic samples(df/dt)=88.16%
+Task 8: Test MSE=0.1676, Test Mae=0.2339, Monotonic subjects=75.20%, Monotonic samples(df/dt)=88.57%
+Task 9: Test MSE=0.0668, Test Mae=0.1750, Monotonic subjects=61.43%, Monotonic samples(df/dt)=75.68%
+Task 10: Test MSE=0.0699, Test Mae=0.1782, Monotonic subjects=64.34%, Monotonic samples(df/dt)=81.74%
+Task 11: Test MSE=0.1014, Test Mae=0.2094, Monotonic subjects=85.74%, Monotonic samples(df/dt)=94.35%
+Task 12: Test MSE=0.1057, Test Mae=0.2146, Monotonic subjects=86.39%, Monotonic samples(df/dt)=94.82%
+Task 13: Test MSE=0.1077, Test Mae=0.2295, Monotonic subjects=80.71%, Monotonic samples(df/dt)=91.93%
+Task 14: Test MSE=0.0902, Test Mae=0.2070, Monotonic subjects=73.26%, Monotonic samples(df/dt)=87.93%
+Task 15: Test MSE=0.1096, Test Mae=0.2199, Monotonic subjects=70.18%, Monotonic samples(df/dt)=85.45%
+Task 16: Test MSE=0.1149, Test Mae=0.2127, Monotonic subjects=76.66%, Monotonic samples(df/dt)=88.81%
+Task 17: Test MSE=0.0765, Test Mae=0.1978, Monotonic subjects=85.58%, Monotonic samples(df/dt)=94.11%
+Task 18: Test MSE=0.0872, Test Mae=0.2068, Monotonic subjects=83.79%, Monotonic samples(df/dt)=93.58%
+2026-02-04 06:29:10.549368
+
+
+=== Multitask Evaluation ===
+Num tasks: 46
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mode: 5
+Mean Test MSE (avg across tasks): 0.0896
+Mean Test MAE (avg across tasks): 0.2098
+Task 1: Test MSE=0.0760, Test Mae=0.1876, Monotonic subjects=47.81%, Monotonic samples(df/dt)=71.97%
+Task 2: Test MSE=0.0728, Test Mae=0.1862, Monotonic subjects=53.00%, Monotonic samples(df/dt)=75.62%
+Task 3: Test MSE=0.0705, Test Mae=0.1957, Monotonic subjects=79.90%, Monotonic samples(df/dt)=91.93%
+Task 4: Test MSE=0.0755, Test Mae=0.2024, Monotonic subjects=78.28%, Monotonic samples(df/dt)=91.40%
+Task 5: Test MSE=0.0981, Test Mae=0.2293, Monotonic subjects=66.13%, Monotonic samples(df/dt)=83.75%
+Task 6: Test MSE=0.1156, Test Mae=0.2435, Monotonic subjects=72.45%, Monotonic samples(df/dt)=86.57%
+Task 7: Test MSE=0.0760, Test Mae=0.2012, Monotonic subjects=80.06%, Monotonic samples(df/dt)=92.52%
+Task 8: Test MSE=0.0795, Test Mae=0.1936, Monotonic subjects=83.47%, Monotonic samples(df/dt)=93.17%
+Task 9: Test MSE=0.0832, Test Mae=0.2074, Monotonic subjects=83.31%, Monotonic samples(df/dt)=93.11%
+Task 10: Test MSE=0.0868, Test Mae=0.2116, Monotonic subjects=88.17%, Monotonic samples(df/dt)=94.99%
+Task 11: Test MSE=0.1244, Test Mae=0.2518, Monotonic subjects=75.36%, Monotonic samples(df/dt)=90.16%
+Task 12: Test MSE=0.2386, Test Mae=0.2669, Monotonic subjects=76.99%, Monotonic samples(df/dt)=90.64%
+Task 13: Test MSE=0.0987, Test Mae=0.2314, Monotonic subjects=73.26%, Monotonic samples(df/dt)=88.46%
+Task 14: Test MSE=0.0963, Test Mae=0.2280, Monotonic subjects=78.28%, Monotonic samples(df/dt)=91.22%
+Task 15: Test MSE=0.1054, Test Mae=0.2366, Monotonic subjects=69.85%, Monotonic samples(df/dt)=87.16%
+Task 16: Test MSE=0.1011, Test Mae=0.2334, Monotonic subjects=65.80%, Monotonic samples(df/dt)=86.81%
+Task 17: Test MSE=0.0849, Test Mae=0.2169, Monotonic subjects=73.74%, Monotonic samples(df/dt)=88.75%
+Task 18: Test MSE=0.0675, Test Mae=0.1878, Monotonic subjects=76.99%, Monotonic samples(df/dt)=90.75%
+Task 19: Test MSE=0.0615, Test Mae=0.1840, Monotonic subjects=75.69%, Monotonic samples(df/dt)=89.93%
+Task 20: Test MSE=0.0741, Test Mae=0.1929, Monotonic subjects=78.28%, Monotonic samples(df/dt)=90.93%
+Task 21: Test MSE=0.0885, Test Mae=0.2225, Monotonic subjects=59.97%, Monotonic samples(df/dt)=81.15%
+Task 22: Test MSE=0.0962, Test Mae=0.2270, Monotonic subjects=60.62%, Monotonic samples(df/dt)=78.21%
+Task 23: Test MSE=0.0858, Test Mae=0.2138, Monotonic subjects=74.07%, Monotonic samples(df/dt)=85.04%
+Task 24: Test MSE=0.0877, Test Mae=0.2165, Monotonic subjects=67.59%, Monotonic samples(df/dt)=82.51%
+Task 25: Test MSE=0.0648, Test Mae=0.1889, Monotonic subjects=81.85%, Monotonic samples(df/dt)=92.52%
+Task 26: Test MSE=0.0693, Test Mae=0.1952, Monotonic subjects=81.20%, Monotonic samples(df/dt)=92.70%
+Task 27: Test MSE=0.0774, Test Mae=0.1997, Monotonic subjects=82.50%, Monotonic samples(df/dt)=92.76%
+Task 28: Test MSE=0.0871, Test Mae=0.2083, Monotonic subjects=79.25%, Monotonic samples(df/dt)=91.46%
+Task 29: Test MSE=0.0864, Test Mae=0.2136, Monotonic subjects=70.66%, Monotonic samples(df/dt)=88.81%
+Task 30: Test MSE=0.0868, Test Mae=0.2147, Monotonic subjects=80.55%, Monotonic samples(df/dt)=92.46%
+Task 31: Test MSE=0.0681, Test Mae=0.1913, Monotonic subjects=81.20%, Monotonic samples(df/dt)=92.64%
+Task 32: Test MSE=0.0739, Test Mae=0.1978, Monotonic subjects=82.98%, Monotonic samples(df/dt)=93.40%
+Task 33: Test MSE=0.0900, Test Mae=0.1977, Monotonic subjects=78.77%, Monotonic samples(df/dt)=90.87%
+Task 34: Test MSE=0.0778, Test Mae=0.1852, Monotonic subjects=82.33%, Monotonic samples(df/dt)=91.28%
+Task 35: Test MSE=0.0641, Test Mae=0.1842, Monotonic subjects=70.34%, Monotonic samples(df/dt)=87.40%
+Task 36: Test MSE=0.0588, Test Mae=0.1809, Monotonic subjects=72.12%, Monotonic samples(df/dt)=88.34%
+Task 37: Test MSE=0.1397, Test Mae=0.2241, Monotonic subjects=74.39%, Monotonic samples(df/dt)=88.22%
+Task 38: Test MSE=0.1667, Test Mae=0.2348, Monotonic subjects=75.53%, Monotonic samples(df/dt)=88.04%
+Task 39: Test MSE=0.0883, Test Mae=0.2172, Monotonic subjects=66.29%, Monotonic samples(df/dt)=83.80%
+Task 40: Test MSE=0.0864, Test Mae=0.2164, Monotonic subjects=65.80%, Monotonic samples(df/dt)=82.45%
+Task 41: Test MSE=0.0753, Test Mae=0.2020, Monotonic subjects=77.96%, Monotonic samples(df/dt)=89.69%
+Task 42: Test MSE=0.0830, Test Mae=0.2079, Monotonic subjects=81.20%, Monotonic samples(df/dt)=90.81%
+Task 43: Test MSE=0.0758, Test Mae=0.1975, Monotonic subjects=80.88%, Monotonic samples(df/dt)=91.17%
+Task 44: Test MSE=0.0696, Test Mae=0.1968, Monotonic subjects=80.71%, Monotonic samples(df/dt)=90.22%
+Task 45: Test MSE=0.0889, Test Mae=0.2120, Monotonic subjects=73.42%, Monotonic samples(df/dt)=88.93%
+Task 46: Test MSE=0.0976, Test Mae=0.2165, Monotonic subjects=76.01%, Monotonic samples(df/dt)=90.46%
+2026-02-04 08:36:07.149275
+
+
+=== Multitask Evaluation ===
+Num tasks: 46
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 5
+Mean Test MSE (avg across tasks): 0.0911
+Mean Test MAE (avg across tasks): 0.2123
+Task 1: Test MSE=0.0808, Test Mae=0.1951, Monotonic subjects=62.24%, Monotonic samples(df/dt)=78.92%
+Task 2: Test MSE=0.0780, Test Mae=0.1935, Monotonic subjects=68.56%, Monotonic samples(df/dt)=82.04%
+Task 3: Test MSE=0.0730, Test Mae=0.1952, Monotonic subjects=88.17%, Monotonic samples(df/dt)=95.11%
+Task 4: Test MSE=0.0739, Test Mae=0.1974, Monotonic subjects=85.74%, Monotonic samples(df/dt)=94.35%
+Task 5: Test MSE=0.0999, Test Mae=0.2350, Monotonic subjects=81.69%, Monotonic samples(df/dt)=90.81%
+Task 6: Test MSE=0.1172, Test Mae=0.2505, Monotonic subjects=85.58%, Monotonic samples(df/dt)=92.58%
+Task 7: Test MSE=0.0758, Test Mae=0.1974, Monotonic subjects=87.84%, Monotonic samples(df/dt)=95.23%
+Task 8: Test MSE=0.0832, Test Mae=0.2020, Monotonic subjects=88.33%, Monotonic samples(df/dt)=94.82%
+Task 9: Test MSE=0.0887, Test Mae=0.2116, Monotonic subjects=86.71%, Monotonic samples(df/dt)=94.35%
+Task 10: Test MSE=0.0857, Test Mae=0.2096, Monotonic subjects=88.49%, Monotonic samples(df/dt)=95.23%
+Task 11: Test MSE=0.1232, Test Mae=0.2518, Monotonic subjects=83.47%, Monotonic samples(df/dt)=93.70%
+Task 12: Test MSE=0.2390, Test Mae=0.2660, Monotonic subjects=86.39%, Monotonic samples(df/dt)=94.46%
+Task 13: Test MSE=0.1014, Test Mae=0.2350, Monotonic subjects=83.79%, Monotonic samples(df/dt)=92.29%
+Task 14: Test MSE=0.0963, Test Mae=0.2284, Monotonic subjects=85.25%, Monotonic samples(df/dt)=93.58%
+Task 15: Test MSE=0.1033, Test Mae=0.2332, Monotonic subjects=80.88%, Monotonic samples(df/dt)=91.28%
+Task 16: Test MSE=0.0965, Test Mae=0.2287, Monotonic subjects=81.85%, Monotonic samples(df/dt)=91.76%
+Task 17: Test MSE=0.0874, Test Mae=0.2163, Monotonic subjects=86.39%, Monotonic samples(df/dt)=94.11%
+Task 18: Test MSE=0.0725, Test Mae=0.1986, Monotonic subjects=82.98%, Monotonic samples(df/dt)=92.29%
+Task 19: Test MSE=0.0599, Test Mae=0.1819, Monotonic subjects=81.52%, Monotonic samples(df/dt)=91.81%
+Task 20: Test MSE=0.0756, Test Mae=0.1930, Monotonic subjects=87.68%, Monotonic samples(df/dt)=95.05%
+Task 21: Test MSE=0.0942, Test Mae=0.2301, Monotonic subjects=76.99%, Monotonic samples(df/dt)=87.99%
+Task 22: Test MSE=0.1001, Test Mae=0.2321, Monotonic subjects=73.26%, Monotonic samples(df/dt)=84.86%
+Task 23: Test MSE=0.0864, Test Mae=0.2142, Monotonic subjects=83.63%, Monotonic samples(df/dt)=92.11%
+Task 24: Test MSE=0.0920, Test Mae=0.2239, Monotonic subjects=73.58%, Monotonic samples(df/dt)=85.81%
+Task 25: Test MSE=0.0638, Test Mae=0.1881, Monotonic subjects=85.41%, Monotonic samples(df/dt)=94.41%
+Task 26: Test MSE=0.0638, Test Mae=0.1882, Monotonic subjects=88.17%, Monotonic samples(df/dt)=95.29%
+Task 27: Test MSE=0.0800, Test Mae=0.2077, Monotonic subjects=81.36%, Monotonic samples(df/dt)=91.46%
+Task 28: Test MSE=0.0845, Test Mae=0.2065, Monotonic subjects=86.39%, Monotonic samples(df/dt)=94.29%
+Task 29: Test MSE=0.0918, Test Mae=0.2231, Monotonic subjects=82.66%, Monotonic samples(df/dt)=91.99%
+Task 30: Test MSE=0.0914, Test Mae=0.2199, Monotonic subjects=83.14%, Monotonic samples(df/dt)=92.58%
+Task 31: Test MSE=0.0695, Test Mae=0.1921, Monotonic subjects=91.09%, Monotonic samples(df/dt)=96.53%
+Task 32: Test MSE=0.0759, Test Mae=0.2009, Monotonic subjects=87.20%, Monotonic samples(df/dt)=94.88%
+Task 33: Test MSE=0.0901, Test Mae=0.1974, Monotonic subjects=85.25%, Monotonic samples(df/dt)=94.11%
+Task 34: Test MSE=0.0823, Test Mae=0.1964, Monotonic subjects=85.90%, Monotonic samples(df/dt)=93.29%
+Task 35: Test MSE=0.0686, Test Mae=0.1916, Monotonic subjects=78.12%, Monotonic samples(df/dt)=89.87%
+Task 36: Test MSE=0.0608, Test Mae=0.1852, Monotonic subjects=81.04%, Monotonic samples(df/dt)=92.29%
+Task 37: Test MSE=0.1382, Test Mae=0.2178, Monotonic subjects=83.95%, Monotonic samples(df/dt)=93.40%
+Task 38: Test MSE=0.1690, Test Mae=0.2417, Monotonic subjects=86.06%, Monotonic samples(df/dt)=93.82%
+Task 39: Test MSE=0.0879, Test Mae=0.2202, Monotonic subjects=74.23%, Monotonic samples(df/dt)=86.40%
+Task 40: Test MSE=0.0890, Test Mae=0.2202, Monotonic subjects=74.88%, Monotonic samples(df/dt)=86.98%
+Task 41: Test MSE=0.0780, Test Mae=0.2040, Monotonic subjects=81.85%, Monotonic samples(df/dt)=92.17%
+Task 42: Test MSE=0.0906, Test Mae=0.2173, Monotonic subjects=84.28%, Monotonic samples(df/dt)=92.34%
+Task 43: Test MSE=0.0804, Test Mae=0.2042, Monotonic subjects=84.28%, Monotonic samples(df/dt)=93.05%
+Task 44: Test MSE=0.0628, Test Mae=0.1897, Monotonic subjects=87.84%, Monotonic samples(df/dt)=94.64%
+Task 45: Test MSE=0.0888, Test Mae=0.2129, Monotonic subjects=82.01%, Monotonic samples(df/dt)=91.99%
+Task 46: Test MSE=0.0988, Test Mae=0.2198, Monotonic subjects=84.12%, Monotonic samples(df/dt)=92.70%
+#################################################################################################################
+2026-02-04 15:07:53.908385
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.8861
+Mean Test MAE (avg across tasks): 0.6654
+Mean Test NLL (avg across tasks): 1.4480
+Mean Test Coverage% (avg across tasks): 97.86
+Mean Test Interval Width (avg across task): 5.2430
+Task 1: Test MSE=0.7304, Test Mae=0.6675, NLL=1.4054, Coverage%=99.4816, Width=5.2299, Monotonic subjects=43.60%, Monotonic samples(df/dt)=57.30%
+Task 2: Test MSE=1.0212, Test Mae=0.7565, NLL=1.4888, Coverage%=97.3650, Width=5.2336, Monotonic subjects=41.98%, Monotonic samples(df/dt)=57.54%
+Task 3: Test MSE=1.0710, Test Mae=0.6389, NLL=1.4956, Coverage%=96.3283, Width=5.2481, Monotonic subjects=51.70%, Monotonic samples(df/dt)=66.73%
+Task 4: Test MSE=0.9103, Test Mae=0.6367, NLL=1.4536, Coverage%=97.7970, Width=5.2550, Monotonic subjects=49.43%, Monotonic samples(df/dt)=64.61%
+Task 5: Test MSE=0.7783, Test Mae=0.6506, NLL=1.4191, Coverage%=98.4017, Width=5.2485, Monotonic subjects=47.49%, Monotonic samples(df/dt)=62.49%
+Task 6: Test MSE=0.8050, Test Mae=0.6421, NLL=1.4255, Coverage%=97.7970, Width=5.2431, Monotonic subjects=47.81%, Monotonic samples(df/dt)=61.72%
+2026-02-04 16:32:42.698965
+
+############################################################################################################################################################
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.0749
+Mean Test MAE (avg across tasks): 0.1881
+Mean Test NLL (avg across tasks): 0.1322
+Mean Test Coverage% (avg across tasks): 91.18
+Mean Test Interval Width (avg across task): 0.8605
+Task 1: Test MSE=0.0480, Test Mae=0.1620, NLL=-0.0930, Coverage%=91.4903, Width=0.7433, Monotonic subjects=82.33%, Monotonic samples(df/dt)=91.34%
+Task 2: Test MSE=0.0521, Test Mae=0.1669, NLL=-0.0494, Coverage%=91.6199, Width=0.7806, Monotonic subjects=89.95%, Monotonic samples(df/dt)=95.47%
+Task 3: Test MSE=0.1122, Test Mae=0.2257, NLL=0.3583, Coverage%=91.8359, Width=1.0805, Monotonic subjects=68.40%, Monotonic samples(df/dt)=83.75%
+Task 4: Test MSE=0.1277, Test Mae=0.2254, NLL=0.5386, Coverage%=90.1944, Width=0.9730, Monotonic subjects=75.85%, Monotonic samples(df/dt)=88.57%
+Task 5: Test MSE=0.0510, Test Mae=0.1670, NLL=-0.0387, Coverage%=90.4536, Width=0.7352, Monotonic subjects=79.58%, Monotonic samples(df/dt)=89.87%
+Task 6: Test MSE=0.0534, Test Mae=0.1717, NLL=-0.0237, Coverage%=91.2311, Width=0.7662, Monotonic subjects=74.88%, Monotonic samples(df/dt)=87.87%
+Task 7: Test MSE=0.0599, Test Mae=0.1716, NLL=0.0625, Coverage%=90.9287, Width=0.7615, Monotonic subjects=76.66%, Monotonic samples(df/dt)=88.52%
+Task 8: Test MSE=0.0590, Test Mae=0.1695, NLL=0.0398, Coverage%=91.3175, Width=0.7784, Monotonic subjects=70.02%, Monotonic samples(df/dt)=83.98%
+Task 9: Test MSE=0.0971, Test Mae=0.2142, NLL=0.2918, Coverage%=90.5832, Width=0.9982, Monotonic subjects=67.10%, Monotonic samples(df/dt)=82.57%
+Task 10: Test MSE=0.0892, Test Mae=0.2074, NLL=0.2359, Coverage%=92.1382, Width=0.9880, Monotonic subjects=69.69%, Monotonic samples(df/dt)=83.45%
+2026-02-04 18:04:09.734100
+
+
+=== Multitask Evaluation ===
+Num tasks: 10
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 0
+Mean Test MSE (avg across tasks): 0.0738
+Mean Test MAE (avg across tasks): 0.1864
+Mean Test NLL (avg across tasks): 0.1180
+Mean Test Coverage% (avg across tasks): 91.30
+Mean Test Interval Width (avg across task): 0.8592
+Task 1: Test MSE=0.0484, Test Mae=0.1599, NLL=-0.0853, Coverage%=91.7495, Width=0.7412, Monotonic subjects=92.06%, Monotonic samples(df/dt)=96.00%
+Task 2: Test MSE=0.0518, Test Mae=0.1686, NLL=-0.0546, Coverage%=92.1382, Width=0.7889, Monotonic subjects=91.09%, Monotonic samples(df/dt)=96.17%
+Task 3: Test MSE=0.1171, Test Mae=0.2288, NLL=0.3950, Coverage%=91.4903, Width=1.0726, Monotonic subjects=81.85%, Monotonic samples(df/dt)=90.58%
+Task 4: Test MSE=0.1285, Test Mae=0.2269, NLL=0.5305, Coverage%=90.1512, Width=0.9811, Monotonic subjects=85.58%, Monotonic samples(df/dt)=93.23%
+Task 5: Test MSE=0.0469, Test Mae=0.1583, NLL=-0.0932, Coverage%=91.5767, Width=0.7320, Monotonic subjects=87.68%, Monotonic samples(df/dt)=93.82%
+Task 6: Test MSE=0.0512, Test Mae=0.1674, NLL=-0.0447, Coverage%=90.5832, Width=0.7486, Monotonic subjects=90.11%, Monotonic samples(df/dt)=95.76%
+Task 7: Test MSE=0.0575, Test Mae=0.1708, NLL=0.0345, Coverage%=91.0151, Width=0.7560, Monotonic subjects=86.06%, Monotonic samples(df/dt)=93.23%
+Task 8: Test MSE=0.0596, Test Mae=0.1749, NLL=0.0523, Coverage%=90.5400, Width=0.7684, Monotonic subjects=79.09%, Monotonic samples(df/dt)=87.99%
+Task 9: Test MSE=0.0946, Test Mae=0.2114, NLL=0.2670, Coverage%=91.0151, Width=1.0124, Monotonic subjects=77.63%, Monotonic samples(df/dt)=87.81%
+Task 10: Test MSE=0.0821, Test Mae=0.1974, NLL=0.1784, Coverage%=92.7862, Width=0.9905, Monotonic subjects=81.69%, Monotonic samples(df/dt)=90.05%
+2026-02-04 19:36:29.441982
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.1168
+Mean Test MAE (avg across tasks): 0.2111
+Mean Test NLL (avg across tasks): 0.3292
+Mean Test Coverage% (avg across tasks): 94.44
+Mean Test Interval Width (avg across task): 1.1838
+Task 1: Test MSE=0.1259, Test Mae=0.2115, NLL=0.3820, Coverage%=95.0756, Width=1.2789, Monotonic subjects=39.06%, Monotonic samples(df/dt)=63.07%
+Task 2: Test MSE=0.1238, Test Mae=0.2098, NLL=0.3734, Coverage%=94.6004, Width=1.2744, Monotonic subjects=43.92%, Monotonic samples(df/dt)=67.37%
+Task 3: Test MSE=0.1162, Test Mae=0.2072, NLL=0.3429, Coverage%=95.4644, Width=1.2143, Monotonic subjects=70.99%, Monotonic samples(df/dt)=86.10%
+Task 4: Test MSE=0.1179, Test Mae=0.2073, NLL=0.3516, Coverage%=95.8531, Width=1.2158, Monotonic subjects=78.12%, Monotonic samples(df/dt)=90.05%
+Task 5: Test MSE=0.1058, Test Mae=0.2345, NLL=0.3029, Coverage%=91.7927, Width=1.1583, Monotonic subjects=51.38%, Monotonic samples(df/dt)=75.91%
+Task 6: Test MSE=0.1149, Test Mae=0.2399, NLL=0.3505, Coverage%=92.3542, Width=1.1658, Monotonic subjects=62.56%, Monotonic samples(df/dt)=80.45%
+Task 7: Test MSE=0.0573, Test Mae=0.1720, NLL=0.0093, Coverage%=91.6631, Width=0.8078, Monotonic subjects=76.01%, Monotonic samples(df/dt)=89.22%
+Task 8: Test MSE=0.0610, Test Mae=0.1770, NLL=0.0452, Coverage%=91.1447, Width=0.8189, Monotonic subjects=77.80%, Monotonic samples(df/dt)=89.46%
+Task 9: Test MSE=0.1229, Test Mae=0.2036, NLL=0.3733, Coverage%=95.8099, Width=1.2340, Monotonic subjects=66.29%, Monotonic samples(df/dt)=83.80%
+Task 10: Test MSE=0.1530, Test Mae=0.2196, NLL=0.4922, Coverage%=96.3715, Width=1.3345, Monotonic subjects=74.72%, Monotonic samples(df/dt)=87.69%
+Task 11: Test MSE=0.1492, Test Mae=0.2240, NLL=0.4712, Coverage%=96.1123, Width=1.3380, Monotonic subjects=61.59%, Monotonic samples(df/dt)=81.80%
+Task 12: Test MSE=0.1910, Test Mae=0.2365, NLL=0.6002, Coverage%=96.8467, Width=1.4734, Monotonic subjects=71.80%, Monotonic samples(df/dt)=85.87%
+Task 13: Test MSE=0.0960, Test Mae=0.2070, NLL=0.2481, Coverage%=94.2549, Width=1.1050, Monotonic subjects=70.50%, Monotonic samples(df/dt)=85.69%
+Task 14: Test MSE=0.0997, Test Mae=0.2057, NLL=0.2654, Coverage%=94.8596, Width=1.1542, Monotonic subjects=72.12%, Monotonic samples(df/dt)=86.63%
+2026-02-04 21:18:05.552792
+
+
+=== Multitask Evaluation ===
+Num tasks: 14
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 1
+Mean Test MSE (avg across tasks): 0.1185
+Mean Test MAE (avg across tasks): 0.2117
+Mean Test NLL (avg across tasks): 0.3360
+Mean Test Coverage% (avg across tasks): 94.54
+Mean Test Interval Width (avg across task): 1.1868
+Task 1: Test MSE=0.1301, Test Mae=0.2121, NLL=0.4035, Coverage%=94.9028, Width=1.2673, Monotonic subjects=60.29%, Monotonic samples(df/dt)=73.85%
+Task 2: Test MSE=0.1300, Test Mae=0.2124, NLL=0.4035, Coverage%=94.5572, Width=1.2686, Monotonic subjects=66.13%, Monotonic samples(df/dt)=81.57%
+Task 3: Test MSE=0.1195, Test Mae=0.2127, NLL=0.3552, Coverage%=95.6371, Width=1.2255, Monotonic subjects=83.14%, Monotonic samples(df/dt)=91.81%
+Task 4: Test MSE=0.1203, Test Mae=0.2068, NLL=0.3594, Coverage%=96.1555, Width=1.2283, Monotonic subjects=88.82%, Monotonic samples(df/dt)=94.99%
+Task 5: Test MSE=0.1060, Test Mae=0.2367, NLL=0.3063, Coverage%=91.3607, Width=1.1540, Monotonic subjects=76.66%, Monotonic samples(df/dt)=86.98%
+Task 6: Test MSE=0.1120, Test Mae=0.2348, NLL=0.3356, Coverage%=92.3974, Width=1.1646, Monotonic subjects=77.47%, Monotonic samples(df/dt)=89.28%
+Task 7: Test MSE=0.0582, Test Mae=0.1707, NLL=0.0265, Coverage%=91.2311, Width=0.7969, Monotonic subjects=81.85%, Monotonic samples(df/dt)=91.81%
+Task 8: Test MSE=0.0592, Test Mae=0.1750, NLL=0.0248, Coverage%=91.1447, Width=0.8246, Monotonic subjects=81.69%, Monotonic samples(df/dt)=91.52%
+Task 9: Test MSE=0.1325, Test Mae=0.2112, NLL=0.4209, Coverage%=96.0259, Width=1.2275, Monotonic subjects=79.42%, Monotonic samples(df/dt)=89.05%
+Task 10: Test MSE=0.1534, Test Mae=0.2183, NLL=0.4905, Coverage%=96.2851, Width=1.3385, Monotonic subjects=85.90%, Monotonic samples(df/dt)=93.93%
+Task 11: Test MSE=0.1531, Test Mae=0.2293, NLL=0.4770, Coverage%=96.6739, Width=1.3588, Monotonic subjects=79.25%, Monotonic samples(df/dt)=88.99%
+Task 12: Test MSE=0.1884, Test Mae=0.2340, NLL=0.5902, Coverage%=97.0194, Width=1.4680, Monotonic subjects=85.90%, Monotonic samples(df/dt)=93.88%
+Task 13: Test MSE=0.0974, Test Mae=0.2078, NLL=0.2538, Coverage%=94.9028, Width=1.1216, Monotonic subjects=82.33%, Monotonic samples(df/dt)=91.11%
+Task 14: Test MSE=0.0990, Test Mae=0.2027, NLL=0.2575, Coverage%=95.2916, Width=1.1705, Monotonic subjects=86.22%, Monotonic samples(df/dt)=93.82%
+2026-02-04 22:53:53.575163
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0560
+Mean Test MAE (avg across tasks): 0.1458
+Mean Test NLL (avg across tasks): 0.0797
+Mean Test Coverage% (avg across tasks): 89.19
+Mean Test Interval Width (avg across task): 0.6022
+Task 1: Test MSE=0.0313, Test Mae=0.1220, NLL=-0.1697, Coverage%=87.3866, Width=0.4810, Monotonic subjects=86.06%, Monotonic samples(df/dt)=94.35%
+Task 2: Test MSE=0.0473, Test Mae=0.1512, NLL=-0.0091, Coverage%=87.9050, Width=0.6016, Monotonic subjects=41.00%, Monotonic samples(df/dt)=65.61%
+Task 3: Test MSE=0.0855, Test Mae=0.1695, NLL=0.3703, Coverage%=90.0648, Width=0.7378, Monotonic subjects=71.47%, Monotonic samples(df/dt)=85.28%
+Task 4: Test MSE=0.0994, Test Mae=0.1757, NLL=0.5890, Coverage%=90.5400, Width=0.7156, Monotonic subjects=70.34%, Monotonic samples(df/dt)=86.10%
+Task 5: Test MSE=0.0345, Test Mae=0.1232, NLL=-0.1987, Coverage%=89.9784, Width=0.5366, Monotonic subjects=88.82%, Monotonic samples(df/dt)=95.58%
+Task 6: Test MSE=0.0378, Test Mae=0.1328, NLL=-0.1035, Coverage%=89.2873, Width=0.5407, Monotonic subjects=88.01%, Monotonic samples(df/dt)=95.05%
+2026-02-05 00:40:16.088960
+
+
+=== Multitask Evaluation ===
+Num tasks: 6
+Sigma per task: tensor([-1., -1., -1., -1., -1., -1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 2
+Mean Test MSE (avg across tasks): 0.0551
+Mean Test MAE (avg across tasks): 0.1439
+Mean Test NLL (avg across tasks): 0.0174
+Mean Test Coverage% (avg across tasks): 90.12
+Mean Test Interval Width (avg across task): 0.6115
+Task 1: Test MSE=0.0279, Test Mae=0.1151, NLL=-0.2774, Coverage%=89.7624, Width=0.4842, Monotonic subjects=91.73%, Monotonic samples(df/dt)=96.47%
+Task 2: Test MSE=0.0474, Test Mae=0.1557, NLL=-0.0042, Coverage%=87.9050, Width=0.5992, Monotonic subjects=64.34%, Monotonic samples(df/dt)=80.57%
+Task 3: Test MSE=0.0887, Test Mae=0.1715, NLL=0.3528, Coverage%=90.6695, Width=0.7594, Monotonic subjects=81.04%, Monotonic samples(df/dt)=91.64%
+Task 4: Test MSE=0.1018, Test Mae=0.1782, NLL=0.5493, Coverage%=90.0648, Width=0.7400, Monotonic subjects=77.47%, Monotonic samples(df/dt)=90.05%
+Task 5: Test MSE=0.0328, Test Mae=0.1214, NLL=-0.2791, Coverage%=91.9654, Width=0.5541, Monotonic subjects=91.25%, Monotonic samples(df/dt)=95.88%
+Task 6: Test MSE=0.0323, Test Mae=0.1217, NLL=-0.2367, Coverage%=90.3240, Width=0.5319, Monotonic subjects=88.82%, Monotonic samples(df/dt)=94.64%
+2026-02-05 02:28:06.303570
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 3
+Mean Test MSE (avg across tasks): 0.0906
+Mean Test MAE (avg across tasks): 0.1938
+Mean Test NLL (avg across tasks): 0.2176
+Mean Test Coverage% (avg across tasks): 94.46
+Mean Test Interval Width (avg across task): 1.0445
+Task 1: Test MSE=0.0969, Test Mae=0.1937, NLL=0.2655, Coverage%=95.5076, Width=1.0880, Monotonic subjects=45.38%, Monotonic samples(df/dt)=67.96%
+Task 2: Test MSE=0.0931, Test Mae=0.1916, NLL=0.2549, Coverage%=94.1685, Width=1.0352, Monotonic subjects=55.11%, Monotonic samples(df/dt)=77.33%
+Task 3: Test MSE=0.0797, Test Mae=0.1762, NLL=0.1708, Coverage%=95.2052, Width=0.9686, Monotonic subjects=59.97%, Monotonic samples(df/dt)=83.98%
+Task 4: Test MSE=0.0923, Test Mae=0.1888, NLL=0.2711, Coverage%=94.2117, Width=0.9704, Monotonic subjects=65.80%, Monotonic samples(df/dt)=85.98%
+Task 5: Test MSE=0.1228, Test Mae=0.2066, NLL=0.4227, Coverage%=93.4773, Width=1.1034, Monotonic subjects=61.91%, Monotonic samples(df/dt)=83.22%
+Task 6: Test MSE=0.1374, Test Mae=0.2207, NLL=0.4804, Coverage%=93.6501, Width=1.1605, Monotonic subjects=63.70%, Monotonic samples(df/dt)=85.10%
+Task 7: Test MSE=0.1064, Test Mae=0.2005, NLL=0.3317, Coverage%=94.7300, Width=1.0722, Monotonic subjects=73.42%, Monotonic samples(df/dt)=89.81%
+Task 8: Test MSE=0.1239, Test Mae=0.2124, NLL=0.4077, Coverage%=95.0756, Width=1.1595, Monotonic subjects=71.31%, Monotonic samples(df/dt)=89.34%
+Task 9: Test MSE=0.0895, Test Mae=0.2215, NLL=0.2148, Coverage%=93.1749, Width=1.1017, Monotonic subjects=83.79%, Monotonic samples(df/dt)=93.82%
+Task 10: Test MSE=0.0887, Test Mae=0.2165, NLL=0.2056, Coverage%=93.4341, Width=1.1452, Monotonic subjects=79.42%, Monotonic samples(df/dt)=92.52%
+Task 11: Test MSE=0.0774, Test Mae=0.2014, NLL=0.1382, Coverage%=94.7300, Width=1.1193, Monotonic subjects=81.52%, Monotonic samples(df/dt)=93.05%
+Task 12: Test MSE=0.0689, Test Mae=0.1847, NLL=0.0782, Coverage%=95.0324, Width=1.0492, Monotonic subjects=77.96%, Monotonic samples(df/dt)=91.17%
+Task 13: Test MSE=0.0667, Test Mae=0.1733, NLL=0.0633, Coverage%=96.1123, Width=1.0235, Monotonic subjects=76.66%, Monotonic samples(df/dt)=91.46%
+Task 14: Test MSE=0.0861, Test Mae=0.1871, NLL=0.1905, Coverage%=95.9827, Width=1.1210, Monotonic subjects=72.77%, Monotonic samples(df/dt)=89.87%
+Task 15: Test MSE=0.1008, Test Mae=0.2057, NLL=0.2872, Coverage%=93.9093, Width=1.0542, Monotonic subjects=75.69%, Monotonic samples(df/dt)=89.99%
+Task 16: Test MSE=0.1071, Test Mae=0.1991, NLL=0.3576, Coverage%=93.1749, Width=0.9854, Monotonic subjects=71.96%, Monotonic samples(df/dt)=89.34%
+Task 17: Test MSE=0.0502, Test Mae=0.1582, NLL=-0.0776, Coverage%=93.9957, Width=0.8356, Monotonic subjects=80.55%, Monotonic samples(df/dt)=92.70%
+Task 18: Test MSE=0.0439, Test Mae=0.1508, NLL=-0.1452, Coverage%=94.6868, Width=0.8076, Monotonic subjects=77.47%, Monotonic samples(df/dt)=91.64%
+2026-02-05 04:25:06.328447
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 3
+Mean Test MSE (avg across tasks): 0.0894
+Mean Test MAE (avg across tasks): 0.1914
+Mean Test NLL (avg across tasks): 0.2117
+Mean Test Coverage% (avg across tasks): 94.48
+Mean Test Interval Width (avg across task): 1.0335
+Task 1: Test MSE=0.0915, Test Mae=0.1848, NLL=0.2349, Coverage%=94.5572, Width=1.0698, Monotonic subjects=71.80%, Monotonic samples(df/dt)=85.28%
+Task 2: Test MSE=0.0921, Test Mae=0.1904, NLL=0.2486, Coverage%=94.3413, Width=1.0318, Monotonic subjects=77.47%, Monotonic samples(df/dt)=88.93%
+Task 3: Test MSE=0.0779, Test Mae=0.1709, NLL=0.1643, Coverage%=95.2484, Width=0.9480, Monotonic subjects=75.36%, Monotonic samples(df/dt)=89.16%
+Task 4: Test MSE=0.0896, Test Mae=0.1824, NLL=0.2619, Coverage%=93.9093, Width=0.9495, Monotonic subjects=83.14%, Monotonic samples(df/dt)=92.87%
+Task 5: Test MSE=0.1249, Test Mae=0.2109, NLL=0.4366, Coverage%=93.5205, Width=1.1034, Monotonic subjects=75.36%, Monotonic samples(df/dt)=89.34%
+Task 6: Test MSE=0.1367, Test Mae=0.2208, NLL=0.4781, Coverage%=94.1253, Width=1.1621, Monotonic subjects=80.88%, Monotonic samples(df/dt)=92.17%
+Task 7: Test MSE=0.1063, Test Mae=0.1980, NLL=0.3348, Coverage%=94.5140, Width=1.0642, Monotonic subjects=86.87%, Monotonic samples(df/dt)=94.99%
+Task 8: Test MSE=0.1270, Test Mae=0.2123, NLL=0.4271, Coverage%=94.9028, Width=1.1572, Monotonic subjects=84.60%, Monotonic samples(df/dt)=93.99%
+Task 9: Test MSE=0.0893, Test Mae=0.2191, NLL=0.2137, Coverage%=93.1749, Width=1.0988, Monotonic subjects=92.87%, Monotonic samples(df/dt)=97.35%
+Task 10: Test MSE=0.0862, Test Mae=0.2165, NLL=0.1916, Coverage%=94.6868, Width=1.1499, Monotonic subjects=90.44%, Monotonic samples(df/dt)=96.53%
+Task 11: Test MSE=0.0745, Test Mae=0.1974, NLL=0.1191, Coverage%=94.9892, Width=1.1062, Monotonic subjects=92.54%, Monotonic samples(df/dt)=97.17%
+Task 12: Test MSE=0.0685, Test Mae=0.1845, NLL=0.0760, Coverage%=95.4212, Width=1.0477, Monotonic subjects=89.47%, Monotonic samples(df/dt)=95.70%
+Task 13: Test MSE=0.0676, Test Mae=0.1761, NLL=0.0706, Coverage%=95.4644, Width=0.9905, Monotonic subjects=87.03%, Monotonic samples(df/dt)=95.17%
+Task 14: Test MSE=0.0836, Test Mae=0.1820, NLL=0.1763, Coverage%=95.9395, Width=1.0946, Monotonic subjects=87.20%, Monotonic samples(df/dt)=94.82%
+Task 15: Test MSE=0.0976, Test Mae=0.2021, NLL=0.2722, Coverage%=93.3477, Width=1.0453, Monotonic subjects=80.06%, Monotonic samples(df/dt)=91.70%
+Task 16: Test MSE=0.1071, Test Mae=0.2009, NLL=0.3770, Coverage%=92.8726, Width=0.9712, Monotonic subjects=86.06%, Monotonic samples(df/dt)=94.46%
+Task 17: Test MSE=0.0476, Test Mae=0.1512, NLL=-0.1065, Coverage%=94.5140, Width=0.8238, Monotonic subjects=89.79%, Monotonic samples(df/dt)=96.29%
+Task 18: Test MSE=0.0421, Test Mae=0.1446, NLL=-0.1662, Coverage%=95.1188, Width=0.7888, Monotonic subjects=91.90%, Monotonic samples(df/dt)=96.76%
+2026-02-05 06:15:58.519732
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 0.0
+Mode: 4
+Mean Test MSE (avg across tasks): 0.0956
+Mean Test MAE (avg across tasks): 0.2025
+Mean Test NLL (avg across tasks): 0.2451
+Mean Test Coverage% (avg across tasks): 93.14
+Mean Test Interval Width (avg across task): 1.0349
+Task 1: Test MSE=0.1000, Test Mae=0.2156, NLL=0.2909, Coverage%=93.0022, Width=1.0644, Monotonic subjects=34.85%, Monotonic samples(df/dt)=55.12%
+Task 2: Test MSE=0.1023, Test Mae=0.2117, NLL=0.3063, Coverage%=92.4406, Width=1.0649, Monotonic subjects=38.25%, Monotonic samples(df/dt)=55.59%
+Task 3: Test MSE=0.0610, Test Mae=0.1684, NLL=0.0351, Coverage%=92.9158, Width=0.8501, Monotonic subjects=65.48%, Monotonic samples(df/dt)=87.04%
+Task 4: Test MSE=0.0658, Test Mae=0.1775, NLL=0.0629, Coverage%=94.0389, Width=0.9298, Monotonic subjects=73.91%, Monotonic samples(df/dt)=90.22%
+Task 5: Test MSE=0.0672, Test Mae=0.1841, NLL=0.0678, Coverage%=93.0886, Width=0.9775, Monotonic subjects=48.30%, Monotonic samples(df/dt)=74.85%
+Task 6: Test MSE=0.0698, Test Mae=0.1885, NLL=0.0912, Coverage%=92.4838, Width=0.9591, Monotonic subjects=48.78%, Monotonic samples(df/dt)=74.38%
+Task 7: Test MSE=0.1624, Test Mae=0.2224, NLL=0.5890, Coverage%=94.6436, Width=1.2164, Monotonic subjects=41.00%, Monotonic samples(df/dt)=73.85%
+Task 8: Test MSE=0.1744, Test Mae=0.2384, NLL=0.6131, Coverage%=94.5140, Width=1.2832, Monotonic subjects=48.95%, Monotonic samples(df/dt)=73.67%
+Task 9: Test MSE=0.0665, Test Mae=0.1776, NLL=0.0915, Coverage%=91.8790, Width=0.8584, Monotonic subjects=43.44%, Monotonic samples(df/dt)=66.78%
+Task 10: Test MSE=0.0691, Test Mae=0.1779, NLL=0.1232, Coverage%=92.3542, Width=0.8488, Monotonic subjects=53.48%, Monotonic samples(df/dt)=76.15%
+Task 11: Test MSE=0.0947, Test Mae=0.2023, NLL=0.2475, Coverage%=94.2981, Width=1.0841, Monotonic subjects=77.15%, Monotonic samples(df/dt)=90.58%
+Task 12: Test MSE=0.1062, Test Mae=0.2110, NLL=0.3270, Coverage%=92.9158, Width=1.0772, Monotonic subjects=82.50%, Monotonic samples(df/dt)=93.05%
+Task 13: Test MSE=0.1039, Test Mae=0.2236, NLL=0.2989, Coverage%=92.6566, Width=1.1211, Monotonic subjects=59.64%, Monotonic samples(df/dt)=82.21%
+Task 14: Test MSE=0.0912, Test Mae=0.2100, NLL=0.2281, Coverage%=92.9158, Width=1.0676, Monotonic subjects=51.38%, Monotonic samples(df/dt)=78.03%
+Task 15: Test MSE=0.1136, Test Mae=0.2247, NLL=0.3667, Coverage%=92.7862, Width=1.0969, Monotonic subjects=48.95%, Monotonic samples(df/dt)=73.79%
+Task 16: Test MSE=0.1125, Test Mae=0.2109, NLL=0.3526, Coverage%=93.9525, Width=1.1171, Monotonic subjects=60.29%, Monotonic samples(df/dt)=80.15%
+Task 17: Test MSE=0.0726, Test Mae=0.1953, NLL=0.1095, Coverage%=92.9590, Width=0.9860, Monotonic subjects=74.39%, Monotonic samples(df/dt)=90.05%
+Task 18: Test MSE=0.0872, Test Mae=0.2046, NLL=0.2109, Coverage%=92.6566, Width=1.0247, Monotonic subjects=75.85%, Monotonic samples(df/dt)=89.34%
+2026-02-05 08:13:02.735139
+
+
+=== Multitask Evaluation ===
+Num tasks: 18
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
+       device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 4
+Mean Test MSE (avg across tasks): 0.0954
+Mean Test MAE (avg across tasks): 0.2033
+Mean Test NLL (avg across tasks): 0.2488
+Mean Test Coverage% (avg across tasks): 93.01
+Mean Test Interval Width (avg across task): 1.0283
+Task 1: Test MSE=0.1008, Test Mae=0.2152, NLL=0.3005, Coverage%=92.4406, Width=1.0574, Monotonic subjects=50.24%, Monotonic samples(df/dt)=69.02%
+Task 2: Test MSE=0.1062, Test Mae=0.2133, NLL=0.3377, Coverage%=91.7927, Width=1.0542, Monotonic subjects=53.81%, Monotonic samples(df/dt)=72.20%
+Task 3: Test MSE=0.0611, Test Mae=0.1690, NLL=0.0365, Coverage%=93.5637, Width=0.8490, Monotonic subjects=76.34%, Monotonic samples(df/dt)=91.05%
+Task 4: Test MSE=0.0660, Test Mae=0.1785, NLL=0.0671, Coverage%=93.3045, Width=0.9168, Monotonic subjects=77.80%, Monotonic samples(df/dt)=91.11%
+Task 5: Test MSE=0.0694, Test Mae=0.1916, NLL=0.0850, Coverage%=93.1749, Width=0.9772, Monotonic subjects=71.47%, Monotonic samples(df/dt)=85.28%
+Task 6: Test MSE=0.0716, Test Mae=0.1933, NLL=0.1050, Coverage%=92.8726, Width=0.9625, Monotonic subjects=66.77%, Monotonic samples(df/dt)=83.75%
+Task 7: Test MSE=0.1548, Test Mae=0.2113, NLL=0.5566, Coverage%=95.9395, Width=1.2079, Monotonic subjects=61.59%, Monotonic samples(df/dt)=83.22%
+Task 8: Test MSE=0.1697, Test Mae=0.2381, NLL=0.5972, Coverage%=94.7732, Width=1.2750, Monotonic subjects=68.72%, Monotonic samples(df/dt)=86.51%
+Task 9: Test MSE=0.0691, Test Mae=0.1824, NLL=0.1228, Coverage%=91.3175, Width=0.8528, Monotonic subjects=59.97%, Monotonic samples(df/dt)=76.15%
+Task 10: Test MSE=0.0682, Test Mae=0.1759, NLL=0.1224, Coverage%=92.2678, Width=0.8325, Monotonic subjects=64.99%, Monotonic samples(df/dt)=81.74%
+Task 11: Test MSE=0.1015, Test Mae=0.2129, NLL=0.2892, Coverage%=93.7365, Width=1.0859, Monotonic subjects=81.52%, Monotonic samples(df/dt)=92.82%
+Task 12: Test MSE=0.1070, Test Mae=0.2174, NLL=0.3344, Coverage%=92.0086, Width=1.0745, Monotonic subjects=83.63%, Monotonic samples(df/dt)=93.99%
+Task 13: Test MSE=0.1024, Test Mae=0.2201, NLL=0.2908, Coverage%=92.5270, Width=1.1107, Monotonic subjects=67.42%, Monotonic samples(df/dt)=86.98%
+Task 14: Test MSE=0.0853, Test Mae=0.2034, NLL=0.1912, Coverage%=92.8726, Width=1.0680, Monotonic subjects=71.80%, Monotonic samples(df/dt)=89.16%
+Task 15: Test MSE=0.1102, Test Mae=0.2220, NLL=0.3552, Coverage%=93.1317, Width=1.0778, Monotonic subjects=59.48%, Monotonic samples(df/dt)=79.86%
+Task 16: Test MSE=0.1140, Test Mae=0.2110, NLL=0.3611, Coverage%=93.4341, Width=1.1186, Monotonic subjects=67.75%, Monotonic samples(df/dt)=85.10%
+Task 17: Test MSE=0.0755, Test Mae=0.2003, NLL=0.1367, Coverage%=92.2246, Width=0.9715, Monotonic subjects=74.88%, Monotonic samples(df/dt)=90.22%
+Task 18: Test MSE=0.0838, Test Mae=0.2034, NLL=0.1895, Coverage%=92.7430, Width=1.0169, Monotonic subjects=80.39%, Monotonic samples(df/dt)=92.64%
+2026-02-05 11:47:03.849510
+
+
+=== Multitask Evaluation ===
+Num tasks: 46
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 0.1
+Mode: 5
+Mean Test MSE (avg across tasks): 0.0896
+Mean Test MAE (avg across tasks): 0.2094
+Mean Test NLL (avg across tasks): 0.1995
+Mean Test Coverage% (avg across tasks): 93.53
+Mean Test Interval Width (avg across task): 1.0932
+Task 1: Test MSE=0.0754, Test Mae=0.1923, NLL=0.1267, Coverage%=93.7797, Width=1.0246, Monotonic subjects=50.08%, Monotonic samples(df/dt)=73.67%
+Task 2: Test MSE=0.0752, Test Mae=0.1896, NLL=0.1253, Coverage%=93.1749, Width=1.0163, Monotonic subjects=55.75%, Monotonic samples(df/dt)=75.44%
+Task 3: Test MSE=0.0712, Test Mae=0.1929, NLL=0.0901, Coverage%=94.9892, Width=1.0422, Monotonic subjects=80.55%, Monotonic samples(df/dt)=91.99%
+Task 4: Test MSE=0.0723, Test Mae=0.1933, NLL=0.1020, Coverage%=93.6933, Width=1.0149, Monotonic subjects=79.74%, Monotonic samples(df/dt)=92.05%
+Task 5: Test MSE=0.0994, Test Mae=0.2321, NLL=0.2623, Coverage%=94.2981, Width=1.2438, Monotonic subjects=68.23%, Monotonic samples(df/dt)=84.57%
+Task 6: Test MSE=0.1152, Test Mae=0.2460, NLL=0.3426, Coverage%=92.2678, Width=1.2175, Monotonic subjects=67.75%, Monotonic samples(df/dt)=82.10%
+Task 7: Test MSE=0.0751, Test Mae=0.1946, NLL=0.1186, Coverage%=94.5572, Width=1.0896, Monotonic subjects=85.09%, Monotonic samples(df/dt)=94.29%
+Task 8: Test MSE=0.0816, Test Mae=0.1931, NLL=0.1650, Coverage%=96.0259, Width=1.1524, Monotonic subjects=87.36%, Monotonic samples(df/dt)=95.11%
+Task 9: Test MSE=0.0877, Test Mae=0.2105, NLL=0.2035, Coverage%=92.5270, Width=1.0766, Monotonic subjects=85.09%, Monotonic samples(df/dt)=94.11%
+Task 10: Test MSE=0.0904, Test Mae=0.2144, NLL=0.2353, Coverage%=91.1015, Width=1.0305, Monotonic subjects=84.60%, Monotonic samples(df/dt)=93.88%
+Task 11: Test MSE=0.1285, Test Mae=0.2547, NLL=0.4024, Coverage%=92.5702, Width=1.2896, Monotonic subjects=71.80%, Monotonic samples(df/dt)=89.10%
+Task 12: Test MSE=0.2402, Test Mae=0.2662, NLL=0.8885, Coverage%=93.0454, Width=1.3220, Monotonic subjects=77.31%, Monotonic samples(df/dt)=90.99%
+Task 13: Test MSE=0.1055, Test Mae=0.2396, NLL=0.2997, Coverage%=92.8294, Width=1.1710, Monotonic subjects=74.23%, Monotonic samples(df/dt)=87.46%
+Task 14: Test MSE=0.0970, Test Mae=0.2279, NLL=0.2541, Coverage%=92.7862, Width=1.1502, Monotonic subjects=75.85%, Monotonic samples(df/dt)=89.05%
+Task 15: Test MSE=0.1086, Test Mae=0.2388, NLL=0.3050, Coverage%=93.3909, Width=1.2533, Monotonic subjects=68.72%, Monotonic samples(df/dt)=85.45%
+Task 16: Test MSE=0.1001, Test Mae=0.2310, NLL=0.2682, Coverage%=93.2613, Width=1.1839, Monotonic subjects=64.99%, Monotonic samples(df/dt)=84.86%
+Task 17: Test MSE=0.0819, Test Mae=0.2095, NLL=0.1661, Coverage%=92.1814, Width=1.0541, Monotonic subjects=77.63%, Monotonic samples(df/dt)=90.11%
+Task 18: Test MSE=0.0654, Test Mae=0.1869, NLL=0.0506, Coverage%=93.7797, Width=0.9920, Monotonic subjects=82.82%, Monotonic samples(df/dt)=93.11%
+Task 19: Test MSE=0.0634, Test Mae=0.1875, NLL=0.0361, Coverage%=94.9028, Width=0.9757, Monotonic subjects=75.20%, Monotonic samples(df/dt)=90.52%
+Task 20: Test MSE=0.0753, Test Mae=0.1916, NLL=0.1341, Coverage%=93.0454, Width=0.9553, Monotonic subjects=80.88%, Monotonic samples(df/dt)=92.40%
+Task 21: Test MSE=0.0912, Test Mae=0.2212, NLL=0.2202, Coverage%=94.2981, Width=1.2103, Monotonic subjects=62.07%, Monotonic samples(df/dt)=79.62%
+Task 22: Test MSE=0.0926, Test Mae=0.2219, NLL=0.2274, Coverage%=93.8661, Width=1.2305, Monotonic subjects=55.27%, Monotonic samples(df/dt)=74.09%
+Task 23: Test MSE=0.0845, Test Mae=0.2107, NLL=0.1876, Coverage%=92.3110, Width=1.0562, Monotonic subjects=82.82%, Monotonic samples(df/dt)=92.40%
+Task 24: Test MSE=0.0836, Test Mae=0.2103, NLL=0.1801, Coverage%=93.0022, Width=1.0676, Monotonic subjects=70.02%, Monotonic samples(df/dt)=84.69%
+Task 25: Test MSE=0.0650, Test Mae=0.1869, NLL=0.0581, Coverage%=90.8423, Width=0.8846, Monotonic subjects=81.85%, Monotonic samples(df/dt)=92.58%
+Task 26: Test MSE=0.0654, Test Mae=0.1928, NLL=0.0561, Coverage%=92.5270, Width=0.9461, Monotonic subjects=84.12%, Monotonic samples(df/dt)=93.46%
+Task 27: Test MSE=0.0782, Test Mae=0.2020, NLL=0.1414, Coverage%=93.8229, Width=1.0280, Monotonic subjects=83.31%, Monotonic samples(df/dt)=93.46%
+Task 28: Test MSE=0.0847, Test Mae=0.2072, NLL=0.1888, Coverage%=93.1749, Width=1.0331, Monotonic subjects=88.65%, Monotonic samples(df/dt)=94.94%
+Task 29: Test MSE=0.0860, Test Mae=0.2148, NLL=0.1908, Coverage%=93.0886, Width=1.0931, Monotonic subjects=74.23%, Monotonic samples(df/dt)=89.75%
+Task 30: Test MSE=0.0874, Test Mae=0.2114, NLL=0.2010, Coverage%=93.0886, Width=1.0995, Monotonic subjects=76.99%, Monotonic samples(df/dt)=91.05%
+Task 31: Test MSE=0.0671, Test Mae=0.1898, NLL=0.0666, Coverage%=94.9892, Width=1.0372, Monotonic subjects=85.74%, Monotonic samples(df/dt)=94.58%
+Task 32: Test MSE=0.0747, Test Mae=0.1980, NLL=0.1167, Coverage%=94.1253, Width=1.0630, Monotonic subjects=85.58%, Monotonic samples(df/dt)=94.46%
+Task 33: Test MSE=0.0832, Test Mae=0.1885, NLL=0.1782, Coverage%=97.4514, Width=1.2301, Monotonic subjects=81.69%, Monotonic samples(df/dt)=92.23%
+Task 34: Test MSE=0.0808, Test Mae=0.1938, NLL=0.1606, Coverage%=96.9762, Width=1.1833, Monotonic subjects=79.25%, Monotonic samples(df/dt)=90.28%
+Task 35: Test MSE=0.0649, Test Mae=0.1877, NLL=0.0451, Coverage%=94.4276, Width=1.0133, Monotonic subjects=66.61%, Monotonic samples(df/dt)=85.34%
+Task 36: Test MSE=0.0520, Test Mae=0.1715, NLL=-0.0629, Coverage%=94.9892, Width=0.9184, Monotonic subjects=76.82%, Monotonic samples(df/dt)=90.52%
+Task 37: Test MSE=0.1334, Test Mae=0.2150, NLL=0.4284, Coverage%=95.1188, Width=1.2350, Monotonic subjects=78.28%, Monotonic samples(df/dt)=91.52%
+Task 38: Test MSE=0.1597, Test Mae=0.2280, NLL=0.5175, Coverage%=96.1123, Width=1.3614, Monotonic subjects=80.55%, Monotonic samples(df/dt)=90.93%
+Task 39: Test MSE=0.0849, Test Mae=0.2169, NLL=0.1820, Coverage%=93.4341, Width=1.1105, Monotonic subjects=64.99%, Monotonic samples(df/dt)=81.27%
+Task 40: Test MSE=0.0847, Test Mae=0.2138, NLL=0.1801, Coverage%=93.0886, Width=1.1134, Monotonic subjects=64.83%, Monotonic samples(df/dt)=80.92%
+Task 41: Test MSE=0.0816, Test Mae=0.2089, NLL=0.1767, Coverage%=91.4903, Width=1.0020, Monotonic subjects=77.80%, Monotonic samples(df/dt)=89.05%
+Task 42: Test MSE=0.0856, Test Mae=0.2101, NLL=0.2018, Coverage%=92.2678, Width=1.0255, Monotonic subjects=80.06%, Monotonic samples(df/dt)=90.69%
+Task 43: Test MSE=0.0789, Test Mae=0.2045, NLL=0.1545, Coverage%=92.0086, Width=1.0087, Monotonic subjects=82.98%, Monotonic samples(df/dt)=92.87%
+Task 44: Test MSE=0.0677, Test Mae=0.1947, NLL=0.0728, Coverage%=93.2181, Width=0.9618, Monotonic subjects=84.12%, Monotonic samples(df/dt)=92.46%
+Task 45: Test MSE=0.0927, Test Mae=0.2181, NLL=0.2434, Coverage%=91.9222, Width=1.0452, Monotonic subjects=75.53%, Monotonic samples(df/dt)=89.75%
+Task 46: Test MSE=0.1002, Test Mae=0.2222, NLL=0.2875, Coverage%=92.3542, Width=1.0735, Monotonic subjects=76.01%, Monotonic samples(df/dt)=89.52%
+2026-02-05 15:21:38.766605
+
+
+=== Multitask Evaluation ===
+Num tasks: 46
+Sigma per task: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+        1., 1., 1., 1., 1., 1., 1., 1., 1., 1.], device='cuda:0')
+Lambda penalty value: 1.0
+Mode: 5
+Mean Test MSE (avg across tasks): 0.0876
+Mean Test MAE (avg across tasks): 0.2067
+Mean Test NLL (avg across tasks): 0.1842
+Mean Test Coverage% (avg across tasks): 94.00
+Mean Test Interval Width (avg across task): 1.1050
+Task 1: Test MSE=0.0790, Test Mae=0.1918, NLL=0.1525, Coverage%=93.2613, Width=1.0276, Monotonic subjects=67.75%, Monotonic samples(df/dt)=83.69%
+Task 2: Test MSE=0.0764, Test Mae=0.1913, NLL=0.1337, Coverage%=92.7862, Width=1.0202, Monotonic subjects=72.29%, Monotonic samples(df/dt)=84.81%
+Task 3: Test MSE=0.0681, Test Mae=0.1922, NLL=0.0683, Coverage%=95.2916, Width=1.0480, Monotonic subjects=90.11%, Monotonic samples(df/dt)=96.29%
+Task 4: Test MSE=0.0684, Test Mae=0.1885, NLL=0.0716, Coverage%=95.3780, Width=1.0503, Monotonic subjects=87.68%, Monotonic samples(df/dt)=95.41%
+Task 5: Test MSE=0.0982, Test Mae=0.2309, NLL=0.2580, Coverage%=94.4276, Width=1.2730, Monotonic subjects=83.79%, Monotonic samples(df/dt)=92.58%
+Task 6: Test MSE=0.1173, Test Mae=0.2490, NLL=0.3530, Coverage%=91.4903, Width=1.2131, Monotonic subjects=85.74%, Monotonic samples(df/dt)=93.29%
+Task 7: Test MSE=0.0726, Test Mae=0.1963, NLL=0.1043, Coverage%=96.1987, Width=1.1201, Monotonic subjects=89.47%, Monotonic samples(df/dt)=96.17%
+Task 8: Test MSE=0.0832, Test Mae=0.1985, NLL=0.1742, Coverage%=96.2419, Width=1.1907, Monotonic subjects=92.38%, Monotonic samples(df/dt)=96.94%
+Task 9: Test MSE=0.0852, Test Mae=0.2071, NLL=0.1807, Coverage%=94.5572, Width=1.1050, Monotonic subjects=91.90%, Monotonic samples(df/dt)=96.58%
+Task 10: Test MSE=0.0836, Test Mae=0.2070, NLL=0.1871, Coverage%=92.6998, Width=1.0280, Monotonic subjects=90.92%, Monotonic samples(df/dt)=96.70%
+Task 11: Test MSE=0.1257, Test Mae=0.2548, NLL=0.3897, Coverage%=92.4838, Width=1.2798, Monotonic subjects=84.93%, Monotonic samples(df/dt)=93.46%
+Task 12: Test MSE=0.2297, Test Mae=0.2597, NLL=0.8321, Coverage%=93.3909, Width=1.3315, Monotonic subjects=83.79%, Monotonic samples(df/dt)=92.99%
+Task 13: Test MSE=0.0950, Test Mae=0.2282, NLL=0.2394, Coverage%=94.4276, Width=1.1881, Monotonic subjects=81.36%, Monotonic samples(df/dt)=91.52%
+Task 14: Test MSE=0.0924, Test Mae=0.2221, NLL=0.2259, Coverage%=94.2981, Width=1.1622, Monotonic subjects=88.82%, Monotonic samples(df/dt)=95.58%
+Task 15: Test MSE=0.1016, Test Mae=0.2296, NLL=0.2714, Coverage%=93.8661, Width=1.2630, Monotonic subjects=85.09%, Monotonic samples(df/dt)=94.05%
+Task 16: Test MSE=0.1032, Test Mae=0.2352, NLL=0.2834, Coverage%=93.2181, Width=1.1949, Monotonic subjects=82.50%, Monotonic samples(df/dt)=92.70%
+Task 17: Test MSE=0.0854, Test Mae=0.2132, NLL=0.1874, Coverage%=91.5335, Width=1.0641, Monotonic subjects=88.65%, Monotonic samples(df/dt)=95.47%
+Task 18: Test MSE=0.0678, Test Mae=0.1897, NLL=0.0676, Coverage%=94.1685, Width=1.0024, Monotonic subjects=89.47%, Monotonic samples(df/dt)=95.23%
+Task 19: Test MSE=0.0580, Test Mae=0.1761, NLL=-0.0087, Coverage%=95.8099, Width=0.9632, Monotonic subjects=83.79%, Monotonic samples(df/dt)=93.82%
+Task 20: Test MSE=0.0757, Test Mae=0.1944, NLL=0.1324, Coverage%=93.3909, Width=0.9719, Monotonic subjects=90.28%, Monotonic samples(df/dt)=96.23%
+Task 21: Test MSE=0.0886, Test Mae=0.2203, NLL=0.2080, Coverage%=95.1620, Width=1.2361, Monotonic subjects=74.23%, Monotonic samples(df/dt)=86.75%
+Task 22: Test MSE=0.0958, Test Mae=0.2246, NLL=0.2422, Coverage%=93.4773, Width=1.2280, Monotonic subjects=71.15%, Monotonic samples(df/dt)=83.86%
+Task 23: Test MSE=0.0827, Test Mae=0.2062, NLL=0.1730, Coverage%=93.0022, Width=1.0651, Monotonic subjects=76.66%, Monotonic samples(df/dt)=89.75%
+Task 24: Test MSE=0.0870, Test Mae=0.2152, NLL=0.1991, Coverage%=92.6566, Width=1.0730, Monotonic subjects=79.74%, Monotonic samples(df/dt)=90.28%
+Task 25: Test MSE=0.0686, Test Mae=0.1914, NLL=0.0840, Coverage%=91.5335, Width=0.9080, Monotonic subjects=88.98%, Monotonic samples(df/dt)=95.88%
+Task 26: Test MSE=0.0640, Test Mae=0.1904, NLL=0.0413, Coverage%=93.5205, Width=0.9617, Monotonic subjects=88.49%, Monotonic samples(df/dt)=95.64%
+Task 27: Test MSE=0.0723, Test Mae=0.1914, NLL=0.0976, Coverage%=94.3844, Width=1.0377, Monotonic subjects=88.65%, Monotonic samples(df/dt)=95.82%
+Task 28: Test MSE=0.0822, Test Mae=0.2017, NLL=0.1682, Coverage%=93.9957, Width=1.0523, Monotonic subjects=89.79%, Monotonic samples(df/dt)=95.82%
+Task 29: Test MSE=0.0816, Test Mae=0.2080, NLL=0.1594, Coverage%=93.5637, Width=1.1121, Monotonic subjects=86.06%, Monotonic samples(df/dt)=94.58%
+Task 30: Test MSE=0.0878, Test Mae=0.2140, NLL=0.2011, Coverage%=93.2613, Width=1.1052, Monotonic subjects=90.28%, Monotonic samples(df/dt)=96.17%
+Task 31: Test MSE=0.0641, Test Mae=0.1832, NLL=0.0416, Coverage%=94.3413, Width=1.0055, Monotonic subjects=91.41%, Monotonic samples(df/dt)=96.76%
+Task 32: Test MSE=0.0753, Test Mae=0.2001, NLL=0.1206, Coverage%=94.0389, Width=1.0644, Monotonic subjects=88.17%, Monotonic samples(df/dt)=95.64%
+Task 33: Test MSE=0.0873, Test Mae=0.1958, NLL=0.1989, Coverage%=97.2354, Width=1.2419, Monotonic subjects=87.20%, Monotonic samples(df/dt)=95.17%
+Task 34: Test MSE=0.0778, Test Mae=0.1858, NLL=0.1471, Coverage%=97.3218, Width=1.2107, Monotonic subjects=89.14%, Monotonic samples(df/dt)=95.29%
+Task 35: Test MSE=0.0666, Test Mae=0.1870, NLL=0.0558, Coverage%=93.6933, Width=1.0157, Monotonic subjects=84.28%, Monotonic samples(df/dt)=93.35%
+Task 36: Test MSE=0.0501, Test Mae=0.1653, NLL=-0.0806, Coverage%=94.6004, Width=0.9131, Monotonic subjects=81.85%, Monotonic samples(df/dt)=92.82%
+Task 37: Test MSE=0.1339, Test Mae=0.2128, NLL=0.4190, Coverage%=96.3715, Width=1.2739, Monotonic subjects=83.95%, Monotonic samples(df/dt)=93.46%
+Task 38: Test MSE=0.1585, Test Mae=0.2279, NLL=0.5055, Coverage%=95.9827, Width=1.3842, Monotonic subjects=86.22%, Monotonic samples(df/dt)=93.58%
+Task 39: Test MSE=0.0826, Test Mae=0.2120, NLL=0.1666, Coverage%=94.1685, Width=1.1220, Monotonic subjects=76.99%, Monotonic samples(df/dt)=89.52%
+Task 40: Test MSE=0.0886, Test Mae=0.2178, NLL=0.1998, Coverage%=93.3477, Width=1.1412, Monotonic subjects=76.66%, Monotonic samples(df/dt)=85.69%
+Task 41: Test MSE=0.0738, Test Mae=0.1967, NLL=0.1145, Coverage%=92.6566, Width=1.0055, Monotonic subjects=86.71%, Monotonic samples(df/dt)=94.58%
+Task 42: Test MSE=0.0794, Test Mae=0.2047, NLL=0.1545, Coverage%=92.5702, Width=1.0263, Monotonic subjects=84.12%, Monotonic samples(df/dt)=92.29%
+Task 43: Test MSE=0.0736, Test Mae=0.1958, NLL=0.1103, Coverage%=93.5205, Width=1.0085, Monotonic subjects=88.49%, Monotonic samples(df/dt)=94.88%
+Task 44: Test MSE=0.0628, Test Mae=0.1880, NLL=0.0307, Coverage%=93.8661, Width=0.9644, Monotonic subjects=89.30%, Monotonic samples(df/dt)=96.00%
+Task 45: Test MSE=0.0822, Test Mae=0.2032, NLL=0.1659, Coverage%=93.5205, Width=1.0703, Monotonic subjects=85.90%, Monotonic samples(df/dt)=94.35%
+Task 46: Test MSE=0.0953, Test Mae=0.2152, NLL=0.2469, Coverage%=93.0886, Width=1.1038, Monotonic subjects=83.14%, Monotonic samples(df/dt)=93.40%
