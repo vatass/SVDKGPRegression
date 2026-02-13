@@ -23,6 +23,16 @@ heldout_study = {ADNI, BLSA, AIBL, CARDIA, HABS, OASIS, PENN, PreventAD, WRAP}
 /Desktop/LongGPClustering/data1/train_subject_allstudies_ids_hmuse_{heldout_study}.pkl
 /Desktop/LongGPClustering/data1/test_subject_allstudies_ids_hmuse_{heldout_study}.pkl
 
+
+### Univariate Results - EXACT Inference ### 
+
+index = {0-144}
+0 is H_MUSE_Volume_4 
+1 is H_MUSE_Volume_11
+/Desktop/LongGPRegressionBaseline/miccai26/singletask_unharmonized_dlmuseMUSE_{index}_dkgp_population_allstudies.csv
+
+
+
 ##################################
 
 
