@@ -409,13 +409,12 @@ def load_and_preprocess_region_based_data(folder, file, train_ids, test_ids, mod
 
     return train_x, train_y_region, test_x, test_y_region,  corresponding_train_ids, corresponding_test_ids, num_outputs, task_names, region_name
 
-def load_and_preprocess_data(folder, file, train_ids, test_ids):
+def load_and_preprocess_data(folder, file, train_ids, test_ids, heldout_study=None):
     f = open('/home/cbica/Desktop/LongGPClustering/roi_to_idx.json')
     roi_to_idx = json.load(f)
 
     index_to_roi = {v: k for k, v in roi_to_idx.items()}
     # Load your data
-    
     #datasamples = pd.read_csv('/home/cbica/Desktop/SVDKRegression/multitask_neuroimaging_biomarkers_allstudies.csv')
     datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_hmuse_allstudies.csv')
     # Set up the train/test data
@@ -594,28 +593,50 @@ def main():
     parser.add_argument("--hidden_dim", type=int, default=64, help="Hidden dimension for network")
     parser.add_argument("--points", type=int, default=3, help="Points per subject")
     parser.add_argument("--epochs", type=int, default=30, help="Epochs for pre-training")
+    parser.add_argument("--heldout", type=int, default=-1, help="Type of heldout study")
     args = parser.parse_args()
     expID = args.experimentID
     file = args.file
     folder = args.folder
     lambda_val = args.lambda_val
     mode = args.mode
+    heldout = args.heldout
 
     # Load train and test IDs
     train_ids, test_ids = [], []
-    with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
-        while True:
-            try:
-                train_ids.append(pickle.load(openfile))
-            except EOFError:
-                break 
-    
-    with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
-        while True:
-            try:
-                test_ids.append(pickle.load(openfile))
-            except EOFError:
-                break
+
+    heldout_study = ['ADNI', 'BLSA', 'AIBL', 'CARDIA', 'HABS', 'OASIS', 'PENN', 'PreventAD', 'WRAP'] 
+
+    if heldout == -1:
+        print("Loading all studies...")
+        with (open("/home/cbica/Desktop/DKGP/data/train_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    train_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break 
+
+        with (open("/home/cbica/Desktop/DKGP/data/test_subject_allstudies_ids_dl_hmuse" + str(fold) +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    test_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break
+    else:
+        print("Loading heldout study {}...".format(heldout_study[heldout]))
+        with (open("/home/cbica//Desktop/LongGPClustering/data1/train_subject_allstudies_ids_hmuse_" + heldout_study[heldout] +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    train_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break 
+
+        with (open("/home/cbica//Desktop/LongGPClustering/data1/test_subject_allstudies_ids_hmuse_" + heldout_study[heldout] +  ".pkl", "rb")) as openfile:
+            while True:
+                try:
+                    test_ids.append(pickle.load(openfile))
+                except EOFError:
+                    break
 
     train_ids = train_ids[0]
     test_ids = test_ids[0]
@@ -719,7 +740,7 @@ def main():
         print(f"Epoch {epoch+1}/{num_epochs}, Regression Loss: {epoch_loss:.4f}")
 
     # Save the feature extractor
-    output_file = "./multitask_trials"
+    output_file = "./multitask_trials_heldout"
 
     os.makedirs(output_file, exist_ok=True)
     print(f"Output directory {output_file} created")
@@ -805,6 +826,8 @@ def main():
         running_loss = 0.0
 
         for inputs, targets, subject_ids in train_loader:
+            if inputs.shape[0] < 2:
+                continue   # ← skip batch of size 0 or 1
             inputs = inputs.to(device)
             targets = targets.to(device)
             optimizer.zero_grad()
@@ -838,14 +861,15 @@ def main():
                     [subject_ids[i] == subject_ids[i-1] for i in range(1, len(subject_ids))],
                     device=inputs.device
                 )
-
                 delta = delta[same_subject]
 
                 pen = torch.relu(sigma.view(1, -1) * delta).mean(dim=0)
 
                 total_penalty = (lambda_penalty * pen).sum()
 
+
             total_loss = loss_regression + total_penalty
+            #print(total_loss)
             total_loss.backward()
 
             #torch.nn.utils.clip_grad_norm_(gp_regression_model.parameters(), max_norm=1.0)
@@ -987,7 +1011,7 @@ def main():
         regression_actuals, regression_predictions
     )
 
-    output_file = "./multitask_trials"
+    output_file = "./multitask_trials_heldout"
     from pathlib import Path
     monotonicity_results = Path(f"{output_file}/results.txt")
     monotonicity_results.touch(exist_ok=True)
@@ -995,6 +1019,7 @@ def main():
     with monotonicity_results.open("a", encoding="utf-8") as f:
         print(str(datetime.datetime.now())+'\n', file=f)
         print("\n=== Multitask Evaluation ===", file=f)
+        print(f"Heldout Study: {heldout_study[heldout]}", file=f)
         print(f"Num tasks: {num_outputs}", file=f)
         print(f"Sigma per task: {sigma}", file=f)
         print(f"Lambda penalty value: {lambda_val}", file=f)

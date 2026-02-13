@@ -29,9 +29,9 @@ heldout_study = {ADNI, BLSA, AIBL, CARDIA, HABS, OASIS, PENN, PreventAD, WRAP}
 index = {0-144}
 0 is H_MUSE_Volume_4 
 1 is H_MUSE_Volume_11
-/Desktop/LongGPRegressionBaseline/miccai26/singletask_unharmonized_dlmuseMUSE_{index}_dkgp_population_allstudies.csv
+/Desktop/LongGPRegressionBaseline/miccai26/singletask_unharmonized_dlmuseMUSE_{index}_dkgp_population_allstudies.csv # to plot trajectories 
 
-
+singletask_unharmonized_dlmuse_MUSE_97_dkgp_mae_per_subject_kfold_allstudies.csv # per subject evaluation measurements.
 
 ##################################
 
