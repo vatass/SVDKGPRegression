@@ -400,8 +400,6 @@ def load_and_preprocess_region_based_data(folder, file, train_ids, test_ids, mod
     y_mean = train_y_region.mean(axis=0, keepdims=True)
     y_std = train_y_region.std(axis=0, keepdims=True)
 
-    
-
     num_outputs = len(task_names)
 
     print("Shape of train_x:", train_x.shape)
@@ -409,41 +407,6 @@ def load_and_preprocess_region_based_data(folder, file, train_ids, test_ids, mod
 
     return train_x, train_y_region, test_x, test_y_region,  corresponding_train_ids, corresponding_test_ids, num_outputs, task_names, region_name
 
-def load_and_preprocess_data(folder, file, train_ids, test_ids, heldout_study=None):
-    f = open('/home/cbica/Desktop/LongGPClustering/roi_to_idx.json')
-    roi_to_idx = json.load(f)
-
-    index_to_roi = {v: k for k, v in roi_to_idx.items()}
-    # Load your data
-    #datasamples = pd.read_csv('/home/cbica/Desktop/SVDKRegression/multitask_neuroimaging_biomarkers_allstudies.csv')
-    datasamples = pd.read_csv('/home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_hmuse_allstudies.csv')
-    # Set up the train/test data
-    train_x = datasamples[datasamples['PTID'].isin(train_ids)]['X']
-    train_y = datasamples[datasamples['PTID'].isin(train_ids)]['Y']
-    test_x = datasamples[datasamples['PTID'].isin(test_ids)]['X']
-    test_y = datasamples[datasamples['PTID'].isin(test_ids)]['Y']
-    # Corresponding subject IDs
-    corresponding_train_ids = datasamples[datasamples['PTID'].isin(train_ids)]['PTID'].tolist()
-    corresponding_test_ids = datasamples[datasamples['PTID'].isin(test_ids)]['PTID'].tolist()
-
-    # Process the data
-    train_x, train_y, test_x, test_y = process_temporal_singletask_data(
-        train_x=train_x, train_y=train_y, test_x=test_x, test_y=test_y, test_ids=test_ids
-    )
-
-    # Convert tensors to numpy arrays
-    train_x = train_x.numpy()
-    train_y = train_y.numpy()
-    test_x = test_x.numpy()
-    test_y = test_y.numpy()
-
-    print("Shape of train_x, ", train_x.shape)
-    print("Shape of train_y, ", train_y.shape)
-    print("Shape of test_x, ", test_x.shape)
-    print("Shape of test_y, ", test_y.shape)
-
-
-    return train_x, train_y, test_x, test_y, corresponding_train_ids, corresponding_test_ids
 
 def collate_fn(batch):
     # 'batch' is a list of samples, where each sample is a tuple (input, target, subject_id)
@@ -624,14 +587,14 @@ def main():
                     break
     else:
         print("Loading heldout study {}...".format(heldout_study[heldout]))
-        with (open("/home/cbica//Desktop/LongGPClustering/data1/train_subject_allstudies_ids_hmuse_" + heldout_study[heldout] +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/LongGPClustering/data1/train_subject_allstudies_ids_hmuse_" + heldout_study[heldout] +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     train_ids.append(pickle.load(openfile))
                 except EOFError:
                     break 
 
-        with (open("/home/cbica//Desktop/LongGPClustering/data1/test_subject_allstudies_ids_hmuse_" + heldout_study[heldout] +  ".pkl", "rb")) as openfile:
+        with (open("/home/cbica/Desktop/LongGPClustering/data1/test_subject_allstudies_ids_hmuse_" + heldout_study[heldout] +  ".pkl", "rb")) as openfile:
             while True:
                 try:
                     test_ids.append(pickle.load(openfile))
@@ -740,7 +703,7 @@ def main():
         print(f"Epoch {epoch+1}/{num_epochs}, Regression Loss: {epoch_loss:.4f}")
 
     # Save the feature extractor
-    output_file = "./multitask_trials_heldout"
+    output_file = "./multitask_trials"
 
     os.makedirs(output_file, exist_ok=True)
     print(f"Output directory {output_file} created")
@@ -1011,7 +974,7 @@ def main():
         regression_actuals, regression_predictions
     )
 
-    output_file = "./multitask_trials_heldout"
+    output_file = "./multitask_trials"
     from pathlib import Path
     monotonicity_results = Path(f"{output_file}/results.txt")
     monotonicity_results.touch(exist_ok=True)
