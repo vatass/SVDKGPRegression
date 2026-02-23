@@ -1,4 +1,5 @@
 python multitasksvdkgpregression.py --lambda_val 1.0 --mode 5 --hidden_dim 128 --points 4 --epochs 50 --heldout 0
+python multitasksvdkgpregression.py --lambda_val 1.0 --mode 5 --hidden_dim 128 --points 4 --epochs 50 --heldout 0
 
 python multitasksvdkgpregression.py --lambda_val 1.0 --mode 5 --hidden_dim 128 --points 4 --epochs 50 --heldout 1
 

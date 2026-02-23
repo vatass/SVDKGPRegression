@@ -33,6 +33,17 @@ index = {0-144}
 
 singletask_unharmonized_dlmuse_MUSE_97_dkgp_mae_per_subject_kfold_allstudies.csv # per subject evaluation measurements.
 
+### Univariate Results - Exact Infernce - External Studies #### 
+
+
+index = {0-144}
+0 is H_MUSE_Volume_4 
+1 is H_MUSE_Volume_11
+/Desktop/LongGPRegressionBaseline/miccai26/singletask_MUSE_{index}_dkgp_mae_per_subject_kfold_looso_{heldout_study}.csv
+/Desktop/LongGPRegressionBaseline/miccai26/singletask_MUSE_{index}_dkgp_population_looso_{heldout_study}.csv.csv
+/Desktop/LongGPRegressionBaseline/miccai26/singletask_MUSE_{index}_dkgp_mae_per_subject_kfold_looso_{heldout_study}.csv.csv
+
+
 ##################################
 
 
