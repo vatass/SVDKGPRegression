@@ -47,8 +47,6 @@ index = {0-144}
 ##################################
 
 
-
-
 ##### SPARE Scores: SPARE-AD | SPARE-BA #####
 
 file  : /home/cbica/Desktop/DKGP/data/subjectsamples_longclean_dl_muse_allstudies.csv
